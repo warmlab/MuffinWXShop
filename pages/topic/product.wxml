@@ -1,0 +1,34 @@
+<view class="container">
+    <view>
+        <image src="{{base_url}}/media/{{product.images[0].image.name}}" mode="widthFix" class="product-banner" lazy-load="true"/>
+    </view>
+    <view class="product-info">
+        <view class="product-name">{{product.name}} {{product.english_name}}</view>
+        <view class="product-price" wx:if="{{product.price>product.promote_price}}">￥{{product.promote_price/100}}<text class="old-price">￥{{product.price/100}}</text></view>
+        <view class="product-price" wx:else>￥{{product.price/100}}</view>
+        <!--view class="tags">
+            <label wx:for="{{product.tags}}" wx:key="code" class="tag">{{item}}</label>
+        </view-->
+        <!--view class="spec">
+            <view class="section-title">产品参数</view>
+            <view>重量/尺寸：{{product.size}}</view>
+        </view-->
+        <view class="summary">
+            <view class="section-title">产品摘要</view>
+            <view><text>{{product.summary}}</text></view>
+        </view>
+        <view>
+            <view class="section-title">产品描述</view>
+            <view>
+                <text>{{product.note}}
+
+                </text>
+            </view>
+        </view>
+        <view class="detail-images">
+            <block wx:for="{{details}}" wx:key="">
+                <image mode="widthFix" src="{{base_url}}/media/{{item.image.name}}" style="width:100%;"></image>
+            </block>
+        </view>
+    </view>
+</view>

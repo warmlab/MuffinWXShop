@@ -1,0 +1,16 @@
+<view class="container">
+    <view class="topic-list">
+        <navigator class="item" wx:for="{{promotions}}" wx:key="id" url="detail?id={{item.id}}">
+            <image style="width:100%;height:360rpx;" src="{{base_url}}/media/{{item.products[0].product.images[0].image.name}}" mode="aspectFill"/>
+            <view class="info">
+                <text class="title">{{item.name}}</text>
+                <text class="desc">团品:[ <block wx:for="{{item.products}}" wx:key="id" wx:for-item="p">{{p.product.name}} </block>]</text>
+                <text class="time">截单时间：{{item.last_order_time}}</text>
+            </view>
+        </navigator>
+    </view>
+    <view class="empty-view" wx:if="{{show_banner && promotions.length<=0}}">
+      <text class="fa fa-star fa-4x gray-color"/>
+      <text class="text">没有正在进行中的团购</text>
+    </view>
+</view>

@@ -1,0 +1,22 @@
+<view class="container">
+    <view class="item-list" wx:if="{{addresses.length>0}}">
+        <view class="item" wx:for="{{addresses}}" wx:key="id" data-id="{{item.id}}">
+            <view class="l">
+                <view class="name">{{item.contact}}</view>
+                <view class="default" wx:if="{{item.is_default}}">默认</view>
+            </view>
+            <view class="c" bindtap="addressAddOrUpdate" data-id="{{item.id}}">
+                <view class="mobile">{{item.phone}}</view>
+                <view class="address">{{item.address}}</view>
+            </view>
+            <view class="item r" bindtap="deleteAddress" data-id="{{item.id}}">
+                <text class="fa fa-trash-alt"/>
+            </view>
+        </view>
+    </view>
+    <view class="empty-view" wx:else>
+      <text class="fa fa-address-card fa-4x gray-color"/>
+      <text class="text">收货地址在哪里</text>
+    </view>
+    <view class="add-address"  bindtap="addressAddOrUpdate" data-id="0">新建地址</view>
+</view>

@@ -1,0 +1,8 @@
+{
+  "description": "专为小麦芬烘焙工作室打造的一款微信小程序",
+  "repository": {},
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "flyio": "^0.6.1"
+  }
+}

@@ -1,0 +1,10 @@
+/* pages/promotion/publish.wxss */
+page{
+    height: 100%;
+    width: 100%;
+    background: #f4f4f4;
+}
+
+.item .r text {
+    font-size: 40rpx;
+}

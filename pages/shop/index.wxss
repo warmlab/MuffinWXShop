@@ -1,0 +1,268 @@
+/* pages/shop/index.wxss */
+.cate-nav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 10;
+}
+
+.cate-nav-body {
+    width: 750rpx;
+    height: 84rpx;
+    white-space: nowrap;
+    background: #fafafa;
+    border-top: 1px solid rgba(0, 0, 0, .15);
+    overflow: hidden;
+}
+
+.cate-nav .item {
+    display: inline-block;
+    height: 84rpx;
+    min-width: 130rpx;
+    padding: 0 15rpx;
+}
+
+.cate-nav .item .name {
+    display: block;
+    height: 84rpx;
+    padding: 0 20rpx;
+    line-height: 84rpx;
+    color: #333;
+    font-size: 32rpx;
+    width: auto;
+    text-align:center;
+}
+
+.cate-nav .item.active .name {
+    color: #e64340;
+    height: 80rpx;
+    border-bottom: 2px solid #e64340;
+}
+
+.cate-item {
+    margin-top: 4rpx;
+    height: auto;
+    overflow: hidden;
+}
+
+.cate-item .h {
+    height: 145rpx;
+    width: 750rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cate-item .h .name {
+    display: block;
+    height: 35rpx;
+    margin-bottom: 18rpx;
+    font-size: 28rpx;
+    color: #333;
+}
+
+.cate-item .h .desc {
+    display: block;
+    height: 24rpx;
+    font-size: 24rpx;
+    color: #999;
+}
+
+.cate-item .item {
+    float: left;
+    background: #fff;
+    /*width: 365rpx;*/
+    width: 49%;
+    margin-bottom: 6rpx;
+    padding-bottom: 20rpx;
+    height: auto;
+    overflow: hidden;
+    background-color: #f4f4f4;
+    border: thin solid #f4f4f4;
+    text-align: center;
+}
+
+.cate-item .item-b {
+    margin-left: 6.25rpx;
+}
+
+.cate-item .item image {
+    width: 100%;
+    height: 268rpx;
+}
+
+.cate-item .item .name {
+    display: block;
+    width: 96%;
+    height: 40rpx;
+    margin: 10rpx 0 10rpx 0;
+    text-align: center;
+    overflow: hidden;
+    font-size: 32rpx;
+    font-weight: bold;
+    color: #333;
+}
+
+.cate-item .item .summary {
+    display: block;
+    width: 96%;
+    height: 64rpx;
+    text-align: center;
+    overflow: hidden;
+    /*margin: 10rpx 0 10rpx 0;
+  padding: 0 10rpx;*/
+    font-size: 24rpx;
+    color: #888888;
+}
+
+.cate-item .item .price {
+    display: block;
+    width: 96%;
+    height: 30rpx;
+    text-align: center;
+    font-size: 28rpx;
+    color: #e64340;
+}
+
+.cate-item .item .add-to-cart{
+    right: -40%;
+    position: relative;
+    color: #e64340;
+    font-size: 48rpx;
+}
+
+.position {
+    width: 50rpx;
+    height: 50rpx;
+    background-color: #353535;
+    position:fixed;
+    opacity: 0;
+}
+
+.shopping-cart {
+    width: 75rpx;
+    height: 75rpx;
+    bottom: 20rpx;
+    right: 10rpx;
+    position: fixed;
+}
+
+.shopping-cart .image {
+    width:100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    /*border: 3rpx solid #b4282d;*/
+    background-color: rgba(180, 40, 45, 0.4);
+}
+
+.shopping-cart .image image {
+    width: 50rpx;
+    height: 50rpx;
+    z-index: 10rpx;
+}
+
+.shopping-cart .cart-amount {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    font-size:20rpx;
+    width:40rpx;
+    height:40rpx;
+    border-radius: 50%;
+    background-color: #e64340;
+    float: right;
+    margin-bottom: -25rpx;
+}
+
+.attr-pop-box {
+  width: 98%;
+  height: 100%;
+  margin:0;
+  position: fixed;
+  background: rgba(0, 0, 0, .5);
+  z-index: 8rpx;
+  bottom: 0;
+  /* display: none; */
+}
+.attr-pop {
+  display:flex;
+  flex-direction:column;
+  width: 98%;
+  height: auto;
+  max-height: 780rpx;
+  padding: 2% 0 2% 0;
+  background: #fff;
+  position: fixed;
+  z-index: 10rpx;
+  bottom: 90rpx;
+  overflow-y: auto;
+}
+.attr-pop .close {
+  width: 97%;
+  height: 64rpx;
+  overflow: hidden;
+  text-align: right;
+}
+
+.attr-pop .confirm {
+  text-align: right;
+  width: 97%;
+  margin-top: 40rpx;
+}
+
+.size-area {
+  margin-bottom: 10rpx;
+}
+
+.amount-area {
+    display: flex;
+    flex-direction: row;
+    height: 20%;
+    /*float: right; */
+}
+
+.amount-area label {
+    width: 50%;
+    text-align: right;
+    font-weight: normal;
+}
+
+.amount-area .amount{
+    flex: 1;
+    height: 100%;
+    text-align: center;
+    font-weight: bold;
+    /*line-height: 68.75rpx;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    float: left;*/
+}
+
+.amount-area .cut{
+    width: 70rpx;
+    height: 100%;
+    text-align: center;
+    /*line-height: 48rpx;
+    border-right:1px solid #ccc;*/
+}
+
+.amount-area .add{
+    width: 80rpx;
+    height: 100%;
+    text-align: center;
+    /*line-height: 48rpx;
+    border-left:1px solid #ccc;*/
+}
+
+.amount-area .btn {
+    font-size: 42rpx;
+}
+
+.amount-area .button {
+  width: 50%;
+}

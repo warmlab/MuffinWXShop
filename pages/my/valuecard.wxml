@@ -1,0 +1,16 @@
+<view class="container">
+  <view class="add-address">
+      <form bindsubmit="bindValuecard" report-submit="true" class="add-form">
+          <view class="form-item">
+              <input class="input" name="name" placeholder="会员姓名" value="{{member.name}}" auto-focus/>
+          </view>
+          <view class="form-item">
+              <input class="input" name="phone" value="{{member.phone}}" type="number" maxlength="11" placeholder="会员预留电话"/>
+          </view>
+        <view class="btns">
+            <button class="save" formType="submit" type="default">绑定</button>
+        </view>
+      </form>
+  </view>
+</view>
+

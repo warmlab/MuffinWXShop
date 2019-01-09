@@ -1,0 +1,52 @@
+<view class="container">
+  <view class="profile-info" wx:if="{{userInfo.avatarUrl}}">
+    <image class="avatar" src="{{userInfo.avatarUrl}}"/>
+    <view class="info">
+      <text class="name">{{userInfo.nickName}}</text>
+    </view>
+  </view>
+  <view class="goLogin profile-info" wx:else>
+    <img class="icon" src="/static/images/ic_menu_me_pressed.png"/>
+    <button open-type="getUserInfo" class="goLoginBtn" bindgetuserinfo="toGetUserInfo">点击，授权登录~</button>
+  </view>
+  <view class="user-menu">
+    <view class="item">
+      <navigator url="orders?status=wait" class="a">
+        <text class="fa fa-clipboard fa-2x"></text>
+        <text class="txt">待付款</text>
+      </navigator>
+    </view>
+    <view class="item">
+      <navigator url="orders?status=paid" class="a">
+        <text class="fa fa-clipboard-list fa-2x"></text>
+        <text class="txt">待取货</text>
+      </navigator>
+    </view>
+    <view class="item">
+      <navigator url="orders?status=finished" class="a">
+        <text class="fa fa-clipboard-check fa-2x"></text>
+        <text class="txt">已完成</text>
+      </navigator>
+    </view>
+  </view>
+  <view class="line" bindtap="manageAddress">
+    <view class="item">我的地址</view>
+    <view class="right-item"><text class="fa fa-angle-right"/></view>
+  </view>
+  <view class="line" bindtap="bindValuecard">
+    <view class="item">绑定小麦芬储值卡</view>
+    <view class="right-item"><text class="fa fa-angle-right"/></view>
+  </view>
+  <view class="line" bindtap="publishPromotion" wx:if="{{privilege & 2 > 0}}">
+    <view class="item">发布团购</view>
+    <view class="right-item"><text class="fa fa-angle-right"/></view>
+  </view>
+  <view class="line" bindtap="managePromotions" wx:if="{{privilege & 2 > 0}}">
+    <view class="item">管理团购</view>
+    <view class="right-item"><text class="fa fa-angle-right"/></view>
+  </view>
+  <view class="line" bindtap="manageProducts" wx:if="{{privilege & 1 > 0}}">
+    <view class="item">管理商品</view>
+    <view class="right-item"><text class="fa fa-angle-right"/></view>
+  </view>
+</view>

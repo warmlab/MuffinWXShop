@@ -1,0 +1,212 @@
+.big {
+    font-size: 40rpx !important;
+    font-weight: bold;
+}
+
+.title {
+    font-size: 32rpx;
+    margin: 0 10rpx 8rpx 10rpx;
+}
+
+.title-summary {
+    padding:1%;
+    width:98%;
+}
+
+.title-summary text {
+    font-size:32rpx;
+}
+
+ .table {
+   /*border-top: thin solid darkgray;
+    border-bottom: thin solid darkgray;*/
+   margin-bottom: .5em;
+ }
+
+ .scroll-table {
+   /*border-top: thin solid darkgray;
+    border-bottom: thin solid darkgray;*/
+   margin-bottom: .5em;
+   height: 15rem;
+ }
+
+ .tr {
+   display: flex;
+   width: 100%;
+   justify-content: center;
+   height: 2rem;
+   align-items: center;
+   font-size: small;
+ }
+
+ .td-seq {
+   width: 10%;
+   justify-content: center;
+   text-align: center;
+ }
+
+ .td-image {
+     width: 10%;
+ }
+
+ .td-image image {
+    width: 1.7rem;
+    height: 1.7rem;
+    vertical-align: bottom;
+    border-radius: 0.3rem;
+ }
+
+ .td-name {
+   width: 40%;
+   display:flex;
+   flex-direction: row;
+ }
+
+ .td-detail {
+   width: 40%;
+ }
+
+ .td {
+   width: 50%;
+   justify-content: center;
+   text-align: center;
+   font-size: small;
+ }
+
+ .td-thin {
+   width: 10%;
+   justify-content: center;
+   text-align: center;
+   font-size: small;
+ }
+
+ .td-addr {
+   width: 65%;
+   justify-content: center;
+   text-align: center;
+   font-size: small;
+ }
+
+.item {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    border: thin solid #f4f4f4;
+    background-color: #f4f4f4;
+    margin-bottom: 10rpx;
+}
+
+.item .image {
+    width: 40%;
+    height: 300rpx;
+}
+
+.item .summary-area {
+    width: 60%;
+    padding-left: 10rpx;
+    font-size: 32rpx;
+    /*height: 100%;*/
+}
+
+.item .summary-area .name-area {
+    height: 80%;
+}
+
+.item .summary-area .amount-area {
+    display: flex;
+    flex-direction: row;
+    width: 40%;
+    height: 20%;
+    float: right;
+}
+
+.name-area .name {
+    font-weight: bold;
+    margin-top: 10rpx;
+
+}
+
+.name-area .name text {
+    font-size: 20rpx;
+    font-weight: lighter;
+    color: #e64340;
+}
+
+.name-area .price {
+    font-weight: bold;
+}
+
+.name-area .old {
+    text-decoration: line-through;
+    font-size: 24rpx;
+}
+
+.name-area .sold-out {
+    font-size: 28rpx !important;
+    font-weight:bold !important;
+}
+
+.name-area .summary {
+    font-size: 28rpx;
+    margin: 20rpx 0 20rpx 0;
+}
+
+.amount-area .amount {
+    flex: 1;
+    height: 100%;
+    text-align: center;
+    font-size: 30rpx;
+    font-weight: bold;
+    /*line-height: 68.75rpx;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    float: left;*/
+}
+
+.amount-area .cut {
+    width: 70rpx;
+    height: 100%;
+    text-align: center;
+    /*line-height: 48rpx;
+    border-right:1px solid #ccc;*/
+}
+
+.amount-area .btn {
+    font-size: 42rpx;
+}
+
+.amount-area .add {
+    width: 80rpx;
+    height: 100%;
+    text-align: center;
+    /*line-height: 48rpx;
+    border-left:1px solid #ccc;*/
+}
+
+.delivery-method {
+    font-weight: bold;
+    width: 50%;
+    font-size: 32rpx;
+}
+
+.delivery-content {
+    font-size: 28rpx;
+}
+
+textarea {
+    width: 100%;
+    height: 90rpx;
+    margin-bottom: 10rpx;
+}
+
+.my-order {
+    width: 96%;
+    background-color: #f4f4f4;
+    padding: 2%;
+    margin-bottom: 10rpx;
+}
+
+.my-order .code {
+    font-weight: bold;
+    font-size: 30rpx;
+}

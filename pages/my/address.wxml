@@ -1,0 +1,21 @@
+<view class="container">
+  <view class="add-address">
+      <form bindsubmit="saveAddress" report-submit="true" class="add-form">
+          <view class="form-item">
+              <input class="input" name="name" placeholder="姓名" value="{{address.contact}}" auto-focus/>
+          </view>
+          <view class="form-item">
+              <input class="input" name="phone" type="number" maxlength="11" value="{{address.phone}}" placeholder="手机号码"/>
+          </view>
+          <view class="form-item">
+              <input class="input" name="address" value="{{address.address}}" placeholder="详细地址, 如街道、楼盘号等"/>
+          </view>
+          <view class="form-default">
+              <switch bindchange="changeDefault" checked="{{is_default}}">设为默认地址</switch>
+          </view>
+      <view class="btns">
+          <button class="save" formType="submit" type="default">保存</button>
+      </view>
+      </form>
+  </view>
+</view>

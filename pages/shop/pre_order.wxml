@@ -1,0 +1,66 @@
+<view class="container">
+    <view class="no-cart" wx:if="{{products.length <= 0}}">
+        <view class="c">
+            <img src="/images/cart_empty.png" />
+            <text>去添加点什么吧</text>
+        </view>
+    </view>
+    <form bindsubmit="checkoutOrder" report-submit="true" class="cart-view" wx:else>
+        <view class="list">
+            <view class="group-item">
+                <checkbox-group class="goods" bindchange="checkItem">
+                    <view class="item" wx:for="{{products}}" wx:key="">
+                    <image class="image" src="{{base_url}}/media/{{item.images[0].image.name}}" mode="aspectFill" data-index="{{index}}"/>
+                <view class="summary-area">
+                    <view class="name-area">
+                        <view class="name">{{item.name}}<text wx:if="{{!!item.want_size}}">-{{item.want_size.size.name}}</text></view>
+                        <view class="summary">{{item.summary}}</view>
+                        <view class="price red-color" wx:if="{{!item.want_size}}">￥{{item.price/100}}</view>
+                        <view class="price red-color" wx:else>
+							<text wx:if="{{!item.want_size}}">￥{{item.price/100}}</text>
+							<text wx:else>￥{{(item.price+item.want_size.price_plus)/100}}</text>
+						</view>
+                    </view>
+                    <view class="amount-area">
+                        <view class="amount">数量: {{item.want_amount}}</view>
+                    </view>
+                </view>
+                </view>
+                    </checkbox-group>
+            </view>
+            <view class="section-title">取货方式</view>
+            <view class="margin-beside">
+                <radio-group bindchange="deliveryWayChange" size="small" class="flex-row">
+                    <radio value="1" checked class="delivery-method">自提</radio>
+                    <radio value="2" class="delivery-method">快递</radio>
+                </radio-group>
+                <radio-group class="radio-group flex-column delivery-content" bindchange="addressChange" wx:if="{{delivery_way==1}}">
+                    <label class="radio" wx:for="{{pickup_addresses}}" wx:key="address.id">
+                        <radio value="{{item.id}}" size="small" checked="{{item.id==pickup_address}}"/>{{item.address}}
+                    </label>
+                </radio-group>
+                <view wx:else>
+                <radio-group class="radio-group flex-column delivery-content" bindchange="addressChange">
+                    <label class="radio" wx:for="{{addresses}}" wx:key="address.id">
+                        <radio value="{{item.id}}" size="small" checked="{{item.id==delivery_address}}"/>{{item.contact}}-{{item.phone}}({{item.address}})
+                    </label>
+                </radio-group>
+                    <view style="font-size:20rpx">备注：基础运费￥{{delivery_fee/100}}元，多退少补，谢谢理解，请保持电话畅通（另：滴滴送货的话，只能送到小区门口)</view>
+                    <button bindtap="newAddress" type="primary" size="mini" wx:if="{{scope_userInfo}}">添加地址</button>
+                </view>
+            </view>
+            <view class="section-title">订单备注</view>
+            <view>
+                <textarea class="note" name="note" placeholder="需要告诉我们什么 可以填在这里"/>
+            </view>
+        </view>
+        <view class="cart-bottom">
+            <view class="cost">
+                <text wx:if="{{delivery_way===1}}">总价: ￥{{cost/100}}</text> 
+                <text wx:else>总价: ￥{{(cost+delivery_fee)/100}}</text> 
+            </view>
+            <button class="checkout" formType="submit" type="primary" wx:if="{{scope_userInfo}}">去支付</button>
+            <button class="checkout" open-type="getUserInfo" bindgetuserinfo="toGetUserInfo" type="warn" wx:else>点击登录</button>
+        </view>
+    </form>
+</view>

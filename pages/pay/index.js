@@ -1,0 +1,128 @@
+// pages/pay/weixin.js
+const app = getApp()
+
+import {
+  request,
+  base_url
+} from '../../utils/request.js'
+//import sendTemplateMessage from '../../utils/message.js'
+
+Page({
+
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    payment: 4
+  },
+
+  getOrder: function() {
+    var that = this;
+    request.get('order', {
+        code: that.data.code,
+        extra: true
+      })
+      .then(res => {
+        // order code get total cost and promotion id is to determine whether or not the promotion was finished
+        console.log('order: ', res);
+        that.setData({
+          order: res.data
+        })
+      })
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    var that = this;
+    //options.code, options.promotion_id
+    // TODO to do prepay_id
+
+    this.setData({
+      code: options.code,
+      privilege: wx.getStorageSync('privilege')
+    })
+
+    this.getOrder()
+  },
+
+  paymentChange: function (e) {
+    this.setData({
+      payment: parseInt(e.detail.value)
+    })
+  },
+
+  bindValuecard: function (e) {
+    wx.navigateTo({
+      url: '/pages/my/valuecard'
+    })
+  },
+
+  startPay: function (e) {
+    var that = this;
+    if (this.data.order.address.delivery_way==1 && !this.data.order.member_openid.phone) {
+      if (e.detail.value.contact.trim() === '' || e.detail.value.mobile.trim() === '') {
+        wx.showToast({
+          title: '联系人信息需要填写完整',
+          icon: 'none',
+        })
+
+        return
+      }
+    }
+    // console.log('pay页直接支付,请求结果', res);
+    // payment
+    request.post('pay', {
+      code: that.data.order.code,
+      payment: that.data.payment,
+      contact: e.detail.value.contact,
+      mobile: e.detail.value.mobile,
+      formId: e.detail.formId
+    }).then(res => {
+      if (res.status === 201) {
+        if (res.data.payment.payment === 2) { // pay by value card
+          // TODO that.sendJoinSuccessfullInfo(wx.getStorageSync('openid'), res.data.order, app.globalData.formIds.pop());
+          //that.sendPaidMessage(app.globalData.openid, res.data.order, res.data.payment, e.detail.formId);
+          //wx.navigateTo({
+          wx.redirectTo({
+            url: 'result?status=success&code=' + that.data.order.code
+          })
+        } else {
+          wx.requestPayment({
+            timeStamp: res.data.payment.timeStamp,
+            nonceStr: res.data.payment.nonceStr,
+            package: res.data.payment.package,
+            signType: res.data.payment.signType,
+            paySign: res.data.payment.paySign,
+            success: function (pay_res) {
+              //that.getOrders(that.data.dragon.code);
+              // send info to current user
+              //that.sendPaidMessage(app.globalData.openid, res.data.order, res.data.payment, e.detail.formId);
+              //wx.navigateTo({
+              wx.redirectTo({
+                url: `result?status=success&code=${that.data.order.code}`
+              });
+            },
+            fail: function (err) {
+              //wx.navigateTo({
+              wx.redirectTo({
+                url: `result?status=canceled&code=${that.data.order.code}`
+              });
+            }
+          });
+        }
+      } else if (res.status === 200) { // already paid
+        //wx.navigateTo({
+        wx.redirectTo({
+          url: `result?status=paid&code=${that.data.order.code}`
+        });
+      }
+    }).catch(err => {
+      //wx.navigateTo({
+      wx.redirectTo({
+        url: `result?status=error&code=${that.data.order.code}`
+      });
+    })
+  }
+})

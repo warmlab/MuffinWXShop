@@ -1,0 +1,58 @@
+{
+  "pages":[
+    "pages/shop/index",
+    "pages/shop/cart",
+    "pages/shop/pre_order",
+    "pages/shop/product",
+    "pages/topic/index",
+    "pages/topic/detail",
+    "pages/topic/product",
+    "pages/my/index",
+    "pages/my/orders",
+    "pages/my/order",
+    "pages/my/valuecard",
+    "pages/my/addresses",
+    "pages/my/address",
+    "pages/pay/index",
+    "pages/pay/result",
+    "pages/manage/address",
+    "pages/manage/products",
+    "pages/manage/product",
+    "pages/manage/promotions",
+    "pages/manage/promotion"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "小麦芬烘焙小店",
+    "navigationBarTextStyle":"black",
+    "enablePullDownRefresh": true
+  },
+  "tabBar": {
+    "backgroundColor": "#fafafa",
+      "borderStyle": "white",
+      "selectedColor": "#e64340",
+      "color": "#666",
+    "list": [{
+      "pagePath": "pages/shop/index",
+      "iconPath": "images/shop.png",
+      "selectedIconPath": "images/shop_sel.png",
+      "text": "店铺"
+    }, {
+      "pagePath": "pages/topic/index",
+      "iconPath": "images/focus.png",
+      "selectedIconPath": "images/focus_sel.png",
+      "text": "团购"
+    }, {
+      "pagePath": "pages/my/index",
+      "iconPath": "images/me.png",
+      "selectedIconPath": "images/me_sel.png",
+      "text": "我的"
+    }]
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 50000
+  },
+  "debug": true
+}

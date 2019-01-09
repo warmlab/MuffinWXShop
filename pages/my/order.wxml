@@ -1,0 +1,62 @@
+<view class="container">
+    <scroll-view scroll-y="true">
+    <view class="order-info">
+        <view class="item-a">下单时间：{{order.order_time}}</view>
+        <view class="item-b">订单编号：{{order.code}}</view>
+        <view class="item-c">
+            <view class="l">实付：<text class="cost">￥{{(order.delivery_fee+order.cost)/100}}</text></view>
+            <view class="r">
+                <!-- TODO view class="btn" bindtap="cancelOrder">取消订单</view -->
+                <view class="btn active" bindtap="payOrder" wx:if="{{order.pay_time == null}}">去付款</view>
+            </view>
+        </view>
+    </view>
+    <view class="order-goods">
+        <view class="h">
+            <view class="label">商品信息</view>
+            <view class="status" wx:if="{{order.pay_time!=null}}">已支付</view>
+            <view class="status" wx:else>未付款</view>
+        </view>
+        <view class="goods">
+            <view class="item" wx:for="{{order.products}}" wx:key="product.id">
+                <view class="img">
+                    <image src="{{base_url}}/media/{{item.product.images[0].image.name}}"/>
+                </view>
+                <view class="info">
+                    <view class="t">
+                        <text class="name">{{item.product.name}}</text>
+                        <text class="number">x{{item.amount}}</text>
+                    </view>
+                    <!--view class="attr">{{item.goods_specifition_name_value}}</view-->
+                    <view class="price">￥{{item.price/100}}</view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="order-bottom">
+        <view class="address">
+            <view class="t" wx:if="{{order.address.name && order.address.phone}}">
+                <text class="name">{{order.address.name}}</text>
+                <text class="mobile">{{order.address.phone}}</text>
+            </view>
+            <view class="b" wx:if="{{order.address.address}}">{{order.address.address}}</view>
+            <view class="b" wx:if="{{order.address.delivery_way==1}}">自提</view>
+            <view class="b" wx:else>快递</view>
+        </view>
+        <view class="total">
+            <view class="t">
+                <text class="label">商品合计：</text>
+                <text class="txt">￥{{order.cost/100}}</text>
+            </view>
+            <view class="t" wx:if="{{order.delivery_fee>0}}">
+                <text class="label">运费：</text>
+                <text class="txt">￥{{order.delivery_fee/100}}</text>
+            </view>
+        </view>
+        <view class="pay-fee">
+            <text class="label">实付：</text>
+            <text class="txt">￥{{(order.cost+order.delivery_fee)/100}}</text>
+        </view>
+    </view>
+    </scroll-view>
+</view>
