@@ -1,21 +1,21 @@
 //app.js
 //const request = require('../utils/request.js')
-import {
-	request
-} from 'utils/request'
+import config from 'config.js'
+import request from 'utils/request'
 
 App({
 	onLaunch: function () {
 		var that = this;
 		// 展示本地存储能力
-		var logs = wx.getStorageSync('logs') || []
-		logs.unshift(Date.now())
-		wx.setStorageSync('logs', logs)
+		//var logs = wx.getStorageSync('logs') || []
+		//logs.unshift(Date.now())
+		//wx.setStorageSync('logs', logs)
 		// 设置 request 的 header 信息
 		//wx.setStorageSync('access-token', '')
 		//wx.setStorageSync('partment', this.globalData.partment)
 		//wx.setStorageSync('shoppoint', this.globalData.shoppoint)
 
+		config.initSystemInfo()
 		// get access token from local storage
 		this.syncSession()
 
@@ -123,7 +123,6 @@ App({
 			wx.login({
 				success: res => {
 					// 发送 res.code 到后台换取 openId, sessionKey, unionId
-					console.log('login code:', res);
 					var code = res.code; // 微信登录接口返回的 code 参数，下面注册接口需要用到
 					if (res.code) {
 						request.post('login', {
@@ -132,13 +131,14 @@ App({
 							console.log('member post login succeed:', r.data)
 							that.globalData.openid = r.data.openid
 							that.globalData.access_token = r.data.access_token
-							that.globalData.privilege = r.data.privilege
-							wx.setStorageSync('openid', r.data.openid);
-							wx.setStorageSync('access-token', r.data.access_token);
-							wx.setStorageSync('privilege', r.data.privilege);
-							wx.setStorageSync('addresses', r.data.addresses);
+							//that.globalData.privilege = r.data.privilege
+							//wx.setStorageSync('openid', r.data.openid);
+							//wx.setStorageSync('access-token', r.data.access_token);
+							//wx.setStorageSync('privilege', r.data.privilege);
+							//wx.setStorageSync('addresses', r.data.addresses);
+							wx.setStorageSync('appUserInfo', r.data)
 
-							resolve()
+							resolve(r)
 						}).catch(err => {
 							console.log('member login failed:', err)
 							wx.showToast({

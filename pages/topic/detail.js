@@ -1,13 +1,12 @@
 const app = getApp();
 
 const util = require('../../utils/util.js');
-import {
-	request,
-	base_url
-} from '../../utils/request.js'
+import config from '../../config.js'
+import request from '../../utils/request.js'
 
 Page({
 	data: {
+		base_image_url: config.base_image_url,
 		current_banner: 0,
 		banner_heights: [],
 		is_hidden: true,
@@ -36,72 +35,70 @@ Page({
 			mask: true
 		})
 		request.get('promotion', {
-				id: that.data.id
-			})
-			.then(r => {
-				var max_amount = 9999;
-				var products = []
+			id: that.data.id
+		}).then(r => {
+			var max_amount = 9999;
+			var products = []
 
-				console.log(r.data.products)
-				r.data.products.forEach(ele => {
-					if (!ele.is_deleted) {
-						ele.want_amount = 0;
-						for (var ps of ele.product.sizes) {
-							if (ps.size.id === ele.size.id) {
-								ele.want_size = ps
-								break
-							}
+			console.log(r.data.products)
+			r.data.products.forEach(ele => {
+				if (!ele.is_deleted) {
+					ele.want_amount = 0;
+					for (var ps of ele.product.sizes) {
+						if (ps.size.id === ele.size.id) {
+							ele.want_size = ps
+							break
 						}
-						if (max_amount > ele.stock) {
-							max_amount = ele.stock;
-						}
-						if (ele.product.summary.length > 40)
-							ele.product.summary = ele.product.summary.slice(0, 37) + '...'
-						products.push(ele)
 					}
-				});
+					if (max_amount > ele.stock) {
+						max_amount = ele.stock;
+					}
+					if (ele.product.summary.length > 40)
+						ele.product.summary = ele.product.summary.slice(0, 37) + '...'
+					products.push(ele)
+				}
+			});
 
-				var lod = util.strToDate(r.data.last_order_time);
-				var fd = util.strToDate(r.data.from_time);
-				that.setData({
-					promotion: r.data,
-					products: products,
-					//my_orders: my_orders,
-					max_amount: max_amount,
-					base_url: base_url,
-					//pickup_address: r.data.addresses.length > 0 ? r.data.addresses[0].address.id : 0,
-					from_date: util.getMonthDay(fd),
-					from_time: util.getHourMin(fd),
-					last_order_date: util.getMonthDay(lod),
-					last_order_time: util.getHourMin(lod),
-					from_weekday: util.getWeekDay(fd),
-					last_order_weekday: util.getWeekDay(lod)
-				});
+			var lod = util.strToDate(r.data.last_order_time);
+			var fd = util.strToDate(r.data.from_time);
+			that.setData({
+				promotion: r.data,
+				products: products,
+				//my_orders: my_orders,
+				max_amount: max_amount,
+				//pickup_address: r.data.addresses.length > 0 ? r.data.addresses[0].address.id : 0,
+				from_date: util.getMonthDay(fd),
+				from_time: util.getHourMin(fd),
+				last_order_date: util.getMonthDay(lod),
+				last_order_time: util.getHourMin(lod),
+				from_weekday: util.getWeekDay(fd),
+				last_order_weekday: util.getWeekDay(lod)
+			});
 
-				if (r.data.name)
-					wx.setNavigationBarTitle({
-						title: r.data.name
-					})
-				//wx.hideNavigationBarLoading()
-				wx.hideLoading()
-				//console.log(callback)
-				//callback.apply(wx)
-				wx.stopPullDownRefresh()
-				//that.generateCanvas()
-			}).catch(err => {
-				//console.log(callback)
-				console.log('the promotion has not published yet!!', err);
-				//wx.hideNavigationBarLoading()
-				wx.hideLoading()
-				wx.stopPullDownRefresh()
-				//callback.apply(wx)
-				wx.navigateBack()
-			})
+			if (r.data.name)
+				wx.setNavigationBarTitle({
+					title: r.data.name
+				})
+			//wx.hideNavigationBarLoading()
+			wx.hideLoading()
+			//console.log(callback)
+			//callback.apply(wx)
+			//wx.stopPullDownRefresh()
+			//that.generateCanvas()
+		}).catch(err => {
+			//console.log(callback)
+			console.log('the promotion has not published yet!!', err);
+			//wx.hideNavigationBarLoading()
+			wx.hideLoading()
+			//wx.stopPullDownRefresh()
+			//callback.apply(wx)
+			wx.navigateBack()
+		})
 	},
 
 	onPullDownRefresh: function (e) {
 		//wx.startPullDownRefresh()
-		this.getPromotion()
+		//this.getPromotion()
 	},
 
 	onLoad: function (res) {
@@ -124,7 +121,7 @@ Page({
 		//}, 500)
 
 		app.syncSession().then(res => {
-			wx.startPullDownRefresh()
+			this.getPromotion()
 			this.syncAddresses()
 			this.syncOrders()
 		})
@@ -330,10 +327,10 @@ Page({
 		console.log('the products being want to buy', products)
 
 		if (products.length <= 0) {
-			wx.showToast({
-				title: '没选购商品',
-				icon: 'none',
-				duration: 2000
+			wx.showModal({
+				title: '选购商品',
+				content: '请至少选择一样商品',
+				showCancel: false
 			});
 
 			return;
@@ -341,20 +338,20 @@ Page({
 
 		// 快递/自提模式
 		if (this.data.delivery_way === 1 && this.data.pickup_address === 0) {
-			wx.showToast({
-				title: '自提地址需要选择',
-				icon: 'none',
-				duration: 2000
+			wx.showModal({
+				title: '提货地址',
+				content: '请选择提货地址',
+				showCancel: false
 			});
 
 			return;
 		}
 
 		if (this.data.delivery_way === 2 && this.data.delivery_address === 0) {
-			wx.showToast({
-				title: '快递地址需要选择',
-				icon: 'none',
-				duration: 2000
+			wx.showModal({
+				title: '送货地址',
+				content: '请选择送货地址',
+				showCancel: false
 			});
 
 			return;
@@ -370,7 +367,7 @@ Page({
 			nickname: app.globalData.userInfo.nickName,
 			avatarUrl: app.globalData.userInfo.avatarUrl
 			//formId: e.detail.formId,
-		};
+		}
 
 		console.log('post data is', data)
 

@@ -1,3 +1,45 @@
+.swiper-area {
+  display: flex;
+  flex-direction: column;
+}
+
+.swiper-area swiper {
+	width: 100%;
+	height: 100%;
+}
+
+.swiper-area swiper image {
+	width: 100%;
+}
+
+.swiper-area .banner-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -60rpx;
+  z-index: 10;
+}
+
+.swiper-area .banner-dots .banner-dot {
+  width: 20rpx;
+  height: 20rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  margin: 8rpx;
+}
+
+.swiper-area .banner-dots .banner-dot.active {
+  width: 26rpx;
+  background-color: #603912;
+}
+
+.swiper-area text.message {
+	margin: -30rpx 0 0 10rpx;
+	z-index: 30;
+	font-size: 28rpx;
+	color: #603912;
+}
+
 .topic-list{
     height: 100%;
     overflow: hidden;

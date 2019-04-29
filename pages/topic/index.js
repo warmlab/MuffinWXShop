@@ -3,10 +3,8 @@ const app = getApp();
 //const util = require('../../utils/util.js');
 //import {request, BASE_URL} from '../../utils/request.js'
 //const {request, base_url} = require('../../utils/request.js')
-import {
-	request,
-	base_url
-} from '../../utils/request.js'
+import config from '../../config.js'
+import request from '../../utils/request.js'
 //import base_url from '../../utils/request.js'
 
 Page({
@@ -17,8 +15,10 @@ Page({
 		count: 0,
 		scrollTop: 0,
 		showPage: false,
-		base_url: base_url,
-		show_banner: false
+		base_image_url: config.base_image_url,
+		show_banner: false,
+		banner_height: wx.WIN_HEIGHT / 2,
+		swiper_current: 0
 	},
 
 	getPromotions: function () {
@@ -53,7 +53,6 @@ Page({
 	},
 
 	onLoad: function (res) {
-		console.log('on load')
 		this.setData({
 			on_show: false
 		})
@@ -64,7 +63,6 @@ Page({
 	},
 
 	onShow: function (res) {
-		console.log('on show')
 		if (this.data.on_show) {
 			wx.startPullDownRefresh()
 		}
@@ -72,6 +70,22 @@ Page({
 		this.setData({
 			on_show: true
 		})
+	},
+
+	toViewPromotionDetail: function (e) {
+		wx.navigateTo({
+			url: `detail?id=${e.currentTarget.dataset.id}`
+		})
+	},
+
+	swiperChange: function (e) {
+		this.setData({
+			swiper_current: e.detail.current,
+		})
+	},
+
+	bannerImageLoad: function (e) {
+		
 	},
 
 	// 原生的分享功能

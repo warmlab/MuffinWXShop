@@ -13,7 +13,7 @@
                 <text class="desc">{{currentCategory.front_name}}</text>
             </view>-->
                 <view wx:for="{{products}}" wx:key="id" class="{{(index + 1) % 2 === 0 ? 'item-b item' : 'item'}}">
-                    <image src="{{base_url}}/media/{{item.images[0].image.name}}" mode="aspectFill" bindtap="productDetail" data-code="{{item.code}}" />
+                    <image src="{{base_image_url}}/{{item.images[0].image.name}}" mode="aspectFill" bindtap="productDetail" data-code="{{item.code}}" />
                     <text class="name">{{item.name}}</text>
                     <text class="summary">{{item.summary}}</text>
                     <text class="price" wx:if="{{item.sizes.length>0}}">￥{{(item.price+item.sizes[0].price_plus)/100}}</text>

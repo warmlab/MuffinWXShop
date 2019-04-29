@@ -7,8 +7,9 @@
         <view class="h">请选择支付方式</view>
         <view class="b">
             <radio-group bindchange="paymentChange" class="margin-left radio-group">
-                <radio value="4" checked>微信支付</radio>
-                <radio value="2" wx:if="{{order.valuecard_allowed}}">小麦芬储值卡支付</radio><!-- TODO 获得用户绑定的储值卡信息 -->
+                <radio wx:for="{{payments}}" wx:key="value" value="{{item.value}}">{{item.name}}</radio>
+                <!--radio value="4" wx:if="{{order.payment&4==4}}" checked>微信支付</radio>
+                <radio value="2" wx:if="{{order.payment&2==2}}">小麦芬储值卡支付</radio--><!-- TODO 获得用户绑定的储值卡信息 -->
             </radio-group>
             <view wx:if="{{payment===2}}" class="margin-left">本次交易需要店员手工操作，如果您的小麦芬储值卡余额不足以完成本次交易，小麦芬客服人员会及时联系您，请保持电话畅通，谢谢!!</view>
             <button class="margin-left" bindtap="bindValuecard" type="primary" size="mini" wx:if="{{!order.member_openid.name || !order.member_openid.phone}}">绑定小麦芬储值卡</button>
@@ -22,11 +23,8 @@
             <input class="margin-left" name="mobile" placeholder="联系人电话" value="{{mobile}}" type="number" maxlength="11"/>
         </view>
     </view>
-    <block wx:if="{{(payment===2 && order.member_openid.name && order.member_openid.phone) || payment===4}}">
-    <button class="button-bottom" type="primary" form-type="submit">确定支付</button>
-    </block>
-    <block wx:else>
-    <button class="button-bottom" type="primary" form-type="submit" disabled>请先绑定储值卡</button>
-    </block>
+    <button wx:if="{{payment===0}}" class="button-bottom" type="primary" disabled="{{true}}">请选择支付方式</button>
+    <button wx:elif="{{(payment===2 && order.member_openid.name && order.member_openid.phone) || payment===4}}" class="button-bottom" type="primary" form-type="submit">确定支付</button>
+    <button wx:else class="button-bottom" type="primary" disabled>请先绑定储值卡</button>
     </form>
 </view>

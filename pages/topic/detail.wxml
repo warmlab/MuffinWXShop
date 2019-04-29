@@ -1,100 +1,128 @@
 <view class="container" wx:if="{{promotion}}">
-    <!-- <view class="big title" wx:if="{{promotion.name}}">#{{promotion.name}}#</view>
-    <view class="title" wx:else>#小麦芬{{last_order_date}}({{last_order_weekday}})团购发布#</view>-->
-    <view class="title-summary">
-        <text>{{promotion.note}}
-            鼓励自提，实在浪漫没空的，可以再满38送3KM，满68送5KM以内。</text>
-    </view>
-    <view>
-        <form bindsubmit="toJoinIn" report-submit='true' id="promotionform">
-            <view class="section-title">团品信息<text wx:if="{{promotion.binding}}">(需组合购买)</text></view>
-            <view class="item" wx:for="{{products}}" wx:key="id" data-id="{{item.id}}">
-                <image class="image" src="{{base_url}}/media/{{item.product.images[0].image.name}}" mode="scaleToFill" bindtap="productDetail" data-code="{{item.product.code}}" data-index="{{index}}"/>
-                <view class="summary-area">
-                    <view class="name-area">
-                        <view class="name">{{item.product.name}}
-                            <text wx:if="{{item.sold>0}}"> 已团 {{item.sold}}</text><text class="sold-out" wx:if="{{item.stock<=0}}"> 卖光了!!</text></view>
-                        <view class="summary" bindtap="productDetail" data-code="{{item.product.code}}" data-index="{{index}}">{{item.product.summary}}</view>
-                        <view class="price red-color">
-                            <text class="gray-color old" wx:if="{{item.product.price+item.size.price_plus>item.price}}">￥{{(item.product.price+item.size.price_plus)/100}}</text>￥{{item.price/100}}
-                        </view>
-                    </view>
-                    <view class="amount-area">
-                        <view class="cut">
-                            <text wx:if="{{item.want_amount > 0}}" class="fa fa-minus-circle green-color btn" bindtap="amountChange" data-value="-1" data-index="{{index}}"/>
-                            <text wx:else class="fa fa-minus-circle gray-color btn"/>
-                        </view>
-                        <view class="amount">{{item.want_amount}}</view>
-                        <view class="add">
-                            <text wx:if="{{item.want_amount < item.stock}}" class="fa fa-plus-circle green-color btn" bindtap="amountChange" data-value="1" data-index="{{index}}"/>
-                            <text wx:else class="fa fa-plus-circle gray-color btn"/>
-                        </view>
-                    </view>
-                </view>
-            </view>
-            <view class="section-title">截团及取货时间</view>
-            <view>
-                <view class="title">{{last_order_date}}({{last_order_weekday}}) {{last_order_time}}截团</view>
-                <view class="title">{{from_date}}({{from_weekday}}) {{from_time}}开始提货
+		<!-- <view class="big title" wx:if="{{promotion.name}}">#{{promotion.name}}#</view>
+    <view class="title" wx:else>#小麦芬{{last_order_date}}({{last_order_weekday}})团购发布#</view> -->
+		<view class="title-summary">
+				<text>{{promotion.note}}</text>
+		</view>
+		<view>
+				<form bindsubmit="toJoinIn" report-submit='true' id="promotionform">
+						<view class="section-title">
+								团品信息
+								<text wx:if="{{promotion.binding}}">(需组合购买)</text>
+						</view>
+						<view class="item" wx:for="{{products}}" wx:key="id" data-id="{{item.id}}">
+								<image class="image" src="{{base_image_url}}/{{item.product.images[0].image.name}}" mode="scaleToFill" bindtap="productDetail" data-code="{{item.product.code}}" data-index="{{index}}" />
+								<view class="summary-area">
+										<view class="name-area">
+												<view class="name">
+														{{item.product.name}}
+														<text wx:if="{{item.sold>0}}">已团 {{item.sold}}</text>
+														<text class="sold-out" wx:if="{{item.stock<=0}}">卖光了!!</text>
+												</view>
+												<view class="summary" bindtap="productDetail" data-code="{{item.product.code}}" data-index="{{index}}">
+														{{item.product.summary}}
+												</view>
+												<view class="price red-color">
+														<text class="gray-color old" wx:if="{{item.product.price+item.size.price_plus>item.price}}">
+																￥{{(item.product.price+item.size.price_plus)/100}}
+														</text>
+														￥{{item.price/100}}
+												</view>
+										</view>
+										<view class="amount-area">
+												<view class="cut">
+														<text wx:if="{{item.want_amount > 0}}" class="fa fa-minus-circle green-color btn" bindtap="amountChange" data-value="-1" data-index="{{index}}" />
+														<text wx:else class="fa fa-minus-circle gray-color btn" />
+												</view>
+												<view class="amount">{{item.want_amount}}</view>
+												<view class="add">
+														<text wx:if="{{item.want_amount < item.stock}}" class="fa fa-plus-circle green-color btn" bindtap="amountChange" data-value="1" data-index="{{index}}" />
+														<text wx:else class="fa fa-plus-circle gray-color btn" />
+												</view>
+										</view>
+								</view>
+						</view>
+						<view class="section-title">截团及取货时间</view>
+						<view>
+								<view class="title">{{last_order_date}}({{last_order_weekday}}) {{last_order_time}}截团</view>
+								<view class="title">
+										{{from_date}}({{from_weekday}}) {{from_time}}开始提货
                     请尽量当天提货 谢谢合作
-                </view>
-            </view>
-            <view class="section-title">取货方式</view>
-            <view class="margin-beside">
-                <radio-group bindchange="deliveryWayChange" size="small" class="flex-row">
-                    <radio value="1" wx:if="{{promotion.delivery_way&1}}" checked class="delivery-method">自提</radio>
-                    <radio value="2" wx:if="{{promotion.delivery_way&2}}" class="delivery-method">快递</radio>
-                </radio-group>
-                <radio-group class="radio-group flex-column delivery-content" bindchange="addressChange" wx:if="{{delivery_way==1}}">
-                    <label class="radio" wx:for="{{promotion.addresses}}" wx:key="address.id">
-                        <radio value="{{item.address.id}}" size="small" checked="{{item.address.id==pickup_address}}"/>{{item.address.address}}
-                    </label>
-                </radio-group>
-                <view wx:else>
-                <radio-group class="radio-group flex-column delivery-content" bindchange="addressChange">
-                    <label class="radio" wx:for="{{addresses}}" wx:key="address.id">
-                        <radio value="{{item.id}}" size="small" checked="{{item.id==delivery_address}}"/>{{item.contact}}-{{item.phone}}({{item.address}})
-                    </label>
-                </radio-group>
-                    <view style="font-size:24rpx">备注：基础运费{{promotion.delivery_fee/100}}元，多退少补，谢谢理解，请保持电话畅通（另：滴滴送货的话，只能送到小区门口)</view>
-                    <button bindtap="newAddress" type="primary" size="mini" wx:if="{{scope_userInfo}}">添加地址</button>
-                </view>
-            </view>
-            <view class="section-title">备注</view>
-            <view>
-                <textarea class="note" name="note" placeholder="房号或者还想买点啥，我们会随团品一起预留" value="{{my_order.note}}"/>
-            </view>
-            <button type="primary" formType="submit" class="line-button" wx:if="{{scope_userInfo}}">参团</button>
-            <button open-type="getUserInfo" type="warn" class="line-button" bindgetuserinfo="toGetUserInfo" wx:else>点击登录</button>
-        </form>
-        <view wx:if="{{my_orders.length>0}}">
-            <view class="section-title">我的团</view>
-            <view class="my-order" wx:for="{{my_orders}}" wx:key="code">
-                <text class="code">拼团编号: {{item.index}}</text>
-                <view>拼团商品: 
-                <text wx:for="{{item.products}}" wx:key="product.id">{{item.product.name}}x{{item.amount}}</text>
-                </view>
-                <view>取货方式: <text wx:if="{{item.delivery_way===2}}">快递</text><text wx:else>自提</text></view>
-                <view>地址: {{item.address.name}}[{{item.address.phone}}] {{item.address.address}}</view>
-                <view wx:if="{{item.note}}">备注: {{item.note}}</view>
-            </view>
-        </view>
-    </view>
-    <view wx:if="{{orders.length>0}}">
-    <view class="section-title">当前参团人员</view>
-        <scroll-view class="scroll-table" scroll-y>
-            <view class="tr" wx:for="{{orders}}" wx:key="code" wx:if="{{item.index>0}}">
-                <view class="td-seq">{{item.index}}</view>
-                <view class="td-image">
-                    <image src="{{item.member_openid.avatarUrl}}" lazy-load="true"/>
-                </view>
-                <view class="td-name">
-                    {{item.member_openid.nickname}}
-                </view>
-                <view class="td-detail">
-                    <text>{{item.products[0].product.name}}x{{item.products[0].amount}}...</text>
-                </view>
-            </view>
-        </scroll-view>
-    </view>
+								</view>
+						</view>
+						<view class="section-title">取货方式</view>
+						<view class="margin-beside">
+								<radio-group bindchange="deliveryWayChange" size="small" class="flex-row">
+										<radio value="1" wx:if="{{promotion.delivery_way&1}}" checked class="delivery-method">
+												自提
+										</radio>
+										<radio value="2" wx:if="{{promotion.delivery_way&2}}" class="delivery-method">快递</radio>
+								</radio-group>
+								<radio-group class="radio-group flex-column delivery-content" bindchange="addressChange" wx:if="{{delivery_way==1}}">
+										<label class="radio" wx:for="{{promotion.addresses}}" wx:key="address.id">
+												<radio value="{{item.address.id}}" size="small" checked="{{item.address.id==pickup_address}}" />
+												{{item.address.address}}
+										</label>
+								</radio-group>
+								<view wx:else>
+										<radio-group class="radio-group flex-column delivery-content" bindchange="addressChange">
+												<label class="radio" wx:for="{{addresses}}" wx:key="address.id">
+														<radio value="{{item.id}}" size="small" checked="{{item.id==delivery_address}}" />
+														{{item.contact}}-{{item.phone}}({{item.address}})
+												</label>
+										</radio-group>
+										<view style="font-size:24rpx">
+												备注：基础运费{{promotion.delivery_fee/100}}元，多退少补，谢谢理解，请保持电话畅通（另：滴滴送货的话，只能送到小区门口)
+										</view>
+										<button bindtap="newAddress" type="primary" size="mini" wx:if="{{scope_userInfo}}">
+												添加地址
+										</button>
+								</view>
+						</view>
+						<view class="section-title">备注</view>
+						<view>
+								<textarea class="note" name="note" placeholder="房号或者还想买点啥，我们会随团品一起预留" value="{{my_order.note}}" />
+						</view>
+						<button type="primary" formType="submit" class="line-button" wx:if="{{scope_userInfo}}">
+								参团
+						</button>
+						<button open-type="getUserInfo" type="warn" class="line-button" bindgetuserinfo="toGetUserInfo" wx:else>
+								点击登录
+						</button>
+				</form>
+				<view wx:if="{{my_orders.length>0}}">
+						<view class="section-title">我的团</view>
+						<view class="my-order" wx:for="{{my_orders}}" wx:key="code">
+								<text class="code">拼团编号: {{item.index}}</text>
+								<view>
+										拼团商品:
+										<text wx:for="{{item.products}}" wx:key="product.id">
+												{{item.product.name}}x{{item.amount}}
+										</text>
+								</view>
+								<view>
+										取货方式:
+										<text wx:if="{{item.delivery_way===2}}">快递</text>
+										<text wx:else>自提</text>
+								</view>
+								<view>地址: {{item.address.name}}[{{item.address.phone}}] {{item.address.address}}</view>
+								<view wx:if="{{item.note}}">备注: {{item.note}}</view>
+						</view>
+				</view>
+		</view>
+		<view wx:if="{{orders.length>0}}">
+				<view class="section-title">当前参团人员</view>
+				<scroll-view class="scroll-table" scroll-y>
+						<view class="tr" wx:for="{{orders}}" wx:key="code" wx:if="{{item.index>0}}">
+								<view class="td-seq">{{item.index}}</view>
+								<view class="td-image">
+										<image src="{{item.member_openid.avatarUrl}}" lazy-load="true" />
+								</view>
+								<view class="td-name">{{item.member_openid.nickname}}</view>
+								<view class="td-detail">
+										<text>{{item.products[0].product.name}}x{{item.products[0].amount}}...</text>
+								</view>
+						</view>
+				</scroll-view>
+		</view>
 </view>

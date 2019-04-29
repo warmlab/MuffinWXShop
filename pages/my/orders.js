@@ -1,17 +1,15 @@
 // pages/my/order.js
 const app = getApp()
 
-import {
-	request,
-	base_url
-} from '../../utils/request.js'
+import config from '../../config.js'
+import request from '../../utils/request.js'
 
 Page({
 	/**
 	 * 页面的初始数据
 	 */
 	data: {
-		base_url: base_url
+		base_image_url: config.base_image_url
 	},
 
 	/**
@@ -37,7 +35,7 @@ Page({
 		wx.startPullDownRefresh()
 	},
 
-	onPullDownRefresh: function(e) {
+	onPullDownRefresh: function (e) {
 		var that = this;
 		wx.showLoading({
 			title: '加载中，请稍候',
@@ -45,8 +43,7 @@ Page({
 		})
 		request.get('orders', {
 				status: that.data.status
-			})
-			.then(res => {
+			}).then(res => {
 				console.log(res)
 				that.setData({
 					orders: res.data

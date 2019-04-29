@@ -1,9 +1,7 @@
-const app = getApp();
+import config from '../../config.js'
+import request from '../../utils/request.js'
 
-import {
-	request,
-	base_url
-} from '../../utils/request.js'
+const app = getApp();
 
 import {
 	addToShoppingCart,
@@ -20,7 +18,7 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		base_url: base_url,
+		base_image_url: config.base_image_url,
 		category_id: 0,
 		extra_info: 0
 	},

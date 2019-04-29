@@ -8,7 +8,7 @@
             </view>
             <view class="goods" wx:for="{{item.products}}" wx:key="code" wx:for-item="op">
                 <view class="img">
-                    <image src="{{base_url}}/media/{{op.product.images[0].image.name}}"/>
+                    <image src="{{base_image_url}}/{{op.product.images[0].image.name}}"/>
                 </view>
                 <view class="info">
                     <text class="name">{{op.product.name}}</text>

@@ -37,16 +37,4 @@
     <view class="item">绑定小麦芬储值卡</view>
     <view class="right-item"><text class="fa fa-angle-right"/></view>
   </view>
-  <view class="line" bindtap="publishPromotion" wx:if="{{privilege & 2 > 0}}">
-    <view class="item">发布团购</view>
-    <view class="right-item"><text class="fa fa-angle-right"/></view>
-  </view>
-  <view class="line" bindtap="managePromotions" wx:if="{{privilege & 2 > 0}}">
-    <view class="item">管理团购</view>
-    <view class="right-item"><text class="fa fa-angle-right"/></view>
-  </view>
-  <view class="line" bindtap="manageProducts" wx:if="{{privilege & 1 > 0}}">
-    <view class="item">管理商品</view>
-    <view class="right-item"><text class="fa fa-angle-right"/></view>
-  </view>
 </view>

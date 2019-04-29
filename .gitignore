@@ -64,3 +64,4 @@ typings/
 package-lock.json
 .eslintrc.json
 .vscode/
+.DS_Store

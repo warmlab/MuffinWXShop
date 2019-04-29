@@ -20,7 +20,7 @@
         <view class="goods">
             <view class="item" wx:for="{{order.products}}" wx:key="product.id">
                 <view class="img">
-                    <image src="{{base_url}}/media/{{item.product.images[0].image.name}}"/>
+                    <image src="{{base_image_url}}/{{item.product.images[0].image.name}}"/>
                 </view>
                 <view class="info">
                     <view class="t">
