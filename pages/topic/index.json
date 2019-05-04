@@ -1,3 +1,4 @@
 {
-		"navigationBarTitleText": "小麦芬团购"
+		"navigationBarTitleText": "小麦芬",
+		"enablePullDownRefresh": true
 }

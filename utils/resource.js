@@ -1,10 +1,24 @@
-import {
-	request
-} from "./request.js"
+import request from "./request.js"
 
 const WEB_ALLOWED = 0x01
 const POS_ALLOWED = 0x02
 const PROMOTE_ALLOWED = 0x04
+
+const getShopInfo = () => {
+	return new Promise((resolve, reject) => {
+		var shop = wx.getStorageSync('appShopInfo')
+		if (!!shop) {
+			resolve(shop)
+		} else {
+			request.get('info').then(res => {
+				wx.setStorageSync('appShopInfo', res.data)
+				resolve(res.data)
+			}).catch(err => {
+				reject(err)
+			})
+		}
+	})
+}
 
 const getCategories = () => {
 	return new Promise((resolve, reject) => {
@@ -34,6 +48,7 @@ export {
 	WEB_ALLOWED,
 	POS_ALLOWED,
 	PROMOTE_ALLOWED,
+	getShopInfo,
 	getCategories,
 	getSizes
 }

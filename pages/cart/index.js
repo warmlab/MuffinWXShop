@@ -1,10 +1,7 @@
 // pages/shop/cart.js
 
-import {
-	request,
-	base_url
-} from '../../utils/request.js'
-
+import config from '../../config.js'
+import request from '../../utils/request.js'
 import {syncCart} from '../../utils/cart.js'
 
 Page({
@@ -13,7 +10,7 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
-		base_url: base_url,
+		base_image_url: config.base_image_url,
 		checked_all: false
 	},
 
@@ -21,28 +18,29 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-		wx.startPullDownRefresh()
+		//wx.startPullDownRefresh()
+	},
+
+	onShow: function (e) {
+		this.syncGoods()
 	},
 
 	onPullDownRefresh: function (e) {
+		this.syncGoods()
+		wx.stopPullDownRefresh()
+	},
+
+	syncGoods: function(e){
 		wx.showLoading({
 			title: '加载购物车'
 		})
 		var cart = syncCart()
+		var index = cart.products.findIndex(item => !(item.checked))
 		this.setData({
-			cart: cart
+			cart: cart,
+			checked_all: index < 0
 		})
 		wx.hideLoading()
-		wx.stopPullDownRefresh()
-	},
-
-	onUnload: function () {
-		var pages = getCurrentPages()
-		var prePage = pages[pages.length - 2]
-		//prePage.setData({dragon:res.data});
-		try {
-			prePage.syncCartInfo()
-		} catch (err) {}
 	},
 
 	checkItem: function (e) {
@@ -70,7 +68,6 @@ Page({
 	},
 
 	checkAll: function (e) {
-		console.log(e)
 		var cart = this.data.cart
 		cart.cost = 0
 		cart.amount = 0
@@ -160,8 +157,8 @@ Page({
 	 */
 	onShareAppMessage: function () {
 		return {
-			title: '美味挡不住',
-			path: '/pages/shop/index'
+			title: '小麦芬烘焙',
+			path: '/pages/topic/index'
 		}
 	}
 })

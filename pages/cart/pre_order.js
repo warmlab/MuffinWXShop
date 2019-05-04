@@ -1,10 +1,8 @@
 // pages/shop/order.js
 const app = getApp();
 
-import {
-	request,
-	base_url
-} from '../../utils/request.js'
+import config from '../../config.js'
+import request from '../../utils/request.js'
 
 Page({
 	/**
@@ -12,7 +10,7 @@ Page({
 	 */
 	data: {
 		delivery_fee: 1000,
-		base_url: base_url,
+		base_image_url: config.base_image_url,
 		delivery_way: 1,
 		pickup_address: 0,
 		delivery_address: 0
@@ -21,39 +19,45 @@ Page({
 	getAddresses: function () {
 		var that = this;
 
-		request.get('addresses')
-			.then(res => {
-				that.setData({
-					pickup_address: res.data.length > 0 ? res.data[0].id : 0,
-					pickup_addresses: res.data
-				})
-			}).catch(err => {
-				console.log('get pick up addresses error', err)
+		request.get('addresses').then(res => {
+			that.setData({
+				pickup_address: res.data.length > 0 ? res.data[0].id : 0,
+				pickup_addresses: res.data
 			})
+		}).catch(err => {
+			console.log('get pick up addresses error', err)
+		})
+	},
 
-		request.get('openid/addresses', {
-				openid: app.globalData.openid
+	getMemberAddresses: function() {
+		var that = this
+		request.get('openid/addresses').then(res => {
+			var delivery_address = 0;
+			for (var a of res.data)
+				if (a.is_default)
+					delivery_address = a.id
+			that.setData({
+				addresses: res.data,
+				delivery_address: delivery_address
 			})
-			.then(res => {
-				var delivery_address = 0;
-				for (var a of res.data)
-					if (a.is_default)
-						delivery_address = a.id
-				that.setData({
-					addresses: res.data,
-					delivery_address: delivery_address
-				})
-			}).catch(err => {
-				console.log('get customer addresses error', err)
-			})
+		}).catch(err => {
+			console.log('get customer addresses error', err)
+		})
 	},
 
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-		console.log(options)
+		var that = this
 		var cart = wx.getStorageSync(options.type); // buy-点击立即购买, cart-购物车点击下单
+
+		app.getUserInfo().then(res => {
+			that.setData({
+				userInfo: res
+			})
+		})
+
 		if (cart === undefined || typeof cart !== "object") {
 			cart = {
 				products: [],
@@ -61,10 +65,7 @@ Page({
 				cost: 0
 			}
 			wx.setStorageSync(option.type, cart)
-			wx.navigateBack()
 		}
-
-		console.log(cart)
 
 		var cost = 0
 		var products = []
@@ -85,10 +86,13 @@ Page({
 			product_ids: product_ids,
 			cost: cost,
 			type: options.type,
-			scope_userInfo: app.globalData.scope_userInfo
 		})
 
 		this.getAddresses()
+	},
+
+	onShow: function (e) {
+		this.getMemberAddresses()
 	},
 
 	addressChange: function (e) {
@@ -104,7 +108,7 @@ Page({
 
 	newAddress: function (e) {
 		wx.navigateTo({
-			url: '/pages/my/address?id=0'
+			url: '/pages/my/address/detail?id=0'
 		})
 	},
 
@@ -204,12 +208,13 @@ Page({
 	},
 
 	toGetUserInfo: function (e) {
-		wx.setStorageSync('userInfo', JSON.parse(e.detail.rawData))
-		wx.setStorageSync('scope_userInfo', true)
-		app.globalData.userInfo = JSON.parse(e.detail.rawData)
-		app.globalData.scope_userInfo = true
+		var userInfo = wx.getStorageSync('appUserInfo');
+		userInfo.nickname = e.detail.userInfo.nickName
+		userInfo.avatarUrl = e.detail.userInfo.avatarUrl
+		wx.setStorageSync('appUserInfo', userInfo)
+
 		this.setData({
-			scope_userInfo: true
+			userInfo: userInfo
 		})
 	},
 
@@ -219,7 +224,7 @@ Page({
 	onShareAppMessage: function () {
 		return {
 			title: '美味挡不住',
-			path: '/pages/shop/index'
+			path: '/pages/topic/index'
 		}
 	}
 })

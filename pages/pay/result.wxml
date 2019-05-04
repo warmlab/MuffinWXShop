@@ -3,15 +3,15 @@
     <view class="success" wx:if="{{status=='success'}}">
       <view class="msg">付款成功</view>
       <view class="btns">
-        <navigator class="btn" url="/pages/my/order?code={{code}}" open-type="redirect">查看订单</navigator>
-        <navigator class="btn" url="/pages/shop/index" open-type="switchTab">继续逛</navigator>
+        <navigator class="btn" url="/pages/my/order/detail?code={{code}}" open-type="redirect">查看订单</navigator>
+        <navigator class="btn" url="/pages/topic/index" open-type="switchTab">继续逛</navigator>
       </view>
     </view>
     <view class="success" wx:elif="{{status=='paid'}}">
       <view class="msg">已付款，无需重复付款</view>
       <view class="btns">
-        <navigator class="btn" url="/pages/my/order?code={{code}}" open-type="redirect">查看订单</navigator>
-        <navigator class="btn" url="/pages/shop/index" open-type="switchTab">继续逛</navigator>
+        <navigator class="btn" url="/pages/my/order/detail?code={{code}}" open-type="redirect">查看订单</navigator>
+        <navigator class="btn" url="/pages/topic/index" open-type="switchTab">继续逛</navigator>
       </view>
     </view>
     <view class="error" wx:else>
@@ -23,7 +23,7 @@
         <view class="p">否则订单将会被系统取消</view>
       </view>
       <view class="btns">
-        <navigator class="btn" url="/pages/my/order?code={{code}}" open-type="redirect">查看订单</navigator>
+        <navigator class="btn" url="/pages/my/order/detail?code={{code}}" open-type="redirect">查看订单</navigator>
         <view class="btn" bindtap='payOrder'>重新付款</view>
       </view>
     </view>

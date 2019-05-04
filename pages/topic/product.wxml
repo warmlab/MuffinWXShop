@@ -1,6 +1,6 @@
 <view class="container">
     <view>
-        <image src="{{base_url}}/media/{{product.images[0].image.name}}" mode="widthFix" class="product-banner" lazy-load="true"/>
+        <image src="{{base_image_url}}/{{product.images[0].image.name}}" mode="widthFix" class="product-banner" lazy-load="true"/>
     </view>
     <view class="product-info">
         <view class="product-name">{{product.name}} {{product.english_name}}</view>
@@ -20,14 +20,12 @@
         <view>
             <view class="section-title">产品描述</view>
             <view>
-                <text>{{product.note}}
-
-                </text>
+                <text>{{product.note}}</text>
             </view>
         </view>
         <view class="detail-images">
             <block wx:for="{{details}}" wx:key="">
-                <image mode="widthFix" src="{{base_url}}/media/{{item.image.name}}" style="width:100%;"></image>
+                <image mode="widthFix" src="{{base_image_url}}/{{item.image.name}}" style="width:100%;"></image>
             </block>
         </view>
     </view>

@@ -15,7 +15,7 @@ const addToShoppingCart = (that, product, size, amount) => {
 			added = true
 			break
 		}
-		console.log('cccccdddddddddddddddddddddddddddddddddddddddd')
+
 		if (p.id === product.id && !p.want_size && !size) {
 			p.want_amount += amount
 			p.checked = true
@@ -37,6 +37,7 @@ const addToShoppingCart = (that, product, size, amount) => {
 		else
 			cart.cost += product.price * product.want_amount
 	}
+
 	console.log('cart', cart)
 	wx.setStorageSync('cart', cart)
 	that.setData({

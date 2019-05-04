@@ -1,8 +1,8 @@
-const app = getApp();
-
 const util = require('../../utils/util.js');
 import config from '../../config.js'
 import request from '../../utils/request.js'
+
+const app = getApp();
 
 Page({
 	data: {
@@ -14,7 +14,6 @@ Page({
 		pickup_address: 0,
 		delivery_address: 0,
 		payment: 4,
-		//scope_userInfo: app.globalData.scope_userInfo,
 		note: '',
 		current_height: 220
 	},
@@ -106,7 +105,6 @@ Page({
 
 		//request.get(`promotion?id=${res.id}`, {})
 		that.setData({
-			scope_userInfo: app.globalData.scope_userInfo,
 			id: res.id
 		})
 
@@ -120,10 +118,13 @@ Page({
 		//    }
 		//}, 500)
 
-		app.syncSession().then(res => {
-			this.getPromotion()
-			this.syncAddresses()
-			this.syncOrders()
+		app.getUserInfo().then(res => {
+			that.getPromotion()
+			that.syncAddresses()
+			that.syncOrders()
+			that.setData({
+				userInfo: res
+			})
 		})
 
 		//wx.getSystemInfoSync({
@@ -160,40 +161,39 @@ Page({
 		var that = this;
 		wx.showNavigationBarLoading()
 		request.get('promotion/orders', {
-				id: this.data.id
+			id: this.data.id
+		}).then(res => {
+			var my_orders = []
+			res.data.forEach(ele => {
+				if (ele.member_openid.openid === that.data.userInfo.openid)
+					my_orders.push(ele)
 			})
-			.then(res => {
-				var my_orders = []
-				res.data.forEach(ele => {
-					if (ele.member_openid.openid === app.globalData.openid)
-						my_orders.push(ele)
-				})
-				console.log('my order', my_orders)
-				that.setData({
-					orders: res.data,
-					my_orders: my_orders
-				})
-				wx.hideNavigationBarLoading()
+			console.log('my order', my_orders)
+			that.setData({
+				orders: res.data,
+				my_orders: my_orders
 			})
-			.catch(err => {
-				console.error('get promotion orders error', err)
-				wx.hideNavigationBarLoading()
-			})
+			wx.hideNavigationBarLoading()
+		}).catch(err => {
+			console.error('get promotion orders error', err)
+			wx.hideNavigationBarLoading()
+		})
 	},
 
 	toGetUserInfo: function (e) {
-		wx.setStorageSync('userInfo', JSON.parse(e.detail.rawData));
-		wx.setStorageSync('scope_userInfo', true);
-		app.globalData.userInfo = JSON.parse(e.detail.rawData);
-		app.globalData.scope_userInfo = true;
+		var userInfo = wx.getStorageSync('appUserInfo')
+		userInfo.nickname = e.detail.userInfo.nickName
+		userInfo.avatarUrl = e.detail.userInfo.avatarUrl
+		wx.setStorageSync('appUserInfo', userInfo)
+		//wx.setStorageSync('appUserInfo', e.detail.userInfo);
 		this.setData({
-			scope_userInfo: true
+			userInfo: userInfo
 		});
 	},
 
 	productDetail: function (e) {
 		wx.navigateTo({
-			url: `product?code=${e.currentTarget.dataset.code}`
+			url: `../goods/detail?code=${e.currentTarget.dataset.code}`
 		})
 	},
 
@@ -223,7 +223,7 @@ Page({
 
 	newAddress: function (e) {
 		wx.navigateTo({
-			url: '/pages/my/address?id=0'
+			url: '/pages/my/address/detail?id=0'
 		})
 	},
 

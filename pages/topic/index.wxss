@@ -40,6 +40,17 @@
 	color: #603912;
 }
 
+.goods-message {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 10rpx;
+	padding: 10rpx 0;
+	font-size: 24rpx;
+	background-color: #f0ece1e0;
+	color: #a18d65;
+}
+
 .topic-list{
     height: 100%;
     overflow: hidden;

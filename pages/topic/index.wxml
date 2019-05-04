@@ -1,8 +1,9 @@
-<view class="swiper-area" wx:if="{{promotions.length > 0}}">
+<import src="../templates/module.wxml"/>
+<view class="swiper-area" style="height: {{banner_height}}px" wx:if="{{promotions.length > 0}}">
 		<swiper circular autoplay interval="6000" duration="500" bindchange="swiperChange" style="height: {{banner_height}}px">
 			<block wx:for="{{promotions}}" wx:for-item="promotion" wx:key="id">
-				<swiper-item wx:for="{{promotion.products}}" wx:key="product_id" style="height: {{banner_height}}px">
-						<image src="{{base_image_url}}/{{item.product.images[0].image.name}}" mode="widthFix" lazy-load="true" class="img" bindload="bannerImageLoad" bindtap="toViewPromotionDetail" data-id="{{promotion.id}}" />
+				<swiper-item wx:for="{{promotion.products}}" wx:key="product_id" style="height: {{banner_height}}px;">
+						<image src="{{base_image_url}}/{{item.product.images[0].image.name}}" mode="aspectFill" lazy-load="true" style="height: {{banner_height}}px;" bindload="bannerImageLoad" bindtap="toViewDetail" data-type="promotion" data-id="{{promotion.id}}" />
 				</swiper-item>
 			</block>
 		</swiper>
@@ -13,9 +14,18 @@
 				</block>
 			</block>
 		</view>
-		<text class="message">小麦芬团购进行中...</text>
 </view>
-<view class="empty-view" wx:if="{{show_banner && promotions.length<=0}}">
-		<text class="fa fa-star fa-4x gray-color" />
-		<text class="text">没有正在进行中的团购</text>
+<view class="swiper-area" style="height: {{banner_height}}px" wx:if="{{promotions.length === 0}}">
+		<swiper circular autoplay interval="6000" duration="500" bindchange="swiperChange" style="height: {{banner_height}}px">
+				<swiper-item wx:for="{{banner_goods}}" wx:key="id" style="height: {{banner_height}}px">
+						<image src="{{base_image_url}}/{{item.images[0].image.name}}" mode="aspectFill" lazy-load="true" style="height: {{banner_height}}px;" bindload="bannerImageLoad" bindtap="toViewDetail" data-type="product" data-code="{{item.code}}" />
+				</swiper-item>
+		</swiper>
+		<view class="banner-dots">
+				<block wx:for="{{banner_goods}}" wx:key="id">
+						<view class="banner-dot {{index == swiper_current ? 'active' : ''}}"/>
+				</block>
+		</view>
 </view>
+<view class="goods-message">{{promotions.length === 0?'小麦芬推荐商品':'小麦芬团购进行中...'}}</view>
+<template is="goods-list" data="{{goods: goods, base_image_url: base_image_url, is_promote: promotion.length>0}}"/>

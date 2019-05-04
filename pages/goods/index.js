@@ -29,23 +29,22 @@ Page({
 			title: '加载中，请稍候',
 			mask: true
 		})
+
 		request.get('products', {
-				category: category_id,
-				type: WEB_ALLOWED
+			category: category_id,
+			type: WEB_ALLOWED
+		}).then(res => {
+			console.log('products', res.data)
+			that.setData({
+				products: res.data
 			})
-			.then(res => {
-				console.log('products', res.data)
-				that.setData({
-					products: res.data
-				})
-				wx.hideLoading()
-				wx.stopPullDownRefresh()
-			})
-			.catch(err => {
-				console.log('get products', err)
-				wx.hideLoading()
-				wx.stopPullDownRefresh()
-			})
+			wx.hideLoading()
+			wx.stopPullDownRefresh()
+		}).catch(err => {
+			console.log('get products', err)
+			wx.hideLoading()
+			wx.stopPullDownRefresh()
+		})
 	},
 
 	syncCartInfo: function () {
@@ -60,10 +59,14 @@ Page({
 	 */
 	onLoad: function (options) {
 		var that = this
-		app.syncSession().then(res => {
+		app.getUserInfo().then(res => {
 			wx.startPullDownRefresh()
 			that.syncCartInfo()
 		})
+	},
+
+	onShow: function (e) {
+		this.syncCartInfo()
 	},
 
 	categorySwitch: function (e) {
@@ -77,7 +80,7 @@ Page({
 
 	productDetail: function (e) {
 		wx.navigateTo({
-			url: `product?code=${e.currentTarget.dataset.code}`
+			url: `detail?code=${e.currentTarget.dataset.code}`
 		})
 	},
 
@@ -111,6 +114,7 @@ Page({
 		var product = this.data.products[parseInt(e.currentTarget.dataset.index)]
 
 		// start animation
+		/*
 		var animation1 = wx.createAnimation({
 			duration: 0,
 			timingFunction: 'linear'
@@ -119,7 +123,7 @@ Page({
 			.right(`${app.globalData.windowWidth - e.touches[0].clientX}px`).scale(1, 1).opacity(1).step()
 		this.setData({
 			animation_data: animation1.export(),
-			image_url: `${base_url}/media/${product.images[0].image.name}`
+			image_url: `${base_image_url}/${product.images[0].image.name}`
 		})
 
 		var animation = wx.createAnimation({
@@ -131,8 +135,14 @@ Page({
 		this.setData({
 			animation_data: animation.export()
 		})
+		*/
 
 		addToShoppingCart(this, product, 0, 1)
+		wx.showToast({
+			title: '成功加入购物车',
+			icon: 'success',
+			duration: 2000
+		})
 	},
 
 	toShoppingCart: function (e) {
@@ -182,7 +192,7 @@ Page({
 	onShareAppMessage: function () {
 		return {
 			title: '小麦芬烘焙',
-			path: '/pages/shop/index'
+			path: '/pages/goods/index'
 		}
 	}
 })

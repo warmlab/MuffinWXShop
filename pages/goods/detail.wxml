@@ -1,0 +1,146 @@
+<!-- pages/shop/product.wxml -->
+<import src="../templates/module.wxml"/>
+<block wx:if="{{product}}">
+<template is="goods-swiper" data="{{base_image_url:base_image_url,images:banners,swiper_current:swiper_current}}"/>
+		<!--view>
+				<image src="{{base_image_url}}/{{product.images[0].image.name}}" mode="widthFix" class="product-banner" wx:if="{{product}}" />
+				<view class="service-policy">
+						<view class="item">
+								<text class="far fa-circle icon" />会员9折
+						</view>
+						<view class="item">
+								<text class="far fa-circle icon" />满38元3公里免邮费
+						</view>
+						<view class="item">
+								<text class="far fa-circle icon" />满68元6公里免邮费
+						</view>
+						<view class="item">满98元免邮费</view>
+				</view>
+		</view-->
+				<view class="service-policy">
+						<view class="item">
+								<text class="far fa-circle icon" />会员9折
+						</view>
+						<view class="item">
+								<text class="far fa-circle icon" />满38元3公里免邮费
+						</view>
+						<view class="item">
+								<text class="far fa-circle icon" />满68元5公里免邮费
+						</view>
+						<!-- <view class="item">满98元免邮费</view> -->
+				</view>
+		<view class="product-info">
+				<view class="name">{{product.name}}</view>
+				<view class="banner" wx:if="{{product.category.extra_info===0}}">纯手工制作 拒绝添加</view>
+				<view class="banner" wx:else>100%天然乳脂奶油 拒绝添加</view>
+				<view class="price">￥{{(product.price+price_plus)/100}}</view>
+				<!-- view class="tags">
+            <label wx:for="{{product.tags}}" wx:key="code" class="tag">{{item}}</label>
+        </view -->
+				<view class="spec" wx:if="{{!!current_size}}">
+						<view class="choice flex-row" bindtap="openAttrDialog" data-type="choose">
+								<view>
+										<text class="fas fa-cookie-bite" style="color:#593e43;margin:0 10rpx;" />
+										已选择{{current_size.size.name}}蛋糕
+								</view>
+								<text class="far fa-chevron-right icon" />
+						</view>
+						<view>
+								<view class="flex-row spec-value">
+										<view>
+												<text class="far fa-circle" />直径{{current_size.size.spec}}cm
+										</view>
+										<view>
+												<text class="far fa-user-friends" />适合{{current_size.size.shared_min}}-{{current_size.size.shared_max}}人分享
+										</view>
+								</view>
+								<view class="flex-row spec-value">
+										<view>
+												<text class="far fa-utensils" />含{{current_size.size.utensils}}套餐具
+										</view>
+										<view>
+												<text class="far fa-clock" />需要提前{{current_size.size.pre_order_hours}}小时预定
+										</view>
+								</view>
+								<view class="spec-seperator" />
+								<view class="store">
+										<text class="far fa-snowflake" style="color:#91bfff;margin:0 10rpx;" />
+										<text style="font-size:24rpx;">保鲜条件 0-4˚C保藏10小时，5˚C食用为佳</text>
+								</view>
+						</view>
+				</view>
+				<view class="note">
+						<text wx:if="{{product.summary}}">{{product.summary}}</text>
+						<view wx:if="{{product.note}}">
+								<text>{{product.note}}</text>
+						</view>
+				</view>
+		</view>
+		<view class="detail-images">
+				<block wx:for="{{details}}" wx:key="id">
+						<image mode="widthFix" src="{{base_image_url}}/{{item.name}}" style="width:100%;" />
+				</block>
+		</view>
+		<view class="attr-pop-box" hidden="{{!openShare}}">
+			<view class="attr-pop">
+						<view class="close" bindtap="closeShareDialog">
+								<text class="fas fa-times red-color" />
+						</view>
+					<view style="display:flex;flex-direction: row">
+					<view class="share-item">
+							<image src="../../images/wechat.png"/>
+							<text>分享给好友</text>
+							<button open-type="share"/>
+					</view>
+					<view class="share-item" bindtap="generateShareImage">
+							<image src="../../images/moments.png"/>
+							<text>生成商品海报</text>
+					</view>
+					</view>
+			</view>
+		</view>
+		<view class="attr-pop-box" hidden="{{!openAttr}}">
+				<view class="attr-pop">
+						<view class="close" bindtap="closeAttr">
+								<text class="fas fa-times red-color" />
+						</view>
+						<view class="size-area" wx:if="{{product.category.extra_info&1===1 && product.sizes.length>0}}">
+								<text>选择大小</text>
+								<view>
+										<radio-group bindchange="sizeChoose">
+												<label wx:for="{{product.sizes}}" wx:key="size.id">
+														<radio value="{{index}}" />
+														{{item.size.name}}
+												</label>
+										</radio-group>
+								</view>
+						</view>
+						<view class="amount-area" wx:if="{{buy_type!=='choose'}}">
+								<text>购买数量:</text>
+								<text class="cut text-center" bindtap="amountChange" data-value="-1">
+										<text class="fa fa-minus-circle green-color text-center btn" />
+								</text>
+								<input class="amount" type="number" placeholder="购买数量" maxlength="5" value="{{product.want_amount}}" bindblur="amountSet" />
+								<text class="add text-center" bindtap="amountChange" data-value="1">
+										<text class="fa fa-plus-circle green-color btn" />
+								</text>
+								<view class="button"></view>
+						</view>
+						<view class="confirm" wx:if="{{buy_type!=='choose'}}" bindtap="toBuy" data-code="{{product.code}}">立即购买</view>
+				</view>
+		</view>
+		<view class="bottom">
+				<view class="short" bindtap="openShareDialog">
+						<image class="icon" model="aspectFill" src="/images/share_sel.png" />
+				</view>
+				<view class="short" bindtap="openCartPage">
+						<!--text class="cart-count">{{cart.amount}}</text-->
+						<image class="icon" model="aspectFill" src="/images/tabbar/cart_sel.png" />
+				</view>
+				<view class="long cart" bindtap="openAttrDialog" wx:if="{{product.sizes.length>0}}">加入购物车</view>
+				<view class="long cart" bindtap="addToCart" wx:else data-type="cart">加入购物车</view>
+				<view class="long buy" bindtap="openAttrDialog" data-type="immediate">立即购买</view>
+		</view>
+<!-- canvas海报 -->
+<canvas canvas-id="shareCanvas" style="width:600px;height:1100px;opacity:0;position:fixed;left:-1100px;top:-1100px;"></canvas>
+</block>

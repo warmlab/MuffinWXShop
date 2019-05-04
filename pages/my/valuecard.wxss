@@ -1,1 +1,16 @@
 /* pages/my/valuecard.wxss */
+.logo {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.logo image {
+	width: 147px;
+	height: 146px;
+}
+
+.submit {
+	width: 110%;
+	margin: 100rpx 0 0 -5%;
+}

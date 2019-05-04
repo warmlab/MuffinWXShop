@@ -1,0 +1,26 @@
+<view class="cate-nav">
+		<scroll-view scroll-x="true" class="cate-nav-body" scroll-left="scrollLeft">
+				<view wx:for="{{categories}}" class="{{category_id === item.id ? 'active item' : 'item'}}" wx:key="id" bindtap="categorySwitch" data-id="{{item.id}}" data-extra="{{item.extra_info}}" data-index="{{index}}">
+						<view class="name">{{item.name}}</view>
+				</view>
+		</scroll-view>
+</view>
+<scroll-view scroll-y="true" scroll-top="scrollTop" style="height: 80%;margin-top:84rpx;">
+		<view class="cate-item">
+				<!-- <view class="h">
+                <text class="name">{{currentCategory.name}}</text>
+                <text class="desc">{{currentCategory.front_name}}</text>
+            </view> -->
+				<view wx:for="{{products}}" wx:key="id" class="{{(index + 1) % 2 === 0 ? 'item-b item' : 'item'}}">
+						<image src="{{base_image_url}}/{{item.images[0].image.name}}" mode="aspectFill" bindtap="productDetail" data-code="{{item.code}}" />
+						<text class="name">{{item.name}}</text>
+						<text class="summary">{{item.summary}}</text>
+						<text class="price" wx:if="{{item.sizes.length>0}}">
+								￥{{(item.price+item.sizes[0].price_plus)/100}}
+						</text>
+						<text class="price" wx:else>￥{{item.price/100}}</text>
+						<text class="fa fa-plus-circle add-to-cart" bindtap="addToCart" data-index="{{index}}" data-id="{{item.id}}" wx:if="{{extra_info===0}}" />
+						<!-- <image class="add-to-cart" src="/images/add-to-cart.png" mode="aspectFill"/> -->
+				</view>
+		</view>
+</scroll-view>

@@ -1,0 +1,23 @@
+<view class="list" wx:if="{{addresses.length>0}}">
+		<view class="list-item" wx:for="{{addresses}}" wx:key="id" data-id="{{item.id}}">
+				<view class="item-info" bindtap="toEditItem" data-id="{{item.id}}">
+						<view class="contact">
+								<view class="default" wx:if="{{item.is_default}}">默认</view>
+								<text>{{item.contact}}</text>
+								<text class="phone">{{item.phone}}</text>
+						</view>
+						<view class="address">
+								<text>{{item.provice}}{{item.city}}{{item.district}}</text>
+								<text class="phone">{{item.address}}</text>
+						</view>
+				</view>
+				<view class="item-action">
+					<text class="delete" bindtap="deleteAddress" data-id="{{item.id}}">删除</text>
+				</view>
+		</view>
+</view>
+<view class="empty-view" wx:else>
+		<text class="fa fa-address-card fa-4x gray-color" />
+		<text class="text">收货地址在哪里</text>
+</view>
+<view class="add-address" bindtap="toEditItem" data-id="0">新建地址</view>

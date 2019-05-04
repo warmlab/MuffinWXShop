@@ -1,7 +1,7 @@
 // pages/my/valuecard.js
 const app = getApp()
 
-import {request, base_url} from '../../utils/request.js'
+import request from '../../utils/request.js'
 
 Page({
 

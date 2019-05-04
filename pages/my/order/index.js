@@ -1,14 +1,15 @@
 // pages/my/order.js
 const app = getApp()
 
-import config from '../../config.js'
-import request from '../../utils/request.js'
+import config from '../../../config.js'
+import request from '../../../utils/request.js'
 
 Page({
 	/**
 	 * 页面的初始数据
 	 */
 	data: {
+		orders: [],
 		base_image_url: config.base_image_url
 	},
 
@@ -42,20 +43,19 @@ Page({
 			mask: true
 		})
 		request.get('orders', {
-				status: that.data.status
-			}).then(res => {
-				console.log(res)
-				that.setData({
-					orders: res.data
-				})
-				wx.hideLoading();
-				wx.stopPullDownRefresh()
+			status: that.data.status
+		}).then(res => {
+			console.log(res)
+			that.setData({
+				orders: res.data
 			})
-			.catch(err => {
-				console.log(err)
-				wx.hideLoading();
-				wx.stopPullDownRefresh()
-			})
+			wx.hideLoading();
+			wx.stopPullDownRefresh()
+		}).catch(err => {
+			console.log(err)
+			wx.hideLoading();
+			wx.stopPullDownRefresh()
+		})
 	},
 
 	payOrder: function (e) {
@@ -65,7 +65,7 @@ Page({
 		// console.log('订单信息', currentOrder);
 		// 直接支付即可
 		wx.navigateTo({
-			url: `../pay/index?code=${code}`
+			url: `../../pay/index?code=${code}`
 		})
 	}
 })

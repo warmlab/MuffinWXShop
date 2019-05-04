@@ -21,6 +21,27 @@ Page({
 		swiper_current: 0
 	},
 
+	getProducts: function () {
+		var that = this
+		request.get('products', {
+			type: 1,
+			sort: 'popular',
+			limit: 11,
+		}).then(res => {
+			console.log(res.data)
+			that.setData({
+				banner_goods: res.data.slice(0, 3),
+				goods: res.data.slice(3)
+			})
+			wx.hideLoading()
+			wx.stopPullDownRefresh()
+		}).catch(err => {
+			console.log('get products error', err)
+			wx.hideLoading()
+			wx.stopPullDownRefresh()
+		})
+	},
+
 	getPromotions: function () {
 		var that = this;
 		wx.showLoading({
@@ -29,8 +50,19 @@ Page({
 		})
 		request.get('promotions').then(r => {
 			console.log('get promotions', r);
+			if (r.data.length === 0)
+				throw 'no promotion available'
+			var goods = []
+			r.data.forEach(promotion => {
+				goods = goods.concat(promotion.products.map(item => {
+					item.product.promotion_id = promotion.id
+					return item.product
+				}))
+			})
+
 			that.setData({
 				promotions: r.data,
+				goods: goods,
 				show_banner: r.data.length > 0 ? false : true
 			})
 			wx.hideLoading()
@@ -39,11 +71,11 @@ Page({
 		}).catch((err) => {
 			//callback.apply(wx)
 			console.log('get promotions', err);
-			wx.hideLoading()
-			wx.stopPullDownRefresh()
-			that.setData({
-				show_banner: true
-			})
+			//wx.stopPullDownRefresh()
+			that.getProducts()
+			//that.setData({
+			//	show_banner: true
+			//})
 			//callback()
 		})
 	},
@@ -57,8 +89,9 @@ Page({
 			on_show: false
 		})
 
-		app.syncSession().then(res => {
-			wx.startPullDownRefresh()
+		app.getUserInfo().then(res => {
+			//wx.startPullDownRefresh()
+			this.getPromotions()
 		})
 	},
 
@@ -72,9 +105,14 @@ Page({
 		})
 	},
 
-	toViewPromotionDetail: function (e) {
+	toViewDetail: function (e) {
+		var url
+		if (e.currentTarget.dataset.type === 'promotion')
+			url = `detail?id=${e.currentTarget.dataset.id}`
+		else
+			url = `../goods/detail?code=${e.currentTarget.dataset.code}`
 		wx.navigateTo({
-			url: `detail?id=${e.currentTarget.dataset.id}`
+			url: url
 		})
 	},
 
@@ -85,7 +123,7 @@ Page({
 	},
 
 	bannerImageLoad: function (e) {
-		
+
 	},
 
 	// 原生的分享功能

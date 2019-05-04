@@ -1,6 +1,6 @@
 // pages/my/order_detail.js
-import config from '../../config.js'
-import request from '../../utils/request.js'
+import config from '../../../config.js'
+import request from '../../../utils/request.js'
 
 const app = getApp()
 

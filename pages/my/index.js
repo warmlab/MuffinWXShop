@@ -1,52 +1,34 @@
 const app = getApp()
 
 Page({
-    data: {},
-    onLoad: function (e) {
-        console.log(app.globalData.userInfo)
-        this.setData({
-            userInfo: app.globalData.userInfo,
-            privilege: wx.getStorageSync('privilege')
-        })
-    },
+	data: {},
+	onLoad: function (e) {
+		var userInfo = wx.getStorageSync('appUserInfo')
+		this.setData({
+			userInfo: userInfo
+		})
+	},
 
-    toGetUserInfo: function(e) {
-        wx.setStorageSync('userInfo', JSON.parse(e.detail.rawData));
-        wx.setStorageSync('scope_userInfo', true);
-        app.globalData.userInfo = JSON.parse(e.detail.rawData);
-        app.globalData.scope_userInfo = true;
-        this.setData({
-            userInfo: app.globalData.userInfo
-        });
-    },
+	toGetUserInfo: function (e) {
+		var userInfo = wx.getStorageSync('appUserInfo');
+		userInfo.nickname = e.detail.userInfo.nickName
+		userInfo.avatarUrl = e.detail.userInfo.avatarUrl
+		wx.setStorageSync('appUserInfo', userInfo)
+		
+		this.setData({
+			userInfo: userInfo
+		})
+	},
 
-    manageAddress: function (e) {
-        wx.navigateTo({
-            url: 'addresses'
-        })
-    },
+	toViewAddress: function (e) {
+		wx.navigateTo({
+			url: 'address/index'
+		})
+	},
 
-    bindValuecard: function (e) {
-        wx.navigateTo({
-            url: 'valuecard'
-        })
-    },
-
-    manageProducts: function (e) {
-        wx.navigateTo({
-            url: '/pages/manage/products'
-        })
-    },
-
-    publishPromotion: function (e) {
-        wx.navigateTo({
-            url: '/pages/manage/promotion?id=0'
-        })
-    },
-
-    managePromotions: function (e) {
-        wx.navigateTo({
-            url: '/pages/manage/promotions'
-        })
-    }
+	bindValuecard: function (e) {
+		wx.navigateTo({
+			url: 'valuecard'
+		})
+	},
 });

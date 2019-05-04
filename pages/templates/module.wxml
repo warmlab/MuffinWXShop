@@ -1,0 +1,36 @@
+<template name="goods-list">
+		<view class="goods-area">
+				<view class="goods-remark" wx:if="{{summary}}">{{summary}}</view>
+				<view wx:for="{{goods}}" wx:key="id" class="goods-box" bindtap="toViewDetail" data-type="{{item.promotion_id?'promotion':'product'}}" data-id="{{item.promotion_id}}" data-code="{{item.code}}">
+						<view class="img-box">
+								<image src="{{base_image_url}}/{{item.images[0].image.name}}" class="image" mode="aspectFill" lazy-load="true" />
+								<view class="goods-title">{{item.name}}</view>
+						</view>
+						<view style="display:flex;">
+								<block wx:if="{{is_promote}}">
+										<view class="goods-price">Ұ{{item.promote_price/100}}</view>
+										<view class="goods-price original">¥{{item.price/100}}</view>
+								</block>
+								<block wx:else>
+										<view class="goods-price">Ұ{{item.price/100}}</view>
+								</block>
+								<view class="goods-price-naver" wx:if="{{item.sold && item.sold>0}}">已售{{item.sold}}</view>
+						</view>
+				</view>
+		</view>
+</template>
+<template name="goods-swiper">
+		<view class="swiper-container">
+				<swiper circular autoplay interval="8000" duration="500" bindchange="swiperChange" class="swiper">
+					<block wx:for="{{images}}" wx:key="id">
+						<swiper-item>
+								<image lazy-load="true" src="{{base_image_url}}/{{item.name}}" mode="aspectFit" />
+						</swiper-item>
+					</block>
+				</swiper>
+				<view class="dots">
+						<text>{{swiper_current+1}}</text>
+						<text>/{{images.length}}</text>
+				</view>
+		</view>
+</template>

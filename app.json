@@ -3,18 +3,18 @@
     "pages/topic/index",
     "pages/topic/detail",
     "pages/topic/product",
-    "pages/shop/index",
-    "pages/shop/cart",
-    "pages/shop/pre_order",
-    "pages/shop/product",
-    "pages/my/index",
-    "pages/my/orders",
-    "pages/my/order",
-    "pages/my/valuecard",
-    "pages/my/addresses",
-    "pages/my/address",
+    "pages/goods/index",
+    "pages/goods/detail",
+    "pages/cart/index",
+    "pages/cart/pre_order",
     "pages/pay/index",
-    "pages/pay/result"
+    "pages/pay/result",
+    "pages/my/index",
+    "pages/my/order/index",
+    "pages/my/order/detail",
+    "pages/my/valuecard",
+    "pages/my/address/index",
+    "pages/my/address/detail"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -31,20 +31,26 @@
     "list": [
       {
         "pagePath": "pages/topic/index",
-        "iconPath": "images/focus.png",
-        "selectedIconPath": "images/focus_sel.png",
-        "text": "团购"
+        "iconPath": "images/tabbar/shop.png",
+        "selectedIconPath": "images/tabbar/shop_sel.png",
+        "text": "首页"
       },
       {
-        "pagePath": "pages/shop/index",
-        "iconPath": "images/shop.png",
-        "selectedIconPath": "images/shop_sel.png",
+        "pagePath": "pages/goods/index",
+        "iconPath": "images/tabbar/focus.png",
+        "selectedIconPath": "images/tabbar/focus_sel.png",
         "text": "店铺"
       },
       {
+        "pagePath": "pages/cart/index",
+        "iconPath": "images/tabbar/cart.png",
+        "selectedIconPath": "images/tabbar/cart_sel.png",
+        "text": "购物车"
+      },
+      {
         "pagePath": "pages/my/index",
-        "iconPath": "images/me.png",
-        "selectedIconPath": "images/me_sel.png",
+        "iconPath": "images/tabbar/me.png",
+        "selectedIconPath": "images/tabbar/me_sel.png",
         "text": "我的"
       }
     ]
