@@ -97,7 +97,7 @@ Page({
 
 	onShow: function (res) {
 		if (this.data.on_show) {
-			wx.startPullDownRefresh()
+			this.getPromotions()
 		}
 
 		this.setData({

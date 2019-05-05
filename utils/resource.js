@@ -44,11 +44,28 @@ const getSizes = () => {
 	})
 }
 
+const downloadImage = (url, resolve, reject) => {
+	wx.downloadFile({
+		url: url,
+		success: res => {
+			if (res.statusCode === 200) {
+				var path = res.tempFilePath
+				resolve(path)
+			} else
+				reject(res)
+		},
+		fail: err => {
+			reject(err)
+		}
+	})
+}
+
 export {
 	WEB_ALLOWED,
 	POS_ALLOWED,
 	PROMOTE_ALLOWED,
 	getShopInfo,
 	getCategories,
-	getSizes
+	getSizes,
+	downloadImage
 }

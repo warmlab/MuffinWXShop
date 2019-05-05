@@ -28,4 +28,4 @@
 		</view>
 </view>
 <view class="goods-message">{{promotions.length === 0?'小麦芬推荐商品':'小麦芬团购进行中...'}}</view>
-<template is="goods-list" data="{{goods: goods, base_image_url: base_image_url, is_promote: promotion.length>0}}"/>
+<template is="goods-list" data="{{goods: goods, base_image_url: base_image_url, is_promote: promotions.length>0}}"/>

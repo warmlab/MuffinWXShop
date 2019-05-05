@@ -1,6 +1,7 @@
 const util = require('../../utils/util.js');
 import config from '../../config.js'
 import request from '../../utils/request.js'
+import MyCanvas from '../../utils/canvas.js'
 
 const app = getApp();
 
@@ -15,10 +16,14 @@ Page({
 		delivery_address: 0,
 		payment: 4,
 		note: '',
-		current_height: 220
+		current_height: 220,
+		canvas_id: 'shareCanvas'
 	},
 
 	onShareAppMessage: function (res) {
+		this.setData({
+			share_show: false,
+		})
 		return {
 			title: this.data.promotion.name,
 			path: `/pages/topic/detail?id=${this.data.id}`,
@@ -191,6 +196,24 @@ Page({
 		});
 	},
 
+	openShareArea: function (e) {
+		this.setData({
+			share_show: true
+		})
+	},
+
+	closeShareArea: function (e) {
+		this.setData({
+			share_show: false
+		})
+	},
+
+	toHomeTab: function (e) {
+		wx.switchTab({
+			url: '/pages/topic/index'
+		})
+	},
+
 	productDetail: function (e) {
 		wx.navigateTo({
 			url: `../goods/detail?code=${e.currentTarget.dataset.code}`
@@ -309,6 +332,41 @@ Page({
 		});
 	},
 
+	afterGenerateImage: function (path) {
+		this.setData({
+			qrcode: path,
+			share_show: false
+		})
+	},
+
+	generateShareImage: function (e) {
+		var that = this
+		var qrcode = that.data.qrcode
+		if (qrcode) {
+			//如果已经生成过，直接显示
+			that.setData({
+				openShare: false
+			})
+			wx.saveImageToPhotosAlbum({
+				filePath: qrcode,
+				success: r => {
+					wx.showModal({
+						title: '团购海报图片',
+						content: '已成功保存到相册，请到系统相册查看',
+						showCancel: false
+					})
+				}
+			})
+
+			return
+		}
+
+		var canvas = new MyCanvas(that, '/pages/topic/detail', 'promotion',
+			that.data.canvas_id, that.data.promotion.id, that.data.promotion.name, that.data.promotion.note, this.data.products[0].product.promote_price,
+			`${config.base_image_url}/${that.data.products[0].product.images[0].image.name}`, this.afterGenerateImage)
+		canvas.generateImage()
+	},
+
 	toJoinIn: function (e) {
 		var that = this;
 		var products = [];
@@ -325,7 +383,6 @@ Page({
 		});
 
 		console.log('the products being want to buy', products)
-
 		if (products.length <= 0) {
 			wx.showModal({
 				title: '选购商品',

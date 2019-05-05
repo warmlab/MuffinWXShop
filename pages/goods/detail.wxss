@@ -357,37 +357,3 @@ view.bottom {
 .amount-area .button {
   width: 50%;
 }
-
-.attr-pop .share-area {
-	display: flex;
-
-}
-
-.share-item {
-  height: 100%;
-  min-width: 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-	align-items: center;
-	padding: 100rpx 0;
-}
-
-.share-item image {
-  width: 128rpx;
-  height: 128rpx;
-}
-
-.share-item text {
-  font-size: 30rpx;
-}
-
-.share-item button {
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  height: 100%;
-  width: 50%;
-}

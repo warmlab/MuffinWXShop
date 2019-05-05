@@ -11,11 +11,19 @@
 	width: 97%;
 }
 
+/*
 .form-title-line text {
 	flex: 1;
 	color: #09bb07;
 	font-size: 44rpx;
 	margin-left: 12rpx;
+}*/
+
+.to-share {
+	position:absolute;
+	right:10rpx;
+	height:64rpx;
+	width:64rpx;
 }
 
 .form-content {
@@ -25,7 +33,6 @@
 }
 
 .form-content .content {
-	font-size: 28rpx;
 }
 
 .title-summary {
@@ -69,6 +76,7 @@
 .name-area .name .title {
 	font-size: 32rpx;
 	font-weight: bold;
+	overflow: hidden;
 }
 
 .name-area .name .sold {
@@ -159,8 +167,8 @@ textarea {
 }
 
 .line-button {
-	width: 110%;
-	margin-left: -5%;
+	width: 100%;
+	font-size: 36rpx;
 }
 
 .orders {
@@ -259,4 +267,120 @@ textarea {
 .user-list .user-item .detail {
 	flex: 1;
 	color: #888888;
+}
+
+.share-area {
+	position: fixed;
+	bottom: 40rpx;
+	right: 10rpx;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: flex-end;
+	height: 260rpx;
+	z-index: 20;
+}
+
+.share-area .share-tips {
+  width: 160rpx;
+  height: 60rpx;
+  line-height: 56rpx;
+  background: #88dd88;
+  border: 1px solid #09bb07;
+  border-radius: 4px;
+  text-align: center;
+  color: #27323f;
+  font-size: 26rpx;
+  transition: all 0.6s;
+}
+
+.share-area .share-tips .arrow {
+  position: absolute;
+  color: #88dd88;
+  width: 0px;
+  height: 0px;
+  line-height: 0px;
+  border-width: 30rpx 22rpx 0;
+  border-style: solid dashed dashed dashed;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  right: 10rpx;
+}
+
+.share-area .share-tips .arrow-bg {
+  color: #88dd88;
+  right: 10rpx;
+}
+
+.share-area .share-tips .arrow-border {
+  color: #09bb07;
+  right: 10rpx;
+}
+
+.share-button {
+  background-color: #88dd88;
+  border:1rpx solid #09bb07;
+  border-radius: 50%;
+  width: 66rpx;
+  height: 66rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2rpx 10rpx #e2e2e2;
+}
+
+.share-button.share-gohome {
+  bottom: 110rpx;
+}
+
+.share-button.share-home {
+  bottom: 160rpx;
+}
+
+.share-button image {
+  width:46rpx;
+  height: 46rpx;
+}
+
+.attr-pop-box {
+  width: 100%;
+  height: 100%;
+  margin:0;
+  position: fixed;
+  background: #00000080;
+  z-index: 20;
+	bottom: 0;
+	font-size: 30rpx;
+  /* display: none; */
+}
+
+.attr-pop-box .attr-pop {
+  display:flex;
+  flex-direction:column;
+	width: 100%;
+  height: auto;
+  max-height: 780rpx;
+  background: #fff;
+  position: fixed;
+  bottom: 0;
+  overflow-y: auto;
+}
+
+.attr-pop .close {
+  width: 97%;
+  overflow: hidden;
+	text-align: right;
+	margin-top: 12rpx;
+}
+
+.attr-pop .confirm {
+	width: 100%;
+	margin-top: 40rpx;
+	color: #fff;
+	font-size: 30rpx;
+	background-color: #09bb07;
+	height: 90rpx;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }

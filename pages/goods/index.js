@@ -60,7 +60,7 @@ Page({
 	onLoad: function (options) {
 		var that = this
 		app.getUserInfo().then(res => {
-			wx.startPullDownRefresh()
+			that.syncProductInfo()
 			that.syncCartInfo()
 		})
 	},
@@ -155,6 +155,10 @@ Page({
 	 * 页面相关事件处理函数--监听用户下拉动作
 	 */
 	onPullDownRefresh: function () {
+		this.syncProductInfo()
+	},
+
+	syncProductInfo: function() {
 		var that = this;
 		wx.showNavigationBarLoading()
 		getCategories().then(categories => {

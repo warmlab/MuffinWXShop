@@ -4,8 +4,8 @@
 <view class="title-summary"><text>{{promotion.note}}</text></view>
 <form bindsubmit="toJoinIn" report-submit='true' id="promotionform">
 		<view class="form-title-line">
-				团品信息
-				<block wx:if="{{promotion.binding}}">(需组合购买)</block>
+				<text>团品信息
+				<block wx:if="{{promotion.binding}}">(需组合购买)</block></text>
 		</view>
 		<view class="item" wx:for="{{products}}" wx:key="id" data-id="{{item.id}}">
 				<image class="image" src="{{base_image_url}}/{{item.product.images[0].image.name}}" mode="scaleToFill" bindtap="productDetail" data-code="{{item.product.code}}" data-index="{{index}}" />
@@ -76,6 +76,24 @@
 		<button type="primary" formType="submit" class="line-button" wx:if="{{!!userInfo.nickname}}">参团</button>
 		<button open-type="getUserInfo" type="warn" class="line-button" bindgetuserinfo="toGetUserInfo" wx:else>点击登录</button>
 </form>
+<view class="share-area">
+  <!--view wx:if="{{goods.share_info > 0 && goods.status === 1}}" class="share-tips"-->
+  <view class="share-tips">
+    <view class="tips-text">分享给好友</view>
+    <view class="arrow"></view>
+    <view class="arrow arrow-border"></view>
+    <view class="arrow arrow-bg"></view>
+  </view>
+  <!-- 分享按钮 -->
+  <!--view wx:if="{{goods.share_info > 0 && goods.status === 1}}" class="share-button" bindtap="goShareboxTap"-->
+  <view class="share-button" bindtap="openShareArea">
+    <image src="../../images/share.png" />
+  </view>
+  <!-- 回首页按钮 -->
+  <view class="share-button" bindtap="toHomeTab">
+    <image src="../../images/tabbar/shop.png" />
+  </view>
+</view>
 <view wx:if="{{my_orders.length>0}}">
 		<view class="form-title-line">我的团</view>
 		<view class="orders">
@@ -107,4 +125,23 @@
 				</view>
 		</scroll-view>
 </view>
+		<view class="attr-pop-box" hidden="{{!share_show}}">
+			<view class="attr-pop">
+						<view class="close" bindtap="closeShareArea">
+								<text class="fas fa-times red-color" />
+						</view>
+					<view style="display:flex;flex-direction: row">
+					<view class="share-item">
+							<image src="../../images/wechat.png"/>
+							<text>分享给好友</text>
+							<button open-type="share"/>
+					</view>
+					<view class="share-item" bindtap="generateShareImage">
+							<image src="../../images/moments.png"/>
+							<text>生成商品海报</text>
+					</view>
+					</view>
+			</view>
+		</view>
+<canvas canvas-id="shareCanvas" style="width:600px;height:1100px;opacity:0;position:fixed;left:-1100px;top:-1100px;"></canvas>
 </block>

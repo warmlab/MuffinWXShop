@@ -8,7 +8,7 @@ import {
 
 import config from '../../config.js'
 import request from '../../utils/request.js'
-import drawCanvas from '../../utils/canvas.js'
+import MyCanvas from '../../utils/canvas.js'
 
 Page({
 
@@ -22,7 +22,8 @@ Page({
 		size: 0,
 		current_size: null,
 		openShare: false,
-		openAttr: false
+		openAttr: false,
+		canvas_id: 'shareCanvas'
 	},
 
 	/**
@@ -247,6 +248,9 @@ Page({
 	 * 用户点击右上角分享
 	 */
 	onShareAppMessage: function () {
+		this.setData({
+			openShare: false
+		})
 		if (this.data.product)
 			return {
 				title: this.data.product.name,
@@ -259,22 +263,28 @@ Page({
 			}
 	},
 
+	afterGenerateImage: function (path) {
+		this.setData({
+			qrcode: path,
+			openShare: false
+		})
+	},
+
 	generateShareImage: function (e) {
 		var that = this
 		var qrcode = that.data.qrcode
-		var user = wx.getStorageSync('appUserInfo').openid
 		if (qrcode) {
 			//如果已经生成过，直接显示
 			that.setData({
-				codeMask: true
+				openShare: false
 			})
 			wx.saveImageToPhotosAlbum({
 				filePath: qrcode,
 				success: r => {
-					wx.showToast({
-						title: '保存成功',
-						icon: 'success',
-						duration: 2000
+					wx.showModal({
+						title: '商品海报图片',
+						content: '已成功保存到相册，请到系统相册查看',
+						showCancel: false
 					})
 				}
 			})
@@ -282,72 +292,9 @@ Page({
 			return
 		}
 
-		var data = that.data.product
-		var user = wx.getStorageSync('appUserInfo')
-		wx.showLoading({
-			title: '正在准备生成'
-		})
-		//下载商品海报
-		wx.downloadFile({
-			url: `${config.base_image_url}/${that.data.banners[0].name}`,
-			success: pic => {
-				if (pic.statusCode === 200) {
-					//商品海报图片
-					var pictmp = pic.tempFilePath;
-					wx.showLoading({
-						title: '生成小程序码'
-					})
-					request.post('qrcode', {
-						//type: 'qr',
-						//scene: 'product=' + data.id + ',user=' + user.openid + ',s=1',
-						product: data.code,
-						path: '/pages/shop/product'
-					}).then(res => {
-						console.log('qrcode', res)
-						if (res.statusCode === 200) {
-							wx.showLoading({
-								title: '下载小程序码'
-							});
-							wx.downloadFile({
-								url: `${config.base_image_url}/${res.data.qr_image_path}`,
-								success: qr => {
-									if (qr.statusCode === 200) {
-										drawCanvas(that, 'shareCanvas', user.nickname, pictmp, data.name, data.summary, data.price, qr.tempFilePath, user.avatarUrl, false)
-									}
-								},
-								fail: err => {
-									console.error('download generated mini program code error')
-									wx.hideLoading()
-									wx.showModal({
-										title: "错误",
-										content: "下载生成的小程序码出错",
-										showCancel: false
-									})
-								}
-							})
-						} else {
-							that.generateShareImage()
-						}
-					}).catch(err => {
-						console.error('generate mini program code error', err)
-						wx.hideLoading()
-						wx.showModal({
-							title: "错误",
-							content: "生成小程序码出错",
-							showCancel: false
-						})
-					})
-				}
-			},
-			fail: err => {
-				console.error('download goods image error')
-				wx.hideLoading()
-				wx.showModal({
-					title: "错误",
-					content: "下载商品海报图片出错",
-					showCancel: false
-				})
-			}
-		})
-	},
+		var canvas = new MyCanvas(that, '/pages/goods/detail', 'product',
+			that.data.canvas_id, that.data.product.id, that.data.product.name, that.data.product.summary,that.data.product.price,
+			`${config.base_image_url}/${that.data.banners[0].name}`, this.afterGenerateImage)
+		canvas.generateImage()
+	}
 })
