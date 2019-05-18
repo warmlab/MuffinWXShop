@@ -293,7 +293,7 @@ Page({
 		}
 
 		var canvas = new MyCanvas(that, '/pages/goods/detail', 'product',
-			that.data.canvas_id, that.data.product.id, that.data.product.name, that.data.product.summary,that.data.product.price,
+			that.data.canvas_id, that.data.product.id, that.data.product.name, that.data.product.summary,that.data.product.price,that.data.product.price,
 			`${config.base_image_url}/${that.data.banners[0].name}`, this.afterGenerateImage)
 		canvas.generateImage()
 	}

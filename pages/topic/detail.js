@@ -362,7 +362,7 @@ Page({
 		}
 
 		var canvas = new MyCanvas(that, '/pages/topic/detail', 'promotion',
-			that.data.canvas_id, that.data.promotion.id, that.data.promotion.name, that.data.promotion.note, this.data.products[0].product.promote_price,
+			that.data.canvas_id, that.data.promotion.id, that.data.promotion.name, that.data.promotion.note, this.data.products[0].product.price, this.data.products[0].product.promote_price,
 			`${config.base_image_url}/${that.data.products[0].product.images[0].image.name}`, this.afterGenerateImage)
 		canvas.generateImage()
 	},
@@ -414,6 +414,7 @@ Page({
 			return;
 		}
 
+		var userInfo = wx.getStorageSync('appUserInfo')
 		var data = {
 			promotion_id: this.data.promotion.id,
 			//openid: wx.getStorageSync('openid'),
@@ -421,8 +422,10 @@ Page({
 			delivery_way: this.data.delivery_way,
 			address: this.data.delivery_way === 1 ? this.data.pickup_address : this.data.delivery_address,
 			note: e.detail.value.note,
-			nickname: app.globalData.userInfo.nickName,
-			avatarUrl: app.globalData.userInfo.avatarUrl
+			nickname: userInfo.nickname,
+			avatarUrl: userInfo.avatarUrl
+			//nickname: userInfo.nickName,
+			//avatarUrl: app.globalData.userInfo.avatarUrl
 			//formId: e.detail.formId,
 		}
 

@@ -142,5 +142,5 @@
 				<view class="long buy" bindtap="openAttrDialog" data-type="immediate">立即购买</view>
 		</view>
 <!-- canvas海报 -->
-<canvas canvas-id="shareCanvas" style="width:600px;height:1100px;opacity:0;position:fixed;left:-1100px;top:-1100px;"></canvas>
+<canvas canvas-id="shareCanvas" style="width:600px;height:1000px;opacity:0;position:fixed;left:-1000px;top:-1000px;"></canvas>
 </block>

@@ -71,7 +71,7 @@
 		</view>
 		<view class="form-line">
 				<text class="title">备注</text>
-				<textarea class="note" name="note" placeholder="房号或者还想买点啥，我们会随团品一起预留" value="{{my_order.note}}" />
+				<input name="note" placeholder="房号或还想买点啥，我们会一起预留" value="{{my_order.note}}" />
 		</view>
 		<button type="primary" formType="submit" class="line-button" wx:if="{{!!userInfo.nickname}}">参团</button>
 		<button open-type="getUserInfo" type="warn" class="line-button" bindgetuserinfo="toGetUserInfo" wx:else>点击登录</button>
@@ -143,5 +143,5 @@
 					</view>
 			</view>
 		</view>
-<canvas canvas-id="shareCanvas" style="width:600px;height:1100px;opacity:0;position:fixed;left:-1100px;top:-1100px;"></canvas>
+<canvas canvas-id="shareCanvas" style="width:600px;height:1000px;opacity:0;position:fixed;left:-1000px;top:-1000px;"></canvas>
 </block>

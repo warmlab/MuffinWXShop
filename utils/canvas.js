@@ -5,8 +5,8 @@ import {
 } from '../utils/resource.js';
 
 class MyCanvas {
-	constructor(target, path, type, canvas_id, obj_id, name, summary, price, image_url, callback) {
-		console.log(target, path, type, canvas_id, obj_id, name, summary, price, image_url, callback)
+	constructor(target, path, type, canvas_id, obj_id, name, summary, price, promote_price, image_url, callback) {
+		console.log(target, path, type, canvas_id, obj_id, name, summary, price, promote_price, image_url, callback)
 		this.target = target
 		this.path = path
 		this.type = type
@@ -15,11 +15,91 @@ class MyCanvas {
 		this.name = name
 		this.summary = summary
 		this.price = price
+		this.promote_price = promote_price
 		this.image_url = image_url
 		this.callback = callback
 	}
 
-	drawCanvas(nickname, pic, qrimage, avatar) {
+	drawCanvas(logo, pic, qrimage) {
+		wx.showLoading({
+			title: '绘制海报图片'
+		})
+		var ctxs = wx.createCanvasContext(this.canvas_id)
+		ctxs.setFillStyle('#ffffff')
+		ctxs.fillRect(0, 0, 600, 1000)
+		// 产品图片
+		ctxs.drawImage(pic, 0, 0, 600, 600)
+
+		// 名称
+		ctxs.setFillStyle('#353535')
+		ctxs.setFontSize(28)
+		ctxs.setTextAlign('left')
+		ctxs.fillText(this.name, 20, 640, 560)
+
+		// 摘要
+		ctxs.setFillStyle('#7b8196')
+		ctxs.setFontSize(22)
+		ctxs.fillText(this.summary.slice(0, 26), 20, 680, 560)
+		ctxs.fillText(this.summary.slice(26, 50), 20, 710, 560)
+
+		// 产品促销价格
+		ctxs.setFillStyle('#6c2727')
+		ctxs.setFontSize(56)
+		var price = '¥' + (this.promote_price / 100)
+		var start = ctxs.measureText(price).width
+		ctxs.fillText(price, 20, 780)
+
+		if (this.promote_price < this.price) {
+			// 产品价格
+			ctxs.setFillStyle('#7b8196')
+			ctxs.setFontSize(28)
+			price = '¥' + (this.price / 100)
+			ctxs.fillText(price, 40 + start, 780)
+			var end = ctxs.measureText(price).width
+			ctxs.beginPath()
+			ctxs.setStrokeStyle('#7b8196')
+			ctxs.setLineWidth(2)
+			ctxs.moveTo(40+start-5, 770)
+			ctxs.lineTo(40+start+end+5, 770)
+			ctxs.stroke()
+		}
+
+		// 小程序码
+		ctxs.drawImage(qrimage, 340, 740, 240, 240)
+
+		ctxs.setFillStyle('#353535')
+		ctxs.setFontSize(24)
+		ctxs.fillText('长按图片，识别小程序码 >>', 20, 880)
+		ctxs.setFillStyle('#7b8196')
+		if (this.type === 'promotion')
+			ctxs.fillText('查看团购详情信息', 20, 920)
+		else
+			ctxs.fillText('查看商品详情信息', 20, 920)
+
+		// logo
+		/* TODO
+		ctxs.setFillStyle('#722a28')
+		ctxs.fillRect(20, 0, 120, 150)	
+		ctxs.setTextAlign('center')
+		ctxs.setFillStyle('#ffffff')
+		ctxs.fillText('小麦芬', 80, 130)
+		ctxs.beginPath()
+		ctxs.arc(80, 50, 40, 0, 2 * Math.PI)
+		ctxs.fill()
+		ctxs.clip()
+		ctxs.drawImage(logo, 40, 10, 80, 80)
+		ctxs.restore()
+		*/
+
+		ctxs.save()
+
+		var that = this
+		ctxs.draw(false, function () {
+			that.finishDraw()
+		})
+	}
+
+	drawCanvas2(nickname, pic, qrimage, avatar) {
 		console.log(nickname, pic, qrimage, avatar)
 		wx.showLoading({
 			title: '绘制海报图片'
@@ -145,9 +225,11 @@ class MyCanvas {
 					wx.showLoading({
 						title: '下载小程序码',
 						mask: true
-					});
+					})
 					downloadImage(`${config.base_image_url}/${res.data.qr_image_path}`,
 						function (qr_path) {
+							that.drawCanvas('/images/logo.png', path, qr_path)
+							/*
 							if (user.avatarUrl) {
 								downloadImage(user.avatarUrl,
 									function (avatar) {
@@ -165,6 +247,7 @@ class MyCanvas {
 							} else {
 								that.drawCanvas(user.nickname, path, qr_path, '/images/logo.png')
 							}
+							*/
 						},
 						function (err) {
 							console.error('download generated mini program code error', err)
