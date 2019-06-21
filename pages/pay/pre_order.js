@@ -13,7 +13,8 @@ Page({
 		base_image_url: config.base_image_url,
 		delivery_way: 1,
 		pickup_address: 0,
-		delivery_address: 0
+		delivery_address: 0,
+		pickup_index: -1
 	},
 
 	getAddresses: function () {
@@ -109,7 +110,7 @@ Page({
 
 	handleDeliveryChange: function (e) {
 		this.setData({
-			delivery_method: e.detail.value
+			delivery_way: e.detail.value
 		})
 	},
 
@@ -174,10 +175,9 @@ Page({
 			return;
 		}
 
-		// 快递/自提模式
-		if (this.data.delivery_way === 1 && this.data.pickup_address === 0) {
+		if (this.data.cur_addr === 0) {
 			wx.showToast({
-				title: '自提地址需要选择',
+				title: '请选择个人地址信息',
 				icon: 'none',
 				duration: 2000
 			});
@@ -185,9 +185,10 @@ Page({
 			return;
 		}
 
-		if (this.data.delivery_way === 2 && this.data.delivery_address === 0) {
+		// 快递/自提模式
+		if (this.data.delivery_way == 1 && this.data.pickup_index === -1) {
 			wx.showToast({
-				title: '快递地址需要选择',
+				title: '请选择自提点',
 				icon: 'none',
 				duration: 2000
 			});
@@ -205,14 +206,15 @@ Page({
 		})
 
 		var data = {
-			promotion_id: 0,
+			//promotion_id: 0,
 			//openid: wx.getStorageSync('openid'),
 			products: ps,
 			delivery_way: this.data.delivery_way,
-			address: this.data.delivery_way === 1 ? this.data.pickup_address : this.data.delivery_address,
+			address: this.data.cur_addr,
+			pickup_address: this.data.pickup_index>=0?this.data.pickup_addresses[this.data.pickup_index].id,
 			note: e.detail.value.note,
-			nickname: app.globalData.userInfo.nickname,
-			avatarUrl: app.globalData.userInfo.avatarUrl
+			nickname: this.data.userInfo.nickname,
+			avatarUrl: this.data.userInfo.avatarUrl
 			//formId: e.detail.formId,
 		}
 

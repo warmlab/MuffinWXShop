@@ -27,6 +27,25 @@
     color: #999;
 }
 
+.address-empty {
+  display: flex;
+  margin: 20rpx;
+}
+
+.address-empty .icon {
+  display: flex;
+  align-items: center;
+  border: 1rpx solid #718196;
+  border-radius: 8rpx;
+  padding: 20rpx;
+}
+
+.address-empty .label {
+  flex-grow: 1;
+  justify-content: flex-start;
+  margin-left: 20rpx;
+}
+
 .address-area {
 	display: flex;
 }
@@ -83,6 +102,7 @@
   display: flex;
   flex-direction: column;
   border-top: 1rpx solid #f5f5f5;
+  border-bottom: 10rpx solid #e5e5e5;
 }
 
 .delivery-area .delivery-header {
@@ -134,7 +154,7 @@
 .pickup-area {
   display: flex;
   flex-direction: column;
-  border-top: 20rpx solid #e5e5e5;
+  border-bottom: 10rpx solid #e5e5e5;
 }
 
 .pickup-area .pickup-header {
@@ -191,6 +211,20 @@
   font-size: 24rpx;
 }
 
+.goods-title {
+  display: flex;
+  flex: column;
+  padding: 16rpx;
+}
+
+.goods-title .goods-name {
+  flex: 1;
+}
+
+.goods-title .goods-price {
+  display: flex;
+}
+
 .cart-view{
     width: 100%;
     height: auto;
@@ -217,40 +251,42 @@
     border: thin solid #f4f4f4;
     background-color: #f4f4f4;
     margin-bottom: 10rpx;
+    align-items: center;
 }
 
 .item .image {
-    width: 40%;
-    height: 300rpx;
+    width: 25%;
+    height: 200rpx;
 }
 
 .item .summary-area {
-    width: 60%;
-    padding-left: 10rpx;
-    font-size: 24rpx;
-    /*height: 100%;*/
+  display: flex;
+  padding-left: 10rpx;
+  font-size: 30rpx;
+  font-weight: bold;
+  flex-grow: 1;
 }
 
 .item .summary-area .name-area {
-    height: 80%;
+  flex-grow: 1;
 }
 
 .item .summary-area .amount-area {
-    display: flex;
-    flex-direction: row;
-    width: 40%;
-    height: 20%;
-    float: right;
+  display: flex;
+  margin:10rpx 20rpx;
+  align-items: center;
 }
 
 .name-area .name {
-    font-weight: bold;
-    margin-top:10rpx;
-
+  font-weight: bold;
+  margin-top:10rpx;
+  font-size: 30rpx;
 }
 
 .name-area .price {
-    font-weight: bold;
+  font-weight: bold;
+  font-size: 32rpx;
+  margin-top: 20rpx;
 }
 
 .name-area .summary {
@@ -259,15 +295,6 @@
 }
 
 .amount-area .amount{
-    flex: 1;
-    height: 100%;
-    text-align: center;
-    font-size: 30rpx;
-    font-weight: bold;
-    /*line-height: 68.75rpx;
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
-    float: left;*/
 }
 
 .amount-area .cut {
