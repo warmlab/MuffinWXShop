@@ -57,8 +57,8 @@ Page({
 					if (max_amount > ele.stock) {
 						max_amount = ele.stock;
 					}
-					if (ele.product.summary.length > 40)
-						ele.product.summary = ele.product.summary.slice(0, 37) + '...'
+					if (ele.product.summary.length > 53)
+						ele.product.summary = ele.product.summary.slice(0, 50) + '...'
 					products.push(ele)
 				}
 			});
@@ -102,7 +102,8 @@ Page({
 
 	onPullDownRefresh: function (e) {
 		//wx.startPullDownRefresh()
-		//this.getPromotion()
+		this.getPromotion()
+		this.syncAddresses()
 	},
 
 	onLoad: function (res) {
@@ -160,6 +161,8 @@ Page({
 					break;
 				}
 			}
+
+		wx.stopPullDownRefresh()
 	},
 
 	syncOrders: function (e) {
@@ -372,14 +375,15 @@ Page({
 		var products = [];
 
 		this.data.products.forEach(function (item) {
-			if (item.want_amount > 0)
-				products.push({
-					want_amount: item.want_amount,
-					want_size: item.want_size ? item.want_size.size.id : 0,
-					//price: item.price,
-					id: item.product.id,
-					code: item.product.code
-				});
+			console.log(item)
+			if (item.want_amount > 0) {
+				var p = item.product
+				p.promotion_id = that.data.promotion.id
+				p.want_amount = item.want_amount
+				p.want_size = item.want_size ? item.want_size.size.id : 0
+				p.checked = true
+				products.push(p);
+			}
 		});
 
 		console.log('the products being want to buy', products)
@@ -393,7 +397,16 @@ Page({
 			return;
 		}
 
+		wx.setStorageSync('cart', {
+			products: products,
+		})
+
+		wx.navigateTo({
+			url: "../pay/pre_order?type=cart"
+		})
+
 		// 快递/自提模式
+		/*
 		if (this.data.delivery_way === 1 && this.data.pickup_address === 0) {
 			wx.showModal({
 				title: '提货地址',
@@ -413,15 +426,17 @@ Page({
 
 			return;
 		}
+		*/
 
+		/*
 		var userInfo = wx.getStorageSync('appUserInfo')
 		var data = {
 			promotion_id: this.data.promotion.id,
 			//openid: wx.getStorageSync('openid'),
 			products: products,
-			delivery_way: this.data.delivery_way,
-			address: this.data.delivery_way === 1 ? this.data.pickup_address : this.data.delivery_address,
-			note: e.detail.value.note,
+			//delivery_way: this.data.delivery_way,
+			//address: this.data.delivery_way === 1 ? this.data.pickup_address : this.data.delivery_address,
+			//note: e.detail.value.note,
 			nickname: userInfo.nickname,
 			avatarUrl: userInfo.avatarUrl
 			//nickname: userInfo.nickName,
@@ -440,5 +455,6 @@ Page({
 			}).catch(err => {
 
 			});
+		*/
 	}
 });

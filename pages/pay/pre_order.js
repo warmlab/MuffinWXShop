@@ -29,7 +29,7 @@ Page({
 		})
 	},
 
-	getMemberAddresses: function() {
+	getMemberAddresses: function () {
 		var that = this
 		request.get('openid/addresses').then(res => {
 			var delivery_address = 0;
@@ -38,6 +38,7 @@ Page({
 					delivery_address = a.id
 			that.setData({
 				addresses: res.data,
+				cur_addr: res.data[0],
 				delivery_address: delivery_address
 			})
 		}).catch(err => {
@@ -64,18 +65,22 @@ Page({
 				amount: 0,
 				cost: 0
 			}
-			wx.setStorageSync(option.type, cart)
+			wx.setStorageSync(options.type, cart)
 		}
 
 		var cost = 0
 		var products = []
 		var product_ids = []
 		cart.products.forEach(ele => {
+			console.log('aaa', ele)
 			if (ele.checked) {
 				products.push(ele)
 				product_ids.push(ele.id)
 				if (ele.want_size)
 					cost += (ele.price + ele.want_size.price_plus) * ele.want_amount
+				else
+				if (ele.promotion_id > 0)
+					cost += ele.promote_price * ele.want_amount
 				else
 					cost += ele.price * ele.want_amount
 			}
@@ -93,6 +98,38 @@ Page({
 
 	onShow: function (e) {
 		this.getMemberAddresses()
+	},
+
+	deliveryMethodTap: function (e) {
+		this.setData({
+			delivery_show: !this.data.delivery_show,
+		})
+	},
+
+
+	handleDeliveryChange: function (e) {
+		this.setData({
+			delivery_method: e.detail.value
+		})
+	},
+
+	pickupAddressTap: function (e) {
+		this.setData({
+			pickup_show: !this.data.pickup_show,
+		})
+	},
+
+	getAddressTap: function () {
+		wx.navigateTo({
+			url: "/pages/my/address/index?type=select_address"
+		})
+	},
+
+	pickupAddressChange: function (e) {
+		var index = e.detail.value
+		this.setData({
+			pickup_index: index
+		})
 	},
 
 	addressChange: function (e) {
@@ -174,7 +211,7 @@ Page({
 			delivery_way: this.data.delivery_way,
 			address: this.data.delivery_way === 1 ? this.data.pickup_address : this.data.delivery_address,
 			note: e.detail.value.note,
-			nickname: app.globalData.userInfo.nickName,
+			nickname: app.globalData.userInfo.nickname,
 			avatarUrl: app.globalData.userInfo.avatarUrl
 			//formId: e.detail.formId,
 		}

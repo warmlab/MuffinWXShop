@@ -21,7 +21,6 @@ Page({
 			extra: true
 		}).then(res => {
 			// order code get total cost and promotion id is to determine whether or not the promotion was finished
-			console.log('order: ', res.data);
 			var payments = []
 			if (res.data.payment & 2)
 				payments.push({
@@ -33,11 +32,12 @@ Page({
 					value: 4,
 					name: '微信支付'
 				})
-			if (res.data.payment & 8)
-				payments.push({
-					value: 8,
-					name: '支付宝支付'
-				})
+			// TODO 微信小程序不支持alipay
+			//if (res.data.payment & 8)
+			//	payments.push({
+			//		value: 8,
+			//		name: '支付宝支付'
+			//	})
 			that.setData({
 				order: res.data,
 				payments: payments
@@ -105,13 +105,11 @@ Page({
 			mobile: e.detail.value.mobile,
 			formId: e.detail.formId
 		}).then(res => {
-			console.log('bbbb', res)
 			if (res.statusCode === 201) {
 				if (res.data.payment.payment === 2) { // pay by value card
 					// TODO that.sendJoinSuccessfullInfo(wx.getStorageSync('openid'), res.data.order, app.globalData.formIds.pop());
 					//that.sendPaidMessage(app.globalData.openid, res.data.order, res.data.payment, e.detail.formId);
 					//wx.navigateTo({
-					console.log('aaaaaaaaa', res)
 					wx.redirectTo({
 						url: 'result?status=success&code=' + that.data.order.code
 					})

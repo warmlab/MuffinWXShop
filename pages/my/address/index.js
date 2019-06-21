@@ -70,21 +70,18 @@ Page({
 		// console.log('点击删除', event)
 		let that = this;
 		wx.showModal({
-			title: '',
+			title: '删除地址',
 			content: '确定要删除地址？',
 			success: function (res) {
 				if (res.confirm) {
 					console.log(e)
 					request.delete('openid/address', {
-							openid: app.globalData.openid,
-							id: e.currentTarget.dataset.id
-						})
-						.then(res => {
-							that.syncAddresses();
-						})
-						.catch(err => {
-							console.log(err);
-						})
+						id: e.currentTarget.dataset.id
+					}).then(res => {
+						that.syncAddresses();
+					}).catch(err => {
+						console.log(err);
+					})
 				}
 			}
 		})

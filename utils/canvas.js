@@ -6,14 +6,13 @@ import {
 
 class MyCanvas {
 	constructor(target, path, type, canvas_id, obj_id, name, summary, price, promote_price, image_url, callback) {
-		console.log(target, path, type, canvas_id, obj_id, name, summary, price, promote_price, image_url, callback)
 		this.target = target
 		this.path = path
 		this.type = type
 		this.canvas_id = canvas_id
 		this.id = obj_id
 		this.name = name
-		this.summary = summary
+		this.summary = summary.trim()
 		this.price = price
 		this.promote_price = promote_price
 		this.image_url = image_url
@@ -39,8 +38,17 @@ class MyCanvas {
 		// 摘要
 		ctxs.setFillStyle('#7b8196')
 		ctxs.setFontSize(22)
-		ctxs.fillText(this.summary.slice(0, 26), 20, 680, 560)
-		ctxs.fillText(this.summary.slice(26, 50), 20, 710, 560)
+		var pos = this.summary.indexOf("\n", 0)
+		if (pos > 26 || pos < 0)
+			pos = 26
+		else
+			pos += 1
+		ctxs.fillText(this.summary.slice(0, pos), 20, 680, 560)
+		
+		var pos2 = this.summary.indexOf("\n", pos)
+		if (pos2 > 52 || pos2 < 0)
+			pos2 = 52
+		ctxs.fillText(this.summary.slice(pos, pos2), 20, 710, 560)
 
 		// 产品促销价格
 		ctxs.setFillStyle('#6c2727')

@@ -6,7 +6,7 @@
     "pages/goods/index",
     "pages/goods/detail",
     "pages/cart/index",
-    "pages/cart/pre_order",
+    "pages/pay/pre_order",
     "pages/pay/index",
     "pages/pay/result",
     "pages/my/index",
@@ -31,14 +31,14 @@
     "list": [
       {
         "pagePath": "pages/topic/index",
-        "iconPath": "images/tabbar/shop.png",
-        "selectedIconPath": "images/tabbar/shop_sel.png",
+        "iconPath": "images/tabbar/focus.png",
+        "selectedIconPath": "images/tabbar/focus_sel.png",
         "text": "首页"
       },
       {
         "pagePath": "pages/goods/index",
-        "iconPath": "images/tabbar/focus.png",
-        "selectedIconPath": "images/tabbar/focus_sel.png",
+        "iconPath": "images/tabbar/shop.png",
+        "selectedIconPath": "images/tabbar/shop_sel.png",
         "text": "店铺"
       },
       {

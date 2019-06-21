@@ -133,9 +133,9 @@
 				<view class="short" bindtap="openShareDialog">
 						<image class="icon" model="aspectFill" src="/images/share_sel.png" />
 				</view>
-				<view class="short" bindtap="openCartPage">
+				<view class="short" bindtap="openHomePage">
 						<!--text class="cart-count">{{cart.amount}}</text-->
-						<image class="icon" model="aspectFill" src="/images/tabbar/cart_sel.png" />
+						<image class="icon" model="aspectFill" src="/images/tabbar/shop_sel.png" />
 				</view>
 				<view class="long cart" bindtap="openAttrDialog" wx:if="{{product.sizes.length>0}}">加入购物车</view>
 				<view class="long cart" bindtap="addToCart" wx:else data-type="cart">加入购物车</view>

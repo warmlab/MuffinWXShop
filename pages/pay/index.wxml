@@ -1,30 +1,106 @@
-<view class="container">
-    <view class="total">
-      <view class="label">订单金额</view>
-      <view class="txt">￥{{(order.delivery_fee+order.cost)/100}}</view>
-    </view>
-    <view class="pay-list">
-        <view class="h">请选择支付方式</view>
-        <view class="b">
-            <radio-group bindchange="paymentChange" class="margin-left radio-group">
-                <radio wx:for="{{payments}}" wx:key="value" value="{{item.value}}">{{item.name}}</radio>
-                <!--radio value="4" wx:if="{{order.payment&4==4}}" checked>微信支付</radio>
-                <radio value="2" wx:if="{{order.payment&2==2}}">小麦芬储值卡支付</radio--><!-- TODO 获得用户绑定的储值卡信息 -->
-            </radio-group>
-            <view wx:if="{{payment===2}}" class="margin-left">本次交易需要店员手工操作，如果您的小麦芬储值卡余额不足以完成本次交易，小麦芬客服人员会及时联系您，请保持电话畅通，谢谢!!</view>
-            <button class="margin-left" bindtap="bindValuecard" type="primary" size="mini" wx:if="{{!order.member_openid.name || !order.member_openid.phone}}">绑定小麦芬储值卡</button>
-        </view>
-    </view>
-    <form bindsubmit="startPay" report-submit="true">
-    <view class="pay-list" wx:if="{{order.address.delivery_way==1 && !order.member_openid.phone}}">
-        <view class="h">联系人信息</view>
-        <view class="b">
-            <input class="margin-left" name="contact" placeholder="联系人姓名" value="{{contact}}"/>
-            <input class="margin-left" name="mobile" placeholder="联系人电话" value="{{mobile}}" type="number" maxlength="11"/>
-        </view>
-    </view>
-    <button wx:if="{{payment===0}}" class="button-bottom" type="primary" disabled="{{true}}">请选择支付方式</button>
-    <button wx:elif="{{(payment===2 && order.member_openid.name && order.member_openid.phone) || payment===4}}" class="button-bottom" type="primary" form-type="submit">确定支付</button>
-    <button wx:else class="button-bottom" type="primary" disabled>请先绑定储值卡</button>
-    </form>
+<view class="total">
+		<view class="label">订单金额</view>
+		<view class="txt">￥{{(order.delivery_fee+order.cost)/100}}</view>
 </view>
+<view class="payments">
+		<view class="title">请选择支付方式</view>
+		<radio-group bindchange="paymentChange" class="radio-group">
+				<radio wx:for="{{payments}}" wx:key="value" value="{{item.value}}">{{item.name}}</radio>
+				<!-- radio value="4" wx:if="{{order.payment&4==4}}" checked>微信支付</radio>
+						<radio value="2" wx:if="{{order.payment&2==2}}">小麦芬储值卡支付</radio -->
+				<!-- TODO 获得用户绑定的储值卡信息 -->
+		</radio-group>
+		<view wx:if="{{payment===2}}" class="margin-left">
+				本次交易需要店员手工操作，如果您的小麦芬储值卡余额不足以完成本次交易，小麦芬客服人员会及时联系您，请保持电话畅通，谢谢!!
+		</view>
+</view>
+<form bindsubmit="startPay" report-submit="true">
+	<view wx:if="{{cur_addr}}" class="adds-center-bg ui-row" style="height:70px;">
+    <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 90px;">
+      <view class="ui-col-content align-center valign-middle">
+        <view class="adress-name">{{cur_addr.contact}}</view>
+        <view wx:if="{{cur_addr.is_default}}" class="address-active">默认</view>
+      </view>
+    </view>
+    <view class="ui-col ui-col-align-left align-left valign-middle" style="">
+      <view class="ui-col-content align-left valign-middle">
+        <view class="address-number">{{cur_addr.phone}}</view>
+        <view class="address-info">
+          {{cur_addr.province}}{{cur_addr.city}}{{cur_addr.district}}{{cur_addr.address}}
+        </view>
+      </view>
+    </view>
+    <view bindtap="getAddressTap" class="ui-col ui-col-align-right align-right valign-middle" style="padding-right: 12px;flex:0 0 60px;">
+      <view class="ui-col-content align-right valign-middle">
+        <span type="arrow-right" size="16" color="#7b8196" class="ui-icon icon-arrow-right" style="color: #7b8196;font-size: 16px;"></span>
+      </view>
+    </view>
+  </view>
+  <view wx:else class="adds-center-bg ui-row" bindtap="getAddressTap" style="margin-bottom: 10px;height:70px;">
+    <view class="ui-col ui-col-3 ui-col-align-center align-center valign-middle" style="flex: 0 0 25%;">
+      <view class="ui-col-content align-center valign-middle">
+        <view class="adds-icon">
+          <text class="fa fa-plus" style="font-weight: lighter;"/>
+        </view>
+      </view>
+    </view>
+    <view class="ui-col valign-middle" style="">
+      <view class="ui-col-content valign-middle">选择/新增收货地址</view>
+    </view>
+	</view>
+	<view wx:if="{{cur_addr}}" class="delivery-area">
+      <view class="delivery-header" bindtap="deliveryMethodTap">
+        <view>配送：{{delivery_method==2 ? '快递配送' : '上门自提'}}</view>
+        <text class="fa fa-chevron-down" style="transform:rotate({{delivery_show?180:0}}deg);"/>
+      </view>
+      <view class="delivery-content" style="display: {{delivery_show?'flex':'none'}}">
+        <radio-group bindchange="handleDeliveryChange">
+          <view class="delivery-item">
+            <text>上门自提</text>
+            <radio value="1" checked="{{delivery_method==1}}"/>
+          </view>
+          <view class="delivery-item">
+            <text>快递配送</text>
+            <radio value="2" checked="{{delivery_method==2}}"/>
+          </view>
+        </radio-group>
+      </view>
+  </view>
+  <view class="pickup-area" wx:if="{{cur_addr && delivery_method == 1}}">
+    <view class="pickup-header" bindtap="pickupAddressTap">
+      <view class="pickup-title">门店：{{pickup_index==-1?'请选择自提门店':pickup_addresses[pickup_index].name}}</view>
+      <view class="pickup-nums">{{pickup_addresses.length}}家门店
+        <text class="fa fa-chevron-down" style="transform:rotate({{pickup_show?180:0}}deg);"/>
+      </view>
+    </view>
+    <view class="pickup-body" style="display: {{pickup_show?'flex':'none'}}">
+      <radio-group bindchange="pickupAddressChange">
+        <view class="pickup-content" wx:for="{{pickup_addresses}}" wx:key="id">
+          <view class="pickup-name">
+            <view class="pickup-desc">
+              {{item.name}}
+              <text wx:if="{{distances.length>0}}">距离{{distances[index]/1000}}公里</text>
+            </view>
+            <view class="pickup-address">{{item.address}}</view>
+          </view>
+          <radio value="{{index}}" checked="{{index==pickup_index}}"/>
+        </view>
+      </radio-group>
+		</view>
+	</view>
+		<view class="form-line">
+				<text class="title">联系人姓名</text>
+				<input name="contact" value="{{contact}}" placeholder="小麦芬" />
+		</view>
+		<view class="form-line">
+				<text class="title">联系人电话</text>
+				<input name="mobile" value="{{mobile}}" type="number" placeholder="13300000000" maxlength="11" />
+		</view>
+		<button wx:if="{{payment===0}}" class="button-bottom" type="primary" disabled="{{true}}">
+				请选择支付方式
+		</button>
+		<button wx:elif="{{(payment===2 && order.member_openid.name && order.member_openid.phone) || payment===4}}" class="button-bottom" type="primary" form-type="submit">
+				确定支付
+		</button>
+		<button wx:else class="button-bottom" type="primary" bindtap="bindValuecard">绑定储值卡</button>
+</form>

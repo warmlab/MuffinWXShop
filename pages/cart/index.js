@@ -11,7 +11,8 @@ Page({
 	 */
 	data: {
 		base_image_url: config.base_image_url,
-		checked_all: false
+		checked_all: false,
+		promote_goods: []
 	},
 
 	/**
@@ -30,17 +31,43 @@ Page({
 		wx.stopPullDownRefresh()
 	},
 
-	syncGoods: function(e){
+	syncGoods: function (e) {
+		var that = this
 		wx.showLoading({
 			title: '加载购物车'
 		})
-		var cart = syncCart()
-		var index = cart.products.findIndex(item => !(item.checked))
-		this.setData({
-			cart: cart,
-			checked_all: index < 0
+		// get current activate promotion
+		request.get('promotions').then(r => {
+			var goods = []
+			r.data.forEach(promotion => {
+				goods = goods.concat(promotion.products.map(item => {
+					item.product.promotion_id = item.promotion_id
+					return item.product
+				}))
+			})
+
+			var cart = syncCart()
+			var index = cart.products.findIndex(item => !(item.checked))
+			this.setData({
+				cart: cart,
+				checked_all: index < 0
+			})
+			cart.products.forEach(ele => {
+				var o = goods.find(item => {
+					return item.id === ele.id
+				})
+				if (o) {
+					ele.promote_price = o.promote_price
+					ele.promotion_id = o.promotion_id
+				} else {
+					ele.promote_price = o.price
+					ele.promotion_id = 0
+				}
+			})
+			wx.hideLoading()
+		}).catch(err => {
+			wx.hideLoading()
 		})
-		wx.hideLoading()
 	},
 
 	checkItem: function (e) {

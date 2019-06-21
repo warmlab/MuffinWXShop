@@ -183,6 +183,15 @@ page {
   padding: 0 3px;
 }
 
+.goods-box .goods-shop {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	flex: 1;
+	color: #09bb07;
+	padding-right: 10rpx;
+}
+
 /* for form action begin */
 .form-line {
   display:flex;

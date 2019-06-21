@@ -27,6 +27,170 @@
     color: #999;
 }
 
+.address-area {
+	display: flex;
+}
+
+.address-area .address-info {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	overflow: hidden;
+	padding: 20rpx;
+}
+
+.address-area .address-info .address-contact {
+	display: flex;
+	align-items: baseline;
+}
+
+.address-area .address-info .address-contact .default {
+  color: #ffd305;
+  font-size: 22rpx;
+  padding: 2rpx 12rpx;
+  border: 2rpx solid #ffd305;
+	border-radius: 4rpx;
+	margin-right: 10rpx;
+}
+
+.address-area .address-info .address-contact .name {
+  font-size: 30rpx;
+	font-weight: 500;
+	margin-right: 10rpx;
+}
+
+.address-area .address-info .address-contact .phone {
+	font-size: 28rpx;
+	flex-grow: 1;
+}
+
+.address-area .address-info .address-address{
+  font-size: 24rpx;
+  color: #7b8196;
+  padding-top: 10rpx;
+	display:flex;
+	flex-wrap:wrap;
+}
+
+.address-area .address-choose {
+	margin:0 20px;
+	display:flex;
+	align-items:center;
+	color:#7b8196;
+}
+
+.delivery-area {
+  display: flex;
+  flex-direction: column;
+  border-top: 1rpx solid #f5f5f5;
+}
+
+.delivery-area .delivery-header {
+  display: flex;
+  padding: 30rpx 20rpx;
+  font-size: 30rpx;
+}
+
+.delivery-area .delivery-header view {
+  display: flex;
+  flex: 1;
+}
+
+.delivery-area .delivery-header text {
+  font-weight: lighter;
+  width: 60rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s;
+}
+
+.delivery-area .delivery-content {
+  /*display: flex;*/
+  background-color: #f5f5f5;
+  transition: display 0.3s;
+}
+
+.delivery-area .delivery-content radio-group {
+  width: 100%;
+}
+
+.delivery-area .delivery-content .delivery-item {
+  display: flex;
+  /*flex-direction: row;*/
+  padding: 20rpx;
+  border-top: 1rpx solid #e5e5e5;
+}
+
+.delivery-area .delivery-content .delivery-item text {
+  display: flex;
+  flex: 1;
+}
+
+.delivery-area .delivery-content .delivery-item radio {
+  display: flex;
+}
+
+.pickup-area {
+  display: flex;
+  flex-direction: column;
+  border-top: 20rpx solid #e5e5e5;
+}
+
+.pickup-area .pickup-header {
+  display: flex;
+  border-bottom: 2rpx solid #e5e5e5;
+  padding: 32rpx 20rpx;
+}
+
+.pickup-header .pickup-title {
+  margin: 10rpx 0;
+  display: flex;
+  flex: 1;
+}
+
+.pickup-header .pickup-nums {
+  margin: 10rpx 20rpx;
+}
+
+.pickup-nums text {
+  font-weight: lighter;
+  transition: transform 0.3s;
+}
+
+.pickup-area .pickup-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.pickup-body .pickup-content {
+  display: flex;
+  align-items: center;
+  background-color: #f5f5f5;
+  padding: 20rpx;
+  border-bottom: 1rpx solid #e5e5e5;
+}
+
+.pickup-content .pickup-name {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  font-size: 30rpx;
+}
+
+.pickup-name .pickup-address {
+  font-size: 24rpx;
+}
+
+.pickup-name .pickup-desc {
+  color: #353535;
+}
+
+.pickup-name .pickup-desc text {
+  color: #888888;
+  font-size: 24rpx;
+}
+
 .cart-view{
     width: 100%;
     height: auto;

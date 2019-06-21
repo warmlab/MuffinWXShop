@@ -114,7 +114,7 @@ var request = {
 		return this._request(url, data, 'POST')
 	},
 
-	del: function (url, data) {
+	delete: function (url, data) {
 		return this._request(url, data, 'DELETE')
 	},
 

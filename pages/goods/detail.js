@@ -116,9 +116,9 @@ Page({
 		})
 	},
 
-	openCartPage: function (e) {
+	openHomePage: function (e) {
 		wx.reLaunch({
-			url: '/pages/cart/index'
+			url: '/pages/topic/index'
 		})
 	},
 
@@ -200,7 +200,7 @@ Page({
 			cost: this.data.product.want_amount * this.data.product.price
 		})
 		wx.navigateTo({
-			url: "../cart/pre_order?type=buy"
+			url: "../pay/pre_order?type=buy"
 		})
 	},
 

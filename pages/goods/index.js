@@ -78,7 +78,7 @@ Page({
 		this.getProducts(e.currentTarget.dataset.id)
 	},
 
-	productDetail: function (e) {
+	toViewDetail: function (e) {
 		wx.navigateTo({
 			url: `detail?code=${e.currentTarget.dataset.code}`
 		})

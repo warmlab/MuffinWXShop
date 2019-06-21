@@ -62,66 +62,84 @@
 	/*height: 100%;*/
 }
 
-.item .summary-area .name-area {
-	min-height: 80%;
-}
-
-.name-area .name {
+.summary-area .name {
 	display: flex;
 	font-size: 24rpx;
 	margin-top: 10rpx;
 	align-items: baseline;
 }
 
-.name-area .name .title {
+.summary-area .name .title {
 	font-size: 32rpx;
 	font-weight: bold;
 	overflow: hidden;
 }
 
-.name-area .name .sold {
+.summary-area .name .sold {
+	display: flex;
+	flex: 1;
 	margin-left: 6rpx;
 	color: #09bb07;
+	justify-content: flex-end;
+	min-width: 25%;
 }
 
-.name-area .name .sold-out {
-	background-color: #e64340;
-	margin-left: 6rpx;
-	border-radius: 6rpx;
-	color: #fff;
-	padding: 0 4rpx;
-}
-
-.name-area .summary {
+.summary-area .summary {
 	font-size: 24rpx;
 	margin: 10rpx 0;
 	color: #888888;
+	flex-grow: 1;
 }
 
-.name-area .price {
+.amount-area .price {
 	display: flex;
 	align-items: flex-end;
 	font-weight: bold;
 	color: #09bb07;
 }
 
-.name-area .price .old {
+.amount-area .old-price {
 	color: #888888;
 	font-weight: lighter;
 	text-decoration: line-through;
+	font-size: 24rpx;
+	flex: 1;
+	margin-left: 10rpx;
+}
+
+.item .summary-area .sold-out {
+	display: flex;
+	align-items: center;
+	background-color: #e64340;
+	border-radius: 6rpx;
+	color: #fff;
+	padding: 0 4rpx;
 	font-size: 28rpx;
 }
 
 .item .summary-area .amount-area {
 	display: flex;
-	flex-direction: row;
-	flex: 1;
-	justify-content: flex-end;
 }
 
-.amount-area .amount {
-	height: 100%;
-	text-align: center;
+.item .summary-area .amount-area .amount-op {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 1rpx solid #ccc;
+	border-radius: 8rpx;
+	height: 80%;
+	align-self: flex-end;
+}
+
+.amount-op .op {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 4rpx 18rpx;
+	font-size: 36rpx;
+}
+
+.amount-op .op.amount {
 	font-size: 30rpx;
 	font-weight: bold;
 	/*line-height: 68.75rpx;
@@ -130,24 +148,20 @@
     float: left;*/
 }
 
-.amount-area .cut {
-	width: 70rpx;
-	height: 100%;
-	text-align: center;
+.amount-op .op.cut {
+	border-right: 1rpx solid #ccc;
 	/*line-height: 48rpx;
     border-right:1px solid #ccc;*/
 }
 
-.amount-area .btn {
-	font-size: 42rpx;
-}
-
-.amount-area .add {
-	width: 80rpx;
-	height: 100%;
-	text-align: center;
+.amount-op .op.add {
+	border-left: 1rpx solid #ccc;
 	/*line-height: 48rpx;
     border-left:1px solid #ccc;*/
+}
+
+.amount-op .op.disabled {
+	color: #ccc;
 }
 
 .delivery-method {
