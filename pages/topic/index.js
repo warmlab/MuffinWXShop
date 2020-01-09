@@ -36,7 +36,7 @@ Page({
 			wx.hideLoading()
 			wx.stopPullDownRefresh()
 		}).catch(err => {
-			console.log('get products error', err)
+			console.log('get products error', err.status)
 			wx.hideLoading()
 			wx.stopPullDownRefresh()
 		})
@@ -71,6 +71,10 @@ Page({
 		}).catch((err) => {
 			//callback.apply(wx)
 			console.log('get promotions', err);
+			if (err.status === 3001) {// access token error
+				app.doLogin()
+				request.header['X-ACCESS-TOKEN'] = undefined
+			}
 			//wx.stopPullDownRefresh()
 			that.getProducts()
 			//that.setData({

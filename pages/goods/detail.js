@@ -68,6 +68,10 @@ Page({
 			wx.hideLoading()
 		}).catch(err => {
 			console.error('get product error', err)
+			if (err.status === 3001) {// access token error
+				app.doLogin()
+				request.header['X-ACCESS-TOKEN'] = undefined
+			}
 			wx.hideLoading()
 		})
 

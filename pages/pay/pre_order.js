@@ -14,7 +14,8 @@ Page({
 		delivery_way: 1,
 		pickup_address: 0,
 		delivery_address: 0,
-		pickup_index: -1
+		pickup_index: -1,
+		cur_addr: -1
 	},
 
 	getAddresses: function () {
@@ -39,7 +40,7 @@ Page({
 					delivery_address = a.id
 			that.setData({
 				addresses: res.data,
-				cur_addr: res.data[0],
+				cur_addr: 0,
 				delivery_address: delivery_address
 			})
 		}).catch(err => {
@@ -56,7 +57,9 @@ Page({
 
 		app.getUserInfo().then(res => {
 			that.setData({
-				userInfo: res
+				userInfo: res,
+				type: options.type,
+				promotion: options.promotion
 			})
 		})
 
@@ -175,7 +178,7 @@ Page({
 			return;
 		}
 
-		if (this.data.cur_addr === 0) {
+		if (this.data.cur_addr < 0) {
 			wx.showToast({
 				title: '请选择个人地址信息',
 				icon: 'none',
@@ -201,17 +204,21 @@ Page({
 			ps.push({
 				id: ele.id,
 				want_amount: ele.want_amount,
-				want_size: !ele.want_size ? 0 : ele.want_size.size.id
+				//want_size: !ele.want_size ? 0 : ele.want_size.size.id
+				want_size: 0
 			})
 		})
+
+		console.log('address', this.data.cur_addr);
 
 		var data = {
 			//promotion_id: 0,
 			//openid: wx.getStorageSync('openid'),
+			promotion_id: this.data.promotion,
 			products: ps,
 			delivery_way: this.data.delivery_way,
-			address: this.data.cur_addr,
-			pickup_address: this.data.pickup_index>=0?this.data.pickup_addresses[this.data.pickup_index].id,
+			address: this.data.addresses[this.data.cur_addr].id,
+			pickup_address: this.data.pickup_index>=0?this.data.pickup_addresses[this.data.pickup_index].id:-1,
 			note: e.detail.value.note,
 			nickname: this.data.userInfo.nickname,
 			avatarUrl: this.data.userInfo.avatarUrl

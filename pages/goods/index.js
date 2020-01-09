@@ -42,6 +42,10 @@ Page({
 			wx.stopPullDownRefresh()
 		}).catch(err => {
 			console.log('get products', err)
+			if (err.status === 3001) {// access token error
+				app.doLogin()
+				request.header['X-ACCESS-TOKEN'] = undefined
+			}
 			wx.hideLoading()
 			wx.stopPullDownRefresh()
 		})
@@ -186,6 +190,10 @@ Page({
 				wx.hideNavigationBarLoading()
 			}
 		}).catch(err => {
+			if (err.status === 3001) {// access token error
+				app.doLogin()
+				request.header['X-ACCESS-TOKEN'] = undefined
+			}
 			wx.hideNavigationBarLoading()
 		})
 	},

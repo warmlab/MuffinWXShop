@@ -48,12 +48,13 @@ Page({
 			r.data.products.forEach(ele => {
 				if (!ele.is_deleted) {
 					ele.want_amount = 0;
+					/*
 					for (var ps of ele.product.sizes) {
 						if (ps.size.id === ele.size.id) {
 							ele.want_size = ps
 							break
 						}
-					}
+					}*/
 					if (max_amount > ele.stock) {
 						max_amount = ele.stock;
 					}
@@ -92,6 +93,10 @@ Page({
 		}).catch(err => {
 			//console.log(callback)
 			console.log('the promotion has not published yet!!', err);
+			if (err.status === 3001) {// access token error
+				app.doLogin()
+				request.header['X-ACCESS-TOKEN'] = undefined
+			}
 			//wx.hideNavigationBarLoading()
 			wx.hideLoading()
 			//wx.stopPullDownRefresh()
@@ -402,7 +407,7 @@ Page({
 		})
 
 		wx.navigateTo({
-			url: "../pay/pre_order?type=cart"
+			url: `../pay/pre_order?type=cart&promotion=${this.data.promotion.id}`
 		})
 
 		// 快递/自提模式

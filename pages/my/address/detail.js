@@ -28,9 +28,14 @@ Page({
 			request.get('openid/address', {
 				id: options.id,
 			}).then(res => {
+				console.log('aaaaaaaaaaaaaaaaaaaaaa', res)
 				that.setData({
-					address: res.data,
-					is_default: res.data.is_default
+					contact: res.data.contact,
+					phone: res.data.phone,
+					province: res.data.province,
+					city: res.data.city,
+					district: res.data.district,
+					address: res.data.address,
 				})
 			})
 		}

@@ -1,13 +1,13 @@
 <form bindsubmit="checkoutOrder" report-submit="true" class="cart-view">
-  <view wx:if="{{cur_addr}}" class="address-area">
+	<view wx:if="{{cur_addr >= 0}}" class="address-area">
 		<view class="address-info">
 			<view class="address-contact">
-				<text wx:if="{{cur_addr.is_default}}" class="default">默认</text>
-				<text class="name">{{cur_addr.contact}}</text>
-				<text class="phone">{{cur_addr.phone}}</text>
+				<text wx:if="{{addresses[cur_addr].is_default}}" class="default">默认</text>
+				<text class="name">{{addresses[cur_addr].contact}}</text>
+				<text class="phone">{{addrresses[cur_addr].phone}}</text>
 			</view>
 			<view class="address-address">
-				{{cur_addr.province}}{{cur_addr.city}}{{cur_addr.district}}{{cur_addr.address}}
+				{{addresses[cur_addr].province}}{{addresses[cur_addr].city}}{{addresses[cur_addr].district}}{{addresses[cur_addr].address}}
 			</view>
 		</view>
     <view bindtap="getAddressTap" class="address-choose">
@@ -18,7 +18,7 @@
 		<text class="fa fa-plus icon" style="font-weight: lighter;"/>
 		<text class="label">选择/新增收货地址</text>
   </view>
-  <view wx:if="{{cur_addr}}" class="delivery-area">
+  <view wx:if="{{cur_addr >= 0}}" class="delivery-area">
       <view class="delivery-header" bindtap="deliveryMethodTap">
         <view>配送：{{delivery_way==2 ? '快递配送' : '上门自提'}}</view>
         <text class="fa fa-chevron-down" style="transform:rotate({{delivery_show?180:0}}deg);"/>
@@ -36,7 +36,7 @@
         </radio-group>
       </view>
   </view>
-  <view class="pickup-area" wx:if="{{cur_addr && delivery_way == 1}}">
+  <view class="pickup-area" wx:if="{{cur_addr >= 0 && delivery_way == 1}}">
     <view class="pickup-header" bindtap="pickupAddressTap">
       <view class="pickup-title">自提点：{{pickup_index==-1?'请选择自提点':pickup_addresses[pickup_index].name}}</view>
       <view class="pickup-nums">{{pickup_addresses.length}}个自提点
