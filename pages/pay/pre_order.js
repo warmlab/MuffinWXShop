@@ -39,7 +39,7 @@ Page({
 				var a = res.data[index]
 				if (address_id <= 0 && a.is_default)
 					delivery_address = index
-				else if  (adress_id === a.id)
+				else if  (address_id === a.id)
 					delivery_address = index
 			}
 
@@ -117,7 +117,6 @@ Page({
 		})
 	},
 
-
 	handleDeliveryChange: function (e) {
 		this.setData({
 			delivery_way: e.detail.value
@@ -132,7 +131,7 @@ Page({
 
 	getAddressTap: function () {
 		wx.navigateTo({
-			url: "/pages/my/address/index?type=select_address"
+			url: "/pages/my/address/index?type=select"
 		})
 	},
 

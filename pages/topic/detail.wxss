@@ -203,6 +203,7 @@ textarea {
     font-size: 36rpx;
     background-color: #6e2f2e;
     color: #ffffff;
+    border-radius: 0;
 }
 
 .orders {

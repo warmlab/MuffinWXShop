@@ -68,18 +68,23 @@ Page({
 		});
 	},
 	// 点击选中
-	toSelectItem: e => {
+	toSelectItem: function(e) {
+		if (this.data.type !== 'select')
+			return
+
       var pages = getCurrentPages();
       var prePage = pages[pages.length - 2];
       //prePage.setData({dragon:res.data});
-      if ('getOrder' in prePage)
+      if ('getMemberAddresses' in prePage) {
         prePage.getMemberAddresses(parseInt(e.currentTarget.data('id')));
 		wx.navigateBack()
+	  }
 	},
 	toStartTouch: function(e) {
-		//var index = pargeInt(e.currentTarget.data('index'))
-		//console.log('start touch', e)
-		//this.data.x_starts[index] = e.touches[0].pageX
+		var index = parseInt(e.currentTarget.dataset.index)
+		console.log('start touch', e)
+		this.data.address_items[index].x = e.touches[0].pageX
+		this.data.address_items[index].width = 0
 		//this.setData({
 		//	x_starts: this.data.x_starts
 		//})
@@ -94,12 +99,13 @@ Page({
 			this.setData({
 				address_items: this.data.address_items
 			})
-		} else (distance < 0 && distance >= -120)
+		} else if (distance < 0 && distance >= -120) {
 			this.data.address_items[index].width = 120 +distance
 			this.data.address_items[index].opacity = (120+distance)/120
 			this.setData({
 				address_items: this.data.address_items
 			})	
+		}
 	},
 	toStopTouch: function(e) {
 		//var index = parseInt(e.currentTarget.dataset.index)

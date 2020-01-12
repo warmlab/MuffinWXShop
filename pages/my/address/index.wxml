@@ -11,7 +11,7 @@
                 <view>{{item.address}}</view>
             </view>
         </view>
-        <view class="item-actions" style="display: flex; just-content: flex-end; width: {{address_items[index].width}}rpx; opacity: {{address_items[index].opacity}};">
+        <view class="item-actions" style="display: flex; just-content: flex-end; width: {{address_items[index].width}}px; opacity: {{address_items[index].opacity}};">
             <view class="item-action">
                 <view class="edit" bindtap="toEditItem" data-id="{{item.id}}"><text class="fa fa-edit"></text></view>
             </view>

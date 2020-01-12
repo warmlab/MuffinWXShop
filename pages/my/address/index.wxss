@@ -2,11 +2,12 @@
 .list {
     display: flex;
     flex-direction: column;
+  overflow-x: hidden;
 }
 
 .list .list-item {
     display: flex;
-    border-bottom: 1rpx solid #eeeeee;
+    border-bottom: 1rpx solid #9b9b9b;
 }
 
 .list .list-item .item-info {
@@ -22,11 +23,11 @@
 }
 
 .list .list-item .item-info .default {
-    border: 1rpx solid #09bb07;
+    border: 1rpx solid #d8825c;
     padding: 2rpx 6rpx;
     border-radius: 5rpx;
     font-size: 24rpx;
-    background-color: #09bb07;
+    background-color: #d8825c;
     color: #fff;
     margin-right: 16rpx;
 }

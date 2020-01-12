@@ -22,7 +22,7 @@ Page({
 
 	toViewAddress: function (e) {
 		wx.navigateTo({
-			url: 'address/index'
+			url: 'address/index?type=view'
 		})
 	},
 

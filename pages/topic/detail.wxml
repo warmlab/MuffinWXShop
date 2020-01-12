@@ -2,7 +2,7 @@
 		<view class="title" wx:else>#小麦芬{{last_order_date}}({{last_order_weekday}})团购发布#</view> -->
 <block wx:if="{{promotion}}">
 <view class="title-summary"><text>{{promotion.note}}</text></view>
-<form bindsubmit="toJoinIn" report-submit='true' id="promotionform">
+<form bindsubmit="toJoinIn" report-submit='true' id="promotionform" style="overflow-x: hidden">
 		<view class="form-title-line">
 				<text>团品信息
 				<block wx:if="{{promotion.binding}}">(需组合购买)</block></text>
