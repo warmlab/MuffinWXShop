@@ -215,8 +215,7 @@
   display: flex;
   flex: column;
   padding: 16rpx;
-  font-weight: bold;
-  font-size: 40rpx;
+  font-size: 36rpx;
 }
 
 .goods-title .goods-name {
@@ -276,7 +275,8 @@
 .item .summary-area .amount-area {
   display: flex;
   margin:10rpx 20rpx;
-  align-items: center;
+	align-items: center;
+	font-size: 32rpx;
 }
 
 .name-area .name {
@@ -288,7 +288,8 @@
 .name-area .price {
   font-weight: bold;
   font-size: 32rpx;
-  margin-top: 20rpx;
+	margin-top: 20rpx;
+	color: #6e2f2e
 }
 
 .name-area .summary {
@@ -400,7 +401,7 @@
     height: 34rpx;
     flex: 1;
     margin: 33rpx 10rpx;
-    font-size: 29rpx;
+    font-size: 32rpx;
 }
 
 .cart-bottom .delete{
@@ -415,9 +416,10 @@
     width: 210rpx;
     text-align: center;
     line-height: 100rpx;
-    font-size: 29rpx;
+    font-size: 32rpx;
     color: #fff;
-    border-radius: 0;
+		border-radius: 0;
+		background-color: #6e2f2e;
 }
 
 .note {

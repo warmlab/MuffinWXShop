@@ -1,7 +1,7 @@
 <view class="logo">
 		<image src="../../images/logo.png" mode="widthFix" />
 </view>
-<form bindsubmit="bindValuecard" report-submit="true">
+<form bindsubmit="bindValuecard" report-submit="true" style="overflow-x: hidden;">
 		<view class="form-line">
 				<text class="title">会员姓名</text>
 				<input name="name" placeholder="会员姓名" value="{{member.name}}" auto-focus />
@@ -10,5 +10,5 @@
 				<text class="title">会员电话</text>
 				<input name="phone" value="{{member.phone}}" type="number" maxlength="11" placeholder="会员预留" />
 		</view>
-		<button class="submit" formType="submit" type="primary">绑定</button>
+		<button class="submit" formType="submit">绑定</button>
 </form>

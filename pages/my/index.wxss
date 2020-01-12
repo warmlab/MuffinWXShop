@@ -6,7 +6,7 @@
 	align-items: center;
 	justify-content: flex-start;
 	padding: 0 30.25rpx;
-	background: #333;
+	background: #211011;
 }
 
 .profile-info .icon {
@@ -76,10 +76,10 @@
 
 .separate {
 	width: 100%;
-	border-top: 1rpx solid #eeeeee;
+	border-top: 1rpx solid #9b9b9b;
 }
 
 .user-menu .item .title {
 	font-size: 24rpx;
-	color: #333;
+	color: #211011;
 }

@@ -109,7 +109,7 @@
       <text wx:if="{{delivery_way===1}}">需支付: ￥{{cost/100}}</text>
       <text wx:else>需支付: ￥{{(cost+delivery_fee)/100}}</text>
     </view>
-    <button class="checkout" formType="submit" type="primary" wx:if="{{userInfo.nickname}}">提交订单</button>
+    <button class="checkout" formType="submit" wx:if="{{userInfo.nickname}}">提交订单</button>
     <button class="checkout" open-type="getUserInfo" bindgetuserinfo="toGetUserInfo" type="warn" wx:else>点击登录</button>
   </view>
 </form>

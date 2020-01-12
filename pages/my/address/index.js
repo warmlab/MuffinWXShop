@@ -68,17 +68,17 @@ Page({
 		});
 	},
 	// 点击选中
-	toSelectItem: function(e) {
+	toSelectItem: function (e) {
 		if (this.data.type !== 'select')
 			return
 
-      var pages = getCurrentPages();
-      var prePage = pages[pages.length - 2];
-      //prePage.setData({dragon:res.data});
-      if ('getMemberAddresses' in prePage) {
-        prePage.getMemberAddresses(parseInt(e.currentTarget.data('id')));
-		wx.navigateBack()
-	  }
+		var pages = getCurrentPages();
+		var prePage = pages[pages.length - 2];
+		//prePage.setData({dragon:res.data});
+		if ('getMemberAddresses' in prePage) {
+			prePage.getMemberAddresses(parseInt(e.currentTarget.dataset.id));
+			wx.navigateBack()
+		}
 	},
 	toStartTouch: function(e) {
 		var index = parseInt(e.currentTarget.dataset.index)

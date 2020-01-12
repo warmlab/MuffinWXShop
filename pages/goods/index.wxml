@@ -37,7 +37,7 @@
 										<view class="goods-price">Ұ{{item.price/100}}</view>
 								</block>
 								<view class="goods-price-naver" wx:if="{{item.sold && item.sold>0}}">已售{{item.sold}}</view>
-								<text class="fa fa-plus-circle goods-shop" bindtap="addToCart" data-index="{{index}}" data-id="{{item.id}}" wx:if="{{extra_info===0}}" />
+								<text class="fa fa-plus-circle goods-add" bindtap="addToCart" data-index="{{index}}" data-id="{{item.id}}" wx:if="{{extra_info===0}}" />
 						</view>
 				</view>
 		</scroll-view>

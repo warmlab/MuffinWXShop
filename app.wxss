@@ -185,12 +185,12 @@ page {
   padding: 0 3px;
 }
 
-.goods-box .goods-shop {
+.goods-box .goods-add {
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
 	flex: 1;
-	color: #09bb07;
+	color: #6e2f2e;
 	padding-right: 10rpx;
 }
 
