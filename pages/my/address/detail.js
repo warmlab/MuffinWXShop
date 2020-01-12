@@ -28,7 +28,6 @@ Page({
 			request.get('openid/address', {
 				id: options.id,
 			}).then(res => {
-				console.log('aaaaaaaaaaaaaaaaaaaaaa', res)
 				that.setData({
 					contact: res.data.contact,
 					phone: res.data.phone,

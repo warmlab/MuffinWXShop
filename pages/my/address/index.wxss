@@ -1,81 +1,88 @@
 /* pages/address/index.wxss */
 .list {
-	display: flex;
-	flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .list .list-item {
-	display: flex;
-	border-bottom: 1rpx solid #eeeeee;
+    display: flex;
+    border-bottom: 1rpx solid #eeeeee;
 }
 
 .list .list-item .item-info {
-	display: flex;
-	flex-direction: column;
-	flex: 1;
-	padding: 16rpx;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 16rpx;
 }
 
 .list .list-item .item-info .contact {
-	display: flex;
-	margin-bottom: 8rpx;
+    display: flex;
+    margin-bottom: 8rpx;
 }
 
 .list .list-item .item-info .default {
-	border: 1rpx solid #09bb07;
-	padding: 2rpx 6rpx;
-	border-radius: 5rpx;
-	font-size: 24rpx;
-	background-color: #09bb07;
-	color: #fff;
-	margin-right: 16rpx;
+    border: 1rpx solid #09bb07;
+    padding: 2rpx 6rpx;
+    border-radius: 5rpx;
+    font-size: 24rpx;
+    background-color: #09bb07;
+    color: #fff;
+    margin-right: 16rpx;
 }
-
-.list .list-item .item-info .contact text {}
 
 .list .list-item .item-info .contact text.phone {
-	margin-left: 20rpx;
+    margin-left: 20rpx;
 }
 
 .list .list-item .item-info .address {
-	display: flex;
-	flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    font-size: 28rpx;
+    color: #9b9b9b;
 }
 
-.list .list-item .item-info .address {
-	font-size: 28rpx;
-	color: #888888;
+.list .list-item .item-info .address view {
+    height: 42rpx;
+    overflow: hidden;
 }
 
-.list .list-item .item-action {
-	display: flex;
+.list .list-item .item-actions .item-action {
+    display: flex;
+    flex: 1;
 }
 
-.list .list-item .item-action text {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100%;
-	color: #fff;
-	padding: 0 20rpx;
-	font-size: 28rpx;
+.list .list-item .item-actions .item-action view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    color: #ffffff;
+    /*padding: 0 20rpx;*/
+    font-size: 40rpx;
+    font-weight: lighter;
 }
 
-.list .list-item .item-action text.delete {
-	background-color: #e64340;
+.list .list-item .item-actions .item-action view.edit {
+    background-color: #d8825c;
+}
+
+.list .list-item .item-actions .item-action view.delete {
+    background-color: #6e2f2e;
 }
 
 .add-address {
-	background: #09bb07;
-	text-align: center;
-	width: 100%;
-	height: 80rpx;
-	line-height: 80rpx;
-	position: fixed;
-	border-radius: 0;
-	border: none;
-	color: #fff;
-	font-size: 29rpx;
-	bottom: 0;
-	left: 0;
+    background: #6E2F2E;
+    text-align: center;
+    width: 100%;
+    height: 80rpx;
+    line-height: 80rpx;
+    position: fixed;
+    border-radius: 0;
+    border: none;
+    color: #ffffff;
+    font-size: 30rpx;
+    bottom: 0;
+    left: 0;
 }

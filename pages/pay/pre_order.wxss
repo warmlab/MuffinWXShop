@@ -215,6 +215,8 @@
   display: flex;
   flex: column;
   padding: 16rpx;
+  font-weight: bold;
+  font-size: 40rpx;
 }
 
 .goods-title .goods-name {

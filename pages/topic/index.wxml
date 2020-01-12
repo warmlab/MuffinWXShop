@@ -3,14 +3,14 @@
 		<swiper circular autoplay interval="6000" duration="500" bindchange="swiperChange" style="height: {{banner_height}}px">
 			<block wx:for="{{promotions}}" wx:for-item="promotion" wx:key="id">
 				<swiper-item wx:for="{{promotion.products}}" wx:key="product_id" style="height: {{banner_height}}px;">
-						<image src="{{base_image_url}}/{{item.product.images[0].image.name}}" mode="aspectFill" lazy-load="true" style="height: {{banner_height}}px;" bindload="bannerImageLoad" bindtap="toViewDetail" data-type="promotion" data-id="{{promotion.id}}" />
+					<image src="{{base_image_url}}/{{item.product.images[0].image.name}}" mode="aspectFill" lazy-load="true" style="height: {{banner_height}}px;" bindload="bannerImageLoad" bindtap="toViewDetail" data-type="promotion" data-id="{{promotion.id}}" />
 				</swiper-item>
 			</block>
 		</swiper>
 		<view class="banner-dots">
 			<block wx:for="{{promotions}}" wx:for-item="promotion" wx:key="id">
 				<block wx:for="{{promotion.products}}" wx:key="product_id">
-						<view class="banner-dot {{index == swiper_current ? 'active' : ''}}"></view>
+					<view class="banner-dot {{index == swiper_current ? 'active' : ''}}"></view>
 				</block>
 			</block>
 		</view>

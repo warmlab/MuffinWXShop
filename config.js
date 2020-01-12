@@ -3,6 +3,7 @@ const config = {
 	api_version: '1.0.0',
 	//base_url: 'http://10.1.1.56:5000/api/muffins',
 	//base_image_url: 'http://10.1.1.56:5000/media',
+	//base_url: 'http://wecakes.com:5000/api/muffins',
 	base_url: 'https://wecakes.com/api/muffins',
 	base_image_url: 'https://wecakes.com/media',
 	shoppoint: 'muffins',

@@ -2,8 +2,9 @@ page {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	color: #353535;
-	font-size: 32rpx;
+	color: #211011;
+  font-size: 32rpx;
+  /*background-color: #EDE2D3;*/
 }
 
  .green-color {
@@ -147,8 +148,8 @@ page {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  background-color: rgba(240, 236, 225, 0.88);
-  color: #a18d65;
+  background-color: #dab6bae0;
+  color: #6e2f2e;
   height: 70rpx;
   line-height: 70rpx;
   margin-top: -70rpx;
@@ -156,16 +157,17 @@ page {
 }
 
 .goods-box .goods-price {
-  color: #09bb07;
+  color: #6e2f2e;
   font-size: 28rpx;
   text-align: left;
   padding: 3px 4px;
   display: flex;
   align-items: flex-end;
+  font-weight: bold;
 }
 
 .goods-box .goods-price.original {
-  color: #bfbfbf;
+  color: #9b9b9b;
 	text-decoration: line-through;
 	font-size: 24rpx;
   text-align: left;

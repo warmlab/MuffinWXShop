@@ -1,307 +1,326 @@
 .form-line text.title {
-	width: 15% !important;
+    width: 15% !important;
 }
 
 .form-title-line {
-	display: flex;
-	align-items: center;
-	color: #888888;
-	border-bottom: 2rpx solid #f5f5f5;
-	padding: 16rpx 0 16rpx 1%;
-	width: 97%;
+    display: flex;
+    align-items: center;
+    /*color: #9b9b9b;
+    border-bottom: 2rpx solid #f5f5f5;*/
+    padding: 16rpx 0 16rpx 1%;
+    width: 97%;
 }
 
 /*
 .form-title-line text {
-	flex: 1;
-	color: #09bb07;
-	font-size: 44rpx;
-	margin-left: 12rpx;
+    flex: 1;
+    color: #09bb07;
+    font-size: 44rpx;
+    margin-left: 12rpx;
 }*/
 
 .to-share {
-	position:absolute;
-	right:10rpx;
-	height:64rpx;
-	width:64rpx;
+    position:absolute;
+    right:10rpx;
+    height:64rpx;
+    width:64rpx;
 }
 
 .form-content {
-	display: flex;
-	flex-direction: column;
-	padding: 10rpx 1%;
+    display: flex;
+    flex-direction: column;
+    padding: 10rpx 1%;
 }
 
 .form-content .content {
 }
 
 .title-summary {
-	padding: 4rpx 1%;
-	width: 98%;
+    padding: 4rpx 1%;
+    width: 98%;
 }
 
 .item {
-	display: flex;
-	flex-direction: row;
-	flex: 1;
-	border: thin solid #f4f4f4;
-	background-color: #f4f4f4;
-	margin-bottom: 10rpx;
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    /*border-top: thin solid #f4f4f4;
+    background-color: #f4f4f4;
+    padding-bottom: 10rpx;*/
+    margin-bottom: 10rpx;
+}
+
+.item.even {
+    background-color: #ede2d3;
+    color: #6E2F2E;
+}
+
+.item.odd {
+    background-color: #dab6ba;
+    color: #6D2F2E;
+    /*background-color: #4a210f;
+    color: #e4c7af;*/
 }
 
 .item .image {
-	width: 40%;
-	height: 300rpx;
+    width: 40%;
+    height: 300rpx;
+    border-top-right-radius: 20rpx;
+    border-bottom-right-radius: 20rpx;
 }
 
 .item .summary-area {
-	display: flex;
-	flex-direction: column;
-	flex: 1;
-	padding-left: 10rpx;
-	/*height: 100%;*/
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding-left: 10rpx;
+    /*height: 100%;*/
 }
 
 .summary-area .name {
-	display: flex;
-	font-size: 24rpx;
-	margin-top: 10rpx;
-	align-items: baseline;
+    display: flex;
+    font-size: 24rpx;
+    margin-top: 10rpx;
+    align-items: baseline;
 }
 
 .summary-area .name .title {
-	font-size: 32rpx;
-	font-weight: bold;
-	overflow: hidden;
+    flex: 1;
+    font-size: 32rpx;
+    font-weight: bold;
+    overflow: hidden;
 }
 
 .summary-area .name .sold {
-	display: flex;
-	flex: 1;
-	margin-left: 6rpx;
-	color: #09bb07;
-	justify-content: flex-end;
-	min-width: 25%;
+    display: flex;
+    justify-content: flex-end;
+    background-color: #6e2f2e;
+    padding: 10rpx;
+    border-bottom-left-radius: 10px;
+    color: white;
 }
 
 .summary-area .summary {
-	font-size: 24rpx;
-	margin: 10rpx 0;
-	color: #888888;
-	flex-grow: 1;
+    font-size: 24rpx;
+    margin: 10rpx 0;
+    color: #9b9b9b;
+    flex-grow: 1;
 }
 
 .amount-area .price {
-	display: flex;
-	align-items: flex-end;
-	font-weight: bold;
-	color: #09bb07;
+    display: flex;
+    align-items: flex-end;
+    font-weight: bold;
+    color: #6e2f2e;
 }
 
 .amount-area .old-price {
-	color: #888888;
-	font-weight: lighter;
-	text-decoration: line-through;
-	font-size: 24rpx;
-	flex: 1;
-	margin-left: 10rpx;
+    color: #9b9b9b;
+    font-weight: lighter;
+    text-decoration: line-through;
+    font-size: 24rpx;
+    flex: 1;
+    margin-left: 10rpx;
 }
 
 .item .summary-area .sold-out {
-	display: flex;
-	align-items: center;
-	background-color: #e64340;
-	border-radius: 6rpx;
-	color: #fff;
-	padding: 0 4rpx;
-	font-size: 28rpx;
+    display: flex;
+    align-items: center;
+    background-color: #6e2f2e;
+    border-top-left-radius: 20rpx;
+    color: #fff;
+    padding: 10rpx;
+    font-size: 24rpx;
+    /*margin-right: -10rpx;*/
 }
 
 .item .summary-area .amount-area {
-	display: flex;
+    display: flex;
 }
 
 .item .summary-area .amount-area .amount-op {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border: 1rpx solid #ccc;
-	border-radius: 8rpx;
-	height: 80%;
-	align-self: flex-end;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1rpx solid #9b9b9b;
+    border-radius: 8rpx;
+    height: 80%;
+    align-self: flex-end;
 }
 
 .amount-op .op {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 4rpx 18rpx;
-	font-size: 36rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rpx 18rpx;
+    font-size: 36rpx;
 }
 
 .amount-op .op.amount {
-	font-size: 30rpx;
-	font-weight: bold;
-	/*line-height: 68.75rpx;
+    font-size: 30rpx;
+    font-weight: bold;
+    /*line-height: 68.75rpx;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
     float: left;*/
 }
 
 .amount-op .op.cut {
-	border-right: 1rpx solid #ccc;
-	/*line-height: 48rpx;
+    border-right: 1rpx solid #9b9b9b;
+    /*line-height: 48rpx;
     border-right:1px solid #ccc;*/
 }
 
 .amount-op .op.add {
-	border-left: 1rpx solid #ccc;
-	/*line-height: 48rpx;
+    border-left: 1rpx solid #9b9b9b;
+    /*line-height: 48rpx;
     border-left:1px solid #ccc;*/
 }
 
 .amount-op .op.disabled {
-	color: #ccc;
+    color: #9b9b9b;
 }
 
 .delivery-method {
-	font-weight: bold;
-	width: 50%;
-	font-size: 32rpx;
+    font-weight: bold;
+    width: 50%;
+    font-size: 32rpx;
 }
 
 .delivery-content {
-	font-size: 28rpx;
+    font-size: 28rpx;
 }
 
 textarea {
-	flex: 1;
-	height: 90rpx;
-	margin-bottom: 10rpx;
-	z-index: 0 !important;
+    flex: 1;
+    height: 90rpx;
+    margin-bottom: 10rpx;
+    z-index: 0 !important;
 }
 
 .line-button {
-	width: 100%;
-	font-size: 36rpx;
+    width: 100%;
+    font-size: 36rpx;
+    background-color: #6e2f2e;
+    color: #ffffff;
 }
 
 .orders {
-	display: flex;
-	flex-direction: column;
-	font-size: 28rpx;
+    display: flex;
+    flex-direction: column;
+    font-size: 28rpx;
 }
 
 .orders .order {
-	width: 96%;
-	background-color: #f4f4f4;
-	padding: 2%;
-	margin-bottom: 10rpx;
+    width: 96%;
+    background-color: #f4f4f4;
+    padding: 2%;
+    margin-bottom: 10rpx;
 }
 
 .orders .order .code {
-	font-weight: bold;
-	font-size: 30rpx;
+    font-weight: bold;
+    font-size: 30rpx;
 }
 
 .orders .order .goods {
-	display: flex;
-	flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .orders .order .goods .goods-item{
-	display: flex;
-	align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .orders .order .goods .goods-item image{
-	width: 128rpx;
-	height: 128rpx;
+    width: 128rpx;
+    height: 128rpx;
 }
 
 .orders .order .goods .goods-item text {
-	background-color: #09bb07;
-	border-radius: 50%;
-	align-self: flex-end;
-	position: absolute;
-	color: #fff;
-	font-size: 20rpx;
-	height: 30rpx;
-	width: 30rpx;
-	justify-content: center;
-	display: flex;
-	align-items: center;
+    background-color: #09bb07;
+    border-radius: 50%;
+    align-self: flex-end;
+    position: absolute;
+    color: #fff;
+    font-size: 20rpx;
+    height: 30rpx;
+    width: 30rpx;
+    justify-content: center;
+    display: flex;
+    align-items: center;
 }
 
 .user-list {
-	display: flex;
-	flex-direction: column;
-	margin-bottom: 20rpx;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20rpx;
 }
 
 .user-list .user-item {
-	display: flex;
-	align-items: center;
-	font-size: 28rpx;
-	margin-top: 10rpx;
-	border-bottom: 1rpx solid #eeeeee;
+    display: flex;
+    align-items: center;
+    font-size: 28rpx;
+    margin-top: 10rpx;
+    border-bottom: 1rpx solid #eeeeee;
 }
 
 .user-list .user-item .seq {
-	display: flex;
-	width: 56rpx;
-	height: 48rpx;
+    display: flex;
+    width: 56rpx;
+    height: 48rpx;
 }
 
 .user-list .user-item .seq text {
-	background-color: #888888;
-	color: #fff;
-	border-radius: 50%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-left: 4px;
-	font-size: 24rpx;
-	width: 48rpx;
+    background-color: #9b9b9b;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 4px;
+    font-size: 24rpx;
+    width: 48rpx;
 }
 
 .user-list .user-item .image {
-	margin: 0 8rpx;
+    margin: 0 8rpx;
 }
 
 .user-list .user-item .image image {
-	width: 64rpx;
-	height: 64rpx;
-	border-radius: 8rpx;
+    width: 64rpx;
+    height: 64rpx;
+    border-radius: 8rpx;
 }
 
 .user-list .user-item .name {
-	margin-right: 10rpx;
+    margin-right: 10rpx;
 }
 
 .user-list .user-item .detail {
-	flex: 1;
-	color: #888888;
+    flex: 1;
+    color: #9b9b9b;
 }
 
 .share-area {
-	position: fixed;
-	bottom: 40rpx;
-	right: 10rpx;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	align-items: flex-end;
-	height: 260rpx;
-	z-index: 200;
+    position: fixed;
+    bottom: 40rpx;
+    right: 10rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 260rpx;
+    z-index: 200;
 }
 
 .share-area .share-tips {
   width: 160rpx;
   height: 60rpx;
   line-height: 56rpx;
-  background: #88dd88;
-  border: 1px solid #09bb07;
+  background: #dab6ba;
+  border: 1px solid #6e2f2e;
   border-radius: 4px;
   text-align: center;
   color: #27323f;
@@ -311,7 +330,7 @@ textarea {
 
 .share-area .share-tips .arrow {
   position: absolute;
-  color: #88dd88;
+  color: #dab6ba;
   width: 0px;
   height: 0px;
   line-height: 0px;
@@ -323,18 +342,18 @@ textarea {
 }
 
 .share-area .share-tips .arrow-bg {
-  color: #88dd88;
+  color: #dab6ba;
   right: 10rpx;
 }
 
 .share-area .share-tips .arrow-border {
-  color: #09bb07;
+  color: #6e2f2e;
   right: 10rpx;
 }
 
 .share-button {
-  background-color: #88dd88;
-  border:1rpx solid #09bb07;
+  background-color: #dab6ba;
+  border:1rpx solid #6e2f2e;
   border-radius: 50%;
   width: 66rpx;
   height: 66rpx;
@@ -362,20 +381,20 @@ textarea {
   height: 100%;
   margin:0;
   position: fixed;
-  background: #00000080;
+  background: #21101180;
   z-index: 20;
-	bottom: 0;
-	font-size: 30rpx;
+    bottom: 0;
+    font-size: 30rpx;
   /* display: none; */
 }
 
 .attr-pop-box .attr-pop {
   display:flex;
   flex-direction:column;
-	width: 100%;
+    width: 100%;
   height: auto;
   max-height: 780rpx;
-  background: #fff;
+  background: #ffffff;
   position: fixed;
   bottom: 0;
   overflow-y: auto;
@@ -384,18 +403,18 @@ textarea {
 .attr-pop .close {
   width: 97%;
   overflow: hidden;
-	text-align: right;
-	margin-top: 12rpx;
+    text-align: right;
+    margin-top: 12rpx;
 }
 
 .attr-pop .confirm {
-	width: 100%;
-	margin-top: 40rpx;
-	color: #fff;
-	font-size: 30rpx;
-	background-color: #09bb07;
-	height: 90rpx;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+    width: 100%;
+    margin-top: 40rpx;
+    color: #ffffff;
+    font-size: 30rpx;
+    background-color: #6e2f2e;
+    height: 90rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

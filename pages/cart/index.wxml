@@ -1,49 +1,49 @@
 <view class="empty-view" wx:if="{{cart.products.length <= 0}}">
-		<text class="fa fa-shopping-cart fa-4x gray-color" />
-		<text class="text">去添加点什么吧</text>
+	<text class="fa fa-shopping-cart fa-4x gray-color" />
+	<text class="text">去添加点什么吧</text>
 </view>
 <view class="cart-view" wx:else>
-		<view class="list">
-				<view class="group-item">
-						<checkbox-group class="goods" bindchange="checkItem">
-								<view class="item" wx:for="{{cart.products}}" wx:key="">
-										<image class="image" src="{{base_image_url}}/{{item.images[0].image.name}}" mode="aspectFill" data-index="{{index}}" />
-										<view class="summary-area">
-												<view class="name-area">
-														<view class="name">
-																{{item.name}}
-																<text wx:if="{{!!item.want_size}}">-{{item.want_size.size.name}}</text>
-														</view>
-														<view class="summary">{{item.summary}}</view>
-														<view class="price red-color" wx:if="{{!item.want_size}}">￥{{item.price/100}}</view>
-														<view class="price red-color" wx:else>
-																<text wx:if="{{!item.want_size.price_plus}}">￥{{item.price/100}}</text>
-																<text wx:else>￥{{(item.price+item.want_size.price_plus)/100}}</text>
-														</view>
-												</view>
-												<checkbox value="{{item.id}}" checked="{{item.checked}}" />
-												<view class="amount-area">
-														<view class="cut">
-																<text wx:if="{{item.want_amount > 1}}" class="fa fa-minus-circle green-color btn" bindtap="amountChange" data-value="-1" data-index="{{index}}" />
-																<text wx:else class="fa fa-minus-circle gray-color btn" />
-														</view>
-														<view class="amount">{{item.want_amount}}</view>
-														<view class="add">
-																<text class="fa fa-plus-circle green-color btn" bindtap="amountChange" data-value="1" data-index="{{index}}" />
-														</view>
-												</view>
-										</view>
-								</view>
-						</checkbox-group>
+	<view class="list">
+		<view class="group-item">
+			<checkbox-group class="goods" bindchange="checkItem">
+				<view class="item" wx:for="{{cart.products}}" wx:key="id">
+					<image class="image" src="{{base_image_url}}/{{item.images[0].image.name}}" mode="aspectFill" data-index="{{index}}" />
+					<view class="summary-area">
+						<view class="name-area">
+							<view class="name">
+								{{item.name}}
+								<text wx:if="{{!!item.want_size}}">-{{item.want_size.size.name}}</text>
+							</view>
+							<view class="summary">{{item.summary}}</view>
+							<view class="price red-color" wx:if="{{!item.want_size}}">￥{{item.price/100}}</view>
+							<view class="price red-color" wx:else>
+								<text wx:if="{{!item.want_size.price_plus}}">￥{{item.price/100}}</text>
+								<text wx:else>￥{{(item.price+item.want_size.price_plus)/100}}</text>
+							</view>
+						</view>
+						<checkbox value="{{item.id}}" checked="{{item.checked}}" />
+						<view class="amount-area">
+							<view class="cut">
+								<text wx:if="{{item.want_amount > 1}}" class="fa fa-minus-circle green-color btn" bindtap="amountChange" data-value="-1" data-index="{{index}}" />
+								<text wx:else class="fa fa-minus-circle gray-color btn" />
+							</view>
+							<view class="amount">{{item.want_amount}}</view>
+							<view class="add">
+								<text class="fa fa-plus-circle green-color btn" bindtap="amountChange" data-value="1" data-index="{{index}}" />
+							</view>
+							</view>
+					</view>
 				</view>
+			</checkbox-group>
 		</view>
-		<view class="cart-bottom">
-				<label class="cart-info">
-						<switch type="checkbox" checked="{{checked_all}}" bindchange="checkAll" />
-						全选({{cart.amount}})
-				</label>
-				<view class="cost">￥{{cart.cost/100}}</view>
-				<view class="checkout" bindtap="deleteProduct" style="background-color:#e64340">删除所选</view>
-				<navigator class="checkout" style="background-color:#09bb07" url="pre_order?type=cart">下单</navigator>
-		</view>
+	</view>
+	<view class="cart-bottom">
+		<label class="cart-info">
+			<switch type="checkbox" checked="{{checked_all}}" bindchange="checkAll" />
+			全选({{cart.amount}})
+		</label>
+		<view class="cost">￥{{cart.cost/100}}</view>
+		<view class="checkout" bindtap="deleteProduct" style="background-color:#e64340">删除所选</view>
+		<navigator class="checkout" style="background-color:#09bb07" url="pre_order?type=cart">下单</navigator>
+	</view>
 </view>

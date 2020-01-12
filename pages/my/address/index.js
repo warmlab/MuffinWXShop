@@ -7,12 +7,20 @@ Page({
 	/**
 	 * 页面的初始数据
 	 */
-	data: {},
+	data: {
+		width: 0,
+		transparent: 0
+	},
 
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
+		var res = wx.getSystemInfoSync()
+		this.setData({
+			type: options.type,
+			windowWidth: res.windowWidth,
+		})
 		wx.hideShareMenu();
 	},
 
@@ -29,7 +37,8 @@ Page({
 		request.get('openid/addresses').then(res => {
 			console.log('address of the user', res)
 			that.setData({
-				addresses: res.data
+				addresses: res.data,
+				address_items: Array.from(res.data, ele => {return {x: 0, width:0, opacity:0}})
 			})
 			wx.hideLoading()
 			wx.stopPullDownRefresh()
@@ -57,6 +66,54 @@ Page({
 		this.setData({
 			is_default: e.detail.value.length > 0
 		});
+	},
+	// 点击选中
+	toSelectItem: e => {
+      var pages = getCurrentPages();
+      var prePage = pages[pages.length - 2];
+      //prePage.setData({dragon:res.data});
+      if ('getOrder' in prePage)
+        prePage.getMemberAddresses(parseInt(e.currentTarget.data('id')));
+		wx.navigateBack()
+	},
+	toStartTouch: function(e) {
+		//var index = pargeInt(e.currentTarget.data('index'))
+		//console.log('start touch', e)
+		//this.data.x_starts[index] = e.touches[0].pageX
+		//this.setData({
+		//	x_starts: this.data.x_starts
+		//})
+	},
+	toTouchItem: function (e) { 
+		var index = parseInt(e.currentTarget.dataset.index)
+		console.log('touch', e)
+		var distance = this.data.address_items[index].x - e.touches[0].pageX
+		if (distance > 0 && distance <= 120) {
+			this.data.address_items[index].width = distance
+			this.data.address_items[index].opacity = distance/120
+			this.setData({
+				address_items: this.data.address_items
+			})
+		} else (distance < 0 && distance >= -120)
+			this.data.address_items[index].width = 120 +distance
+			this.data.address_items[index].opacity = (120+distance)/120
+			this.setData({
+				address_items: this.data.address_items
+			})	
+	},
+	toStopTouch: function(e) {
+		//var index = parseInt(e.currentTarget.dataset.index)
+		//var distance = this.data.address_items[index].x - e.touches[0].pageX
+		//if (distance>=100 || distance <= -100) {
+		//	distance
+		//}
+		/*if (this.data.x_start - e.changedTouches[0].pageX > 100) {
+			console.log('okay touch')
+			this.setData({
+				width: 120,
+				transparent: 1
+			})
+		}*/
 	},
 	// 点击修改，或者点击底部“新建”
 	toEditItem: function (event) {

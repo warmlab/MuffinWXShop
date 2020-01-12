@@ -10,12 +10,12 @@
 						<radio value="2" wx:if="{{order.payment&2==2}}">小麦芬储值卡支付</radio -->
 				<!-- TODO 获得用户绑定的储值卡信息 -->
 		</radio-group>
-		<view wx:if="{{payment===2}}" class="margin-left">
+		<view wx:if="{{payment===2}}" style="font-size: 24rpx;">
 				本次交易需要店员手工操作，如果您的小麦芬储值卡余额不足以完成本次交易，小麦芬客服人员会及时联系您，请保持电话畅通，谢谢!!
 		</view>
 </view>
 <form bindsubmit="startPay" report-submit="true">
-	<view wx:if="{{cur_addr}}" class="adds-center-bg ui-row" style="height:70px;">
+	<!--view wx:if="{{cur_addr}}" class="adds-center-bg ui-row" style="height:70px;">
     <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 90px;">
       <view class="ui-col-content align-center valign-middle">
         <view class="adress-name">{{cur_addr.contact}}</view>
@@ -95,7 +95,7 @@
 		<view class="form-line">
 				<text class="title">联系人电话</text>
 				<input name="mobile" value="{{mobile}}" type="number" placeholder="13300000000" maxlength="11" />
-		</view>
+		</view-->
 		<button wx:if="{{payment===0}}" class="button-bottom" type="primary" disabled="{{true}}">
 				请选择支付方式
 		</button>

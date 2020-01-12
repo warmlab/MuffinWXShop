@@ -60,6 +60,7 @@ App({
 	},
 
 	doLogin: function() {
+		var that = this
 		this.login().then(userInfo => {
 			//that.globalData.userInfo = userInfo
 			getShopInfo()

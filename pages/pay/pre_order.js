@@ -13,9 +13,9 @@ Page({
 		base_image_url: config.base_image_url,
 		delivery_way: 1,
 		pickup_address: 0,
-		delivery_address: 0,
+		delivery_address: -1,
 		pickup_index: -1,
-		cur_addr: -1
+		//cur_addr: -1
 	},
 
 	getAddresses: function () {
@@ -23,7 +23,7 @@ Page({
 
 		request.get('addresses').then(res => {
 			that.setData({
-				pickup_address: res.data.length > 0 ? res.data[0].id : 0,
+				pickup_address: res.data.length > 0 ? res.data[0].id : -1,
 				pickup_addresses: res.data
 			})
 		}).catch(err => {
@@ -31,16 +31,23 @@ Page({
 		})
 	},
 
-	getMemberAddresses: function () {
+	getMemberAddresses: function (address_id) {
 		var that = this
 		request.get('openid/addresses').then(res => {
 			var delivery_address = 0;
-			for (var a of res.data)
-				if (a.is_default)
-					delivery_address = a.id
+			for (var index in res.data) {
+				var a = res.data[index]
+				if (address_id <= 0 && a.is_default)
+					delivery_address = index
+				else if  (adress_id === a.id)
+					delivery_address = index
+			}
+
+			if (delivery_address === 0 && res.data.length > 0)
+				delivery_address = 0
+			console.log('my addresses', res.data)
 			that.setData({
-				addresses: res.data,
-				cur_addr: 0,
+				delivery_addresses: res.data,
 				delivery_address: delivery_address
 			})
 		}).catch(err => {
@@ -101,7 +108,7 @@ Page({
 	},
 
 	onShow: function (e) {
-		this.getMemberAddresses()
+		this.getMemberAddresses(0)
 	},
 
 	deliveryMethodTap: function (e) {
@@ -178,7 +185,7 @@ Page({
 			return;
 		}
 
-		if (this.data.cur_addr < 0) {
+		if (this.data.delivery_address < 0) {
 			wx.showToast({
 				title: '请选择个人地址信息',
 				icon: 'none',
@@ -209,7 +216,7 @@ Page({
 			})
 		})
 
-		console.log('address', this.data.cur_addr);
+		console.log('addresses', this.data.delivery_address, this.data.delivery_addresses);
 
 		var data = {
 			//promotion_id: 0,
@@ -217,7 +224,7 @@ Page({
 			promotion_id: this.data.promotion,
 			products: ps,
 			delivery_way: this.data.delivery_way,
-			address: this.data.addresses[this.data.cur_addr].id,
+			delivery_address: this.data.delivery_addresses[this.data.delivery_address].id,
 			pickup_address: this.data.pickup_index>=0?this.data.pickup_addresses[this.data.pickup_index].id:-1,
 			note: e.detail.value.note,
 			nickname: this.data.userInfo.nickname,
@@ -246,7 +253,7 @@ Page({
 					prePage.onLoad();
 				}
 				wx.redirectTo({
-					url: `/pages/pay/index?code=${res.data.code}`
+					url: `index?code=${res.data.code}`
 				});
 			}).catch(err => {
 				console.log('commit order error', err)
