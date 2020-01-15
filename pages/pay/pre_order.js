@@ -66,7 +66,7 @@ Page({
 			that.setData({
 				userInfo: res,
 				type: options.type,
-				promotion: options.promotion
+				promotion: options.promotion ? options.promotion : 0
 			})
 		})
 
