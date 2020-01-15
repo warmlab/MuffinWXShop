@@ -14,6 +14,6 @@
 	width: 100%;
 	margin-top: 100rpx;
 	color: #ffffff;
-	background-color: #6e2f2e;
+	background-color: #481A0E;
 	border-radius: 0;
 }

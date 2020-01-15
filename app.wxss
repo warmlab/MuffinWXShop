@@ -2,7 +2,7 @@ page {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	color: #211011;
+	color: #23120D;
   font-size: 32rpx;
   /*background-color: #EDE2D3;*/
 }
@@ -16,7 +16,7 @@ page {
  }
 
  .gray-color {
-   color: #888888;
+   color: #9b9b9b;
  }
 
  .blue-color {
@@ -61,6 +61,50 @@ page {
    align-items: center;
    justify-content: center;
  }
+ 
+ .amount-op {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1rpx solid #9b9b9b;
+    border-radius: 8rpx;
+    height: 80%;
+    align-self: flex-end;
+}
+
+.amount-op .op {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rpx 18rpx;
+    font-size: 36rpx;
+}
+
+.amount-op .op.amount {
+    font-size: 30rpx;
+    font-weight: bold;
+    /*line-height: 68.75rpx;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    float: left;*/
+}
+
+.amount-op .op.cut {
+    border-right: 1rpx solid #9b9b9b;
+    /*line-height: 48rpx;
+    border-right:1px solid #ccc;*/
+}
+
+.amount-op .op.add {
+    border-left: 1rpx solid #9b9b9b;
+    /*line-height: 48rpx;
+    border-left:1px solid #ccc;*/
+}
+
+.amount-op .op.disabled {
+    color: #9b9b9b;
+}
+
 
  .button-bottom {
    width: 100%;
@@ -103,7 +147,7 @@ page {
 
  .empty-view .text {
    width: auto;
-	 color: #888888;
+	 color: #9b9b9b;
 	 margin-top: 10rpx;
  }
 
@@ -148,8 +192,8 @@ page {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  background-color: #dab6bae0;
-  color: #6e2f2e;
+  background-color: #EDE2D3e0;
+  color: #481A0E;
   height: 70rpx;
   line-height: 70rpx;
   margin-top: -70rpx;
@@ -157,7 +201,7 @@ page {
 }
 
 .goods-box .goods-price {
-  color: #6e2f2e;
+  color: #481A0E;
   font-size: 28rpx;
   text-align: left;
   padding: 3px 4px;
@@ -190,7 +234,7 @@ page {
 	justify-content: flex-end;
 	align-items: center;
 	flex: 1;
-	color: #6e2f2e;
+	color: #481A0E;
 	padding-right: 10rpx;
 }
 

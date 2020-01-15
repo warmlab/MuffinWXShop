@@ -27,16 +27,15 @@
     height: 84rpx;
     padding: 0 20rpx;
     line-height: 84rpx;
-    color: #333;
     font-size: 32rpx;
     width: auto;
     text-align:center;
 }
 
 .cate-nav .item.active .name {
-		color: #d8825c;
+		color: #CFA57E;
     height: 80rpx;
-    border-bottom: 2px solid #d8825c;
+    border-bottom: 2px solid #CFA57E;
 }
 
 .cate-item {
@@ -122,20 +121,20 @@
     height: 30rpx;
     text-align: center;
     font-size: 28rpx;
-    color: #6e2f2e;
+    color: #481A0E;
 }
 
 .cate-item .item .add-to-cart{
     right: -40%;
     position: relative;
-    color: #6e2f2e;
+    color: #481A0E;
     font-size: 48rpx;
 }
 
 .position {
     width: 50rpx;
     height: 50rpx;
-    background-color: #211011;
+    background-color: #23120D;
     position:fixed;
     opacity: 0;
 }
@@ -174,7 +173,7 @@
     width:40rpx;
     height:40rpx;
     border-radius: 50%;
-    background-color: #6e2f2e;
+    background-color: #481A0E;
     float: right;
     margin-bottom: -25rpx;
 }

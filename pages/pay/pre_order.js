@@ -34,7 +34,7 @@ Page({
 	getMemberAddresses: function (address_id) {
 		var that = this
 		request.get('openid/addresses').then(res => {
-			var delivery_address = 0;
+			var delivery_address = -1;
 			for (var index in res.data) {
 				var a = res.data[index]
 				if (address_id <= 0 && a.is_default)
@@ -43,7 +43,7 @@ Page({
 					delivery_address = index
 			}
 
-			if (delivery_address === 0 && res.data.length > 0)
+			if (delivery_address === -1 && res.data.length > 0)
 				delivery_address = 0
 			console.log('my addresses', res.data)
 			that.setData({

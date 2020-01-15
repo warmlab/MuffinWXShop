@@ -36,7 +36,7 @@
 
 .service-policy {
   height: 64rpx;
-  background: #f4f4f4;
+  background: #e7e7e7;
   padding: 0 30rpx;
   display: flex;
   flex-flow: row nowrap;
@@ -50,11 +50,11 @@
   display: flex;
   align-items: center;
   font-size: 22rpx;
-  color: #666;
+  color: #481A0E;
 }
 
 .service-policy .item .icon {
-  color: #e64340;
+  color: #CFA57E;
   font-size: 16rpx;
   margin-right: 6rpx;
 }
@@ -71,7 +71,6 @@
 }
 
 .product-info .name {
-  color: #353535;
   font-size: 40rpx;
   line-height: 40rpx;
   height: 40rpx;
@@ -83,14 +82,14 @@
   margin-bottom: 10rpx;
   line-height: 40rpx;
   height: 40rpx;
-  color: #888888;
+  color: #9b9b9b;
 }
 
 .product-info .price {
   height: 35rpx;
   font-size: 35rpx;
   line-height: 35rpx;
-  color: #e64340;
+  color: #481A0E;
   /*justify-items: right;
     text-align: right;
     width:50%;
@@ -105,7 +104,7 @@
 
 .product-info .title text {
   display: inline-block;
-  border: 2rpx solid #eeeeee;
+  border: 2rpx solid #d1d1d1;
   width: 100rpx;
   height: 0;
   vertical-align: middle;
@@ -165,7 +164,7 @@
 
 .product-info .note {
 	margin-top: 10rpx;
-	color: #888888;
+	color: #9b9b9b;
 	/*border: 1rpx solid #eeeeee;
 	box-shadow: 5rpx 5rpx 5rpx 5rpx #eeeeee;
 	border-radius: 10rpx;*/
@@ -255,11 +254,11 @@ view.bottom {
 }
 
 .bottom .long.cart {
-	background-color: #a18d65;
+	background-color: #CFA57E;
 }
 
 .bottom .long.buy {
-	background-color: #09bb07;
+	background-color: #481A0E;
 }
 
 .attr-pop-box {
@@ -298,7 +297,7 @@ view.bottom {
 	margin-top: 40rpx;
 	color: #fff;
 	font-size: 30rpx;
-	background-color: #09bb07;
+	background-color: #481A0E;
 	height: 90rpx;
 	display: flex;
 	justify-content: center;
@@ -317,37 +316,10 @@ view.bottom {
     /*float: right; */
 }
 
-.amount-area label {
-    width: 50%;
-    text-align: right;
-    font-weight: normal;
-}
-
-.amount-area .amount{
-    flex: 1;
-    height: 100%;
-    text-align: center;
-    font-weight: bold;
-    /*line-height: 68.75rpx;
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
-    float: left;*/
-}
-
-.amount-area .cut{
-    width: 70rpx;
-    height: 100%;
-    text-align: center;
-    /*line-height: 48rpx;
-    border-right:1px solid #ccc;*/
-}
-
-.amount-area .add{
-    width: 80rpx;
-    height: 100%;
-    text-align: center;
-    /*line-height: 48rpx;
-    border-left:1px solid #ccc;*/
+.amount-area .label {
+	display: flex;
+	align-items: center;
+	margin-right: 20rpx;
 }
 
 .amount-area .btn {

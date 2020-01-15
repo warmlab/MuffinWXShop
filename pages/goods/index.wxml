@@ -22,22 +22,22 @@
 		</view>
 </scroll-view>
 -->
-		<scroll-view class="goods-area" scroll-y="true" scroll-top="scrollTop" style="height: 80%;margin-top:84rpx;">
-				<view wx:for="{{products}}" wx:key="id" class="goods-box">
-						<view class="img-box" bindtap="toViewDetail" data-type="product" data-code="{{item.code}}">
-								<image src="{{base_image_url}}/{{item.images[0].image.name}}" class="image" mode="aspectFill" lazy-load="true" />
-								<view class="goods-title">{{item.name}}</view>
-						</view>
-						<view style="display:flex;">
-								<block wx:if="{{is_promote}}">
-										<view class="goods-price">Ұ{{item.promote_price/100}}</view>
-										<view class="goods-price original">¥{{item.price/100}}</view>
-								</block>
-								<block wx:else>
-										<view class="goods-price">Ұ{{item.price/100}}</view>
-								</block>
-								<view class="goods-price-naver" wx:if="{{item.sold && item.sold>0}}">已售{{item.sold}}</view>
-								<text class="fa fa-plus-circle goods-add" bindtap="addToCart" data-index="{{index}}" data-id="{{item.id}}" wx:if="{{extra_info===0}}" />
-						</view>
+<scroll-view class="goods-area" scroll-y="true" scroll-top="scrollTop" style="height: 80%;margin-top:84rpx;">
+		<view wx:for="{{products}}" wx:key="id" class="goods-box">
+				<view class="img-box" bindtap="toViewDetail" data-type="product" data-code="{{item.code}}">
+						<image src="{{base_image_url}}/{{item.images[0].image.name}}" class="image" mode="aspectFill" lazy-load="true" />
+						<view class="goods-title">{{item.name}}</view>
 				</view>
-		</scroll-view>
+				<view style="display:flex;">
+						<block wx:if="{{is_promote}}">
+								<view class="goods-price">Ұ{{item.promote_price/100}}</view>
+								<view class="goods-price original">¥{{item.price/100}}</view>
+						</block>
+						<block wx:else>
+								<view class="goods-price">Ұ{{item.price/100}}</view>
+						</block>
+						<view class="goods-price-naver" wx:if="{{item.sold && item.sold>0}}">已售{{item.sold}}</view>
+						<text class="fa fa-plus-circle goods-add" bindtap="addToCart" data-index="{{index}}" data-id="{{item.id}}" wx:if="{{extra_info===0}}" />
+				</view>
+		</view>
+</scroll-view>

@@ -116,15 +116,16 @@
                 </view>
             </view>
             <view class="amount-area" wx:if="{{buy_type!=='choose'}}">
-                <text>购买数量:</text>
-                <text class="cut text-center" bindtap="amountChange" data-value="-1">
-                    <text class="fa fa-minus-circle green-color text-center btn" />
-                </text>
-                <input class="amount" type="number" placeholder="购买数量" maxlength="5" value="{{product.want_amount}}" bindblur="amountSet" />
-                <text class="add text-center" bindtap="amountChange" data-value="1">
-                    <text class="fa fa-plus-circle green-color btn" />
-                </text>
-                <view class="button"></view>
+							<text class="label">购买数量:</text>
+							<view class="amount-op">
+								<text wx:if="{{product.want_amount > 1}}" class="op cut" bindtap="amountChange" data-value="-1" data-index="{{index}}">-</text>
+								<text class="op cut disabled" wx:else disabled>-</text>
+								<view class="op amount">{{product.want_amount}}</view>
+                <!--input class="op amount" type="number" placeholder="购买数量" maxlength="5" value="{{product.want_amount}}" bindblur="amountSet" /-->
+								<text wx:if="{{product.want_amount < product.stock}}" class="op add" bindtap="amountChange" data-value="1" data-index="{{index}}">+</text>
+								<text wx:else class="op add disabled">+</text>
+							</view>
+							<view style="flex: 1;"></view>
             </view>
             <view class="confirm" wx:if="{{buy_type!=='choose'}}" bindtap="toBuy" data-code="{{product.code}}">立即购买</view>
         </view>

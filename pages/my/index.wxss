@@ -1,12 +1,11 @@
 .profile-info {
-	width: 100%;
-	height: 240rpx;
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: flex-start;
-	padding: 0 30.25rpx;
-	background: #211011;
+	background: #23120D;
+	padding: 80rpx 30rpx;
+	overflow: hidden;
 }
 
 .profile-info .icon {
@@ -81,5 +80,5 @@
 
 .user-menu .item .title {
 	font-size: 24rpx;
-	color: #211011;
+	color: #23120D;
 }

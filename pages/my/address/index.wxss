@@ -23,11 +23,11 @@
 }
 
 .list .list-item .item-info .default {
-    border: 1rpx solid #d8825c;
+    border: 1rpx solid #CFA57E;
     padding: 2rpx 6rpx;
     border-radius: 5rpx;
     font-size: 24rpx;
-    background-color: #d8825c;
+    background-color: #CFA57E;
     color: #fff;
     margin-right: 16rpx;
 }
@@ -66,15 +66,15 @@
 }
 
 .list .list-item .item-actions .item-action view.edit {
-    background-color: #d8825c;
+    background-color: #CFA57E;
 }
 
 .list .list-item .item-actions .item-action view.delete {
-    background-color: #6e2f2e;
+    background-color: #481A0E;
 }
 
 .add-address {
-    background: #6E2F2E;
+    background: #481A0E;
     text-align: center;
     width: 100%;
     height: 80rpx;

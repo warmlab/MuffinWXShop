@@ -6,20 +6,27 @@
 }
 
 .item {
-    width:100%;
-    display: flex;
-    flex-direction: row;
-    border: thin solid #f4f4f4;
-    background-color: #f4f4f4;
-    margin-bottom: 10rpx;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	border-top: thin solid #e7e7e7;
+	/*border: thin solid #f4f4f4;
+    background-color: #f4f4f4;*/
+	margin-bottom: 2rpx;
+	padding-top: 2rpx;
+	padding-bottom: 2rpx;
 }
 
 .item .image {
     width: 40%;
-    height: 300rpx;
+		height: 300rpx;
+		border-top-right-radius: 20rpx;
+		border-bottom-right-radius: 20rpx;
 }
 
 .item .summary-area {
+	display: flex;
+	flex-direction: column;
     width: 60%;
     padding-left: 10rpx;
     font-size: 24rpx;
@@ -27,7 +34,7 @@
 }
 
 .item .summary-area .name-area {
-    height: 80%;
+	flex: 1;
 }
 
 .item .summary-area .amount-area {
@@ -41,17 +48,63 @@
 .name-area .name {
     font-weight: bold;
     margin-top:10rpx;
-
+	font-size: 28rpx;
 }
 
 .name-area .price {
-    font-weight: bold;
+		font-weight: bold;
+		color: #481A0E;
 }
 
 .name-area .summary {
-    font-size: 20rpx;
-    margin:20rpx 0 20rpx 0;
+    font-size: 24rpx;
+		margin:20rpx 0 20rpx 0;
+		color: #9b9b9b;
 }
+
+.amount-op {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1rpx solid #9b9b9b;
+    border-radius: 8rpx;
+		align-self: flex-end;
+		margin-right: 4rpx;
+}
+
+.amount-op .op {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rpx 18rpx;
+    font-size: 36rpx;
+}
+
+.amount-op .op.amount {
+    font-size: 30rpx;
+    font-weight: bold;
+    /*line-height: 68.75rpx;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    float: left;*/
+}
+
+.amount-op .op.cut {
+    border-right: 1rpx solid #9b9b9b;
+    /*line-height: 48rpx;
+    border-right:1px solid #ccc;*/
+}
+
+.amount-op .op.add {
+    border-left: 1rpx solid #9b9b9b;
+    /*line-height: 48rpx;
+    border-left:1px solid #ccc;*/
+}
+
+.amount-op .op.disabled {
+    color: #9b9b9b;
+}
+
 
 .amount-area .amount{
     flex: 1;
@@ -163,6 +216,8 @@
 }
 
 .cart-bottom .cost{
+	display: flex;
+	justify-content: center;
     height: 34rpx;
     flex: 1;
     margin: 33rpx 10rpx;
@@ -170,10 +225,17 @@
 }
 
 .cart-bottom .delete{
-    height: 34rpx;
+    /*height: 34rpx;
     width: auto;
     margin: 33rpx 18rpx;
+    font-size: 29rpx;*/
+    height: 100rpx;
+    width: 210rpx;
+    text-align: center;
+    line-height: 100rpx;
     font-size: 29rpx;
+		color: #fff;
+		background-color: #CFA57E;
 }
 
 .cart-bottom .checkout{
@@ -182,5 +244,6 @@
     text-align: center;
     line-height: 100rpx;
     font-size: 29rpx;
-    color: #fff;
+		color: #fff;
+		background-color: #481A0E;
 }

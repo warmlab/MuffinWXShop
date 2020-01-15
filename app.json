@@ -24,16 +24,17 @@
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
-    "backgroundColor": "#fafafa",
+    "backgroundColor": "#EDE2D3",
     "borderStyle": "white",
-    "selectedColor": "#e64340",
-    "color": "#666",
+    "selectedColor": "#CFA57E",
+    "color": "#481A0E",
     "list": [
       {
         "pagePath": "pages/topic/index",
         "iconPath": "images/tabbar/focus.png",
         "selectedIconPath": "images/tabbar/focus_sel.png",
-        "text": "首页"
+				"text": "首页",
+				"backgroundColor": "#481A0E"
       },
       {
         "pagePath": "pages/goods/index",

@@ -23,14 +23,14 @@
 .swiper-area .banner-dots .banner-dot {
   width: 20rpx;
   height: 20rpx;
-  background-color: #dab6ba;
+  background-color: #EDE2D3;
   border-radius: 10rpx;
   margin: 8rpx;
 }
 
 .swiper-area .banner-dots .banner-dot.active {
   width: 26rpx;
-  background-color: #6e2f2e;
+  background-color: #481A0E;
 }
 
 .swiper-area text.message {
@@ -47,8 +47,8 @@
 	margin-top: 10rpx;
 	padding: 10rpx 0;
 	font-size: 24rpx;
-	background-color: #6e2f2ee0;
-	color: #dab6ba;
+	background-color: #EDE2D3e0;
+	color: #481A0E;
 }
 
 .topic-list{

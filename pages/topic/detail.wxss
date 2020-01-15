@@ -52,11 +52,11 @@
 
 .item.even {
     background-color: #ede2d3;
-    color: #6E2F2E;
+    color: #481A0E;
 }
 
 .item.odd {
-    background-color: #dab6ba;
+    background-color: #EDE2D3;
     color: #6D2F2E;
     /*background-color: #4a210f;
     color: #e4c7af;*/
@@ -94,7 +94,7 @@
 .summary-area .name .sold {
     display: flex;
     justify-content: flex-end;
-    background-color: #6e2f2e;
+    background-color: #481A0E;
     padding: 10rpx;
     border-bottom-left-radius: 10px;
     color: white;
@@ -111,7 +111,7 @@
     display: flex;
     align-items: flex-end;
     font-weight: bold;
-    color: #6e2f2e;
+    color: #481A0E;
 }
 
 .amount-area .old-price {
@@ -126,7 +126,7 @@
 .item .summary-area .sold-out {
     display: flex;
     align-items: center;
-    background-color: #6e2f2e;
+    background-color: #481A0E;
     border-top-left-radius: 20rpx;
     color: #fff;
     padding: 10rpx;
@@ -136,49 +136,6 @@
 
 .item .summary-area .amount-area {
     display: flex;
-}
-
-.item .summary-area .amount-area .amount-op {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1rpx solid #9b9b9b;
-    border-radius: 8rpx;
-    height: 80%;
-    align-self: flex-end;
-}
-
-.amount-op .op {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 4rpx 18rpx;
-    font-size: 36rpx;
-}
-
-.amount-op .op.amount {
-    font-size: 30rpx;
-    font-weight: bold;
-    /*line-height: 68.75rpx;
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
-    float: left;*/
-}
-
-.amount-op .op.cut {
-    border-right: 1rpx solid #9b9b9b;
-    /*line-height: 48rpx;
-    border-right:1px solid #ccc;*/
-}
-
-.amount-op .op.add {
-    border-left: 1rpx solid #9b9b9b;
-    /*line-height: 48rpx;
-    border-left:1px solid #ccc;*/
-}
-
-.amount-op .op.disabled {
-    color: #9b9b9b;
 }
 
 .delivery-method {
@@ -201,7 +158,7 @@ textarea {
 .line-button {
     width: 100%;
     font-size: 36rpx;
-    background-color: #6e2f2e;
+    background-color: #481A0E;
     color: #ffffff;
     border-radius: 0;
 }
@@ -320,8 +277,8 @@ textarea {
   width: 160rpx;
   height: 60rpx;
   line-height: 56rpx;
-  background: #dab6ba;
-  border: 1px solid #6e2f2e;
+  background: #EDE2D3;
+  border: 1px solid #481A0E;
   border-radius: 4px;
   text-align: center;
   color: #27323f;
@@ -331,7 +288,7 @@ textarea {
 
 .share-area .share-tips .arrow {
   position: absolute;
-  color: #dab6ba;
+  color: #EDE2D3;
   width: 0px;
   height: 0px;
   line-height: 0px;
@@ -343,18 +300,18 @@ textarea {
 }
 
 .share-area .share-tips .arrow-bg {
-  color: #dab6ba;
+  color: #EDE2D3;
   right: 10rpx;
 }
 
 .share-area .share-tips .arrow-border {
-  color: #6e2f2e;
+  color: #481A0E;
   right: 10rpx;
 }
 
 .share-button {
-  background-color: #dab6ba;
-  border:1rpx solid #6e2f2e;
+  background-color: #EDE2D3;
+  border:1rpx solid #481A0E;
   border-radius: 50%;
   width: 66rpx;
   height: 66rpx;
@@ -382,7 +339,7 @@ textarea {
   height: 100%;
   margin:0;
   position: fixed;
-  background: #21101180;
+  background: #23120D80;
   z-index: 20;
     bottom: 0;
     font-size: 30rpx;
@@ -413,7 +370,7 @@ textarea {
     margin-top: 40rpx;
     color: #ffffff;
     font-size: 30rpx;
-    background-color: #6e2f2e;
+    background-color: #481A0E;
     height: 90rpx;
     display: flex;
     justify-content: center;

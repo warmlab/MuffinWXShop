@@ -129,7 +129,7 @@ Page({
 		})
 	},
 	// 点击删除图标
-	deleteAddress: function (e) {
+	toDeleteItem: function (e) {
 		// console.log('点击删除', event)
 		let that = this;
 		wx.showModal({

@@ -15,14 +15,23 @@
 								<text wx:if="{{!!item.want_size}}">-{{item.want_size.size.name}}</text>
 							</view>
 							<view class="summary">{{item.summary}}</view>
-							<view class="price red-color" wx:if="{{!item.want_size}}">￥{{item.price/100}}</view>
-							<view class="price red-color" wx:else>
+							<view class="price" wx:if="{{!item.want_size}}">￥{{item.price/100}}</view>
+							<view class="price" wx:else>
 								<text wx:if="{{!item.want_size.price_plus}}">￥{{item.price/100}}</text>
 								<text wx:else>￥{{(item.price+item.want_size.price_plus)/100}}</text>
 							</view>
 						</view>
-						<checkbox value="{{item.id}}" checked="{{item.checked}}" />
-						<view class="amount-area">
+						<view style="display: flex; align-self: flex-end; width: 100%;">
+						<checkbox style="flex: 1;align-self: flex-end;" value="{{item.id}}" checked="{{item.checked}}" />
+						<view class="amount-op">
+								<text wx:if="{{item.want_amount > 1}}" class="op cut" bindtap="amountChange" data-value="-1" data-index="{{index}}">-</text>
+								<text class="op cut disabled" wx:else disabled>-</text>
+								<view class="op amount">{{item.want_amount}}</view>
+								<text wx:if="{{item.want_amount < item.stock}}" class="op add" bindtap="amountChange" data-value="1" data-index="{{index}}">+</text>
+								<text wx:else class="op add disabled">+</text>
+						</view>
+						</view>
+						<!--view class="amount-area">
 							<view class="cut">
 								<text wx:if="{{item.want_amount > 1}}" class="fa fa-minus-circle green-color btn" bindtap="amountChange" data-value="-1" data-index="{{index}}" />
 								<text wx:else class="fa fa-minus-circle gray-color btn" />
@@ -31,19 +40,20 @@
 							<view class="add">
 								<text class="fa fa-plus-circle green-color btn" bindtap="amountChange" data-value="1" data-index="{{index}}" />
 							</view>
-							</view>
+						</view-->
 					</view>
 				</view>
 			</checkbox-group>
+			<view style="width: 100%; border-top: thin solid #e7e7e7;"></view>
 		</view>
 	</view>
 	<view class="cart-bottom">
 		<label class="cart-info">
 			<switch type="checkbox" checked="{{checked_all}}" bindchange="checkAll" />
-			全选({{cart.amount}})
+			全选({{cart.amount?cart.amount:0}})
 		</label>
-		<view class="cost">￥{{cart.cost/100}}</view>
-		<view class="checkout" bindtap="deleteProduct" style="background-color:#e64340">删除所选</view>
-		<navigator class="checkout" style="background-color:#09bb07" url="pre_order?type=cart">下单</navigator>
+		<view class="cost">￥{{cart.cost?cart.cost/100:0}}</view>
+		<view class="delete" bindtap="deleteProduct">删除所选</view>
+		<navigator class="checkout" url="pre_order?type=cart">下单</navigator>
 	</view>
 </view>
