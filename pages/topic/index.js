@@ -111,9 +111,10 @@ Page({
 
 	toViewDetail: function (e) {
 		var url
-		if (e.currentTarget.dataset.type === 'promotion')
+		if (e.currentTarget.dataset.type === 'promotion') {
+			wx.setStorageSync('promotion', e.currentTarget.dataset.id)
 			url = `detail?id=${e.currentTarget.dataset.id}`
-		else
+		} else
 			url = `../goods/detail?code=${e.currentTarget.dataset.code}`
 		wx.navigateTo({
 			url: url

@@ -20,9 +20,9 @@
 								<view class="status"></view>
 						</view>
 				</navigator>
-				<view class="order">
+				<view class="order" style="margin-top: 1rpx;">
 						<view class="b">
-								<view class="l">实付：￥{{(item.delivery_fee+item.cost)/100}}</view>
+								<view class="l">{{item.pay_time == null && item.payment_code == null ? '需' : '实'}}付：￥{{(item.delivery_fee+item.cost)/100}}</view>
 								<view class="r">
 										<button class="btn" data-order="{{item.code}}" bindtap="payOrder" wx:if="{{item.pay_time == null && item.payment_code == null}}">去付款</button>
 								</view>

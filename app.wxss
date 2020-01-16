@@ -112,7 +112,7 @@ page {
    line-height: 80rpx;
    position: fixed;
    text-align: center;
-   background: #b4282d;
+   background: #481A0E;
    border-radius: 0;
    border: none;
    color: #fff;

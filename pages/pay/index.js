@@ -75,6 +75,7 @@ Page({
 
 	startPay: function (e) {
 		var that = this;
+		/*
 		if (this.data.order.address.delivery_way == 1 && !this.data.order.member_openid.phone) {
 			if (e.detail.value.contact.trim() === '' || e.detail.value.mobile.trim() === '') {
 				wx.showModal({
@@ -86,6 +87,7 @@ Page({
 				return
 			}
 		}
+		*/
 
 		if (this.data.payment === 0) {
 			wx.showModal({
@@ -101,7 +103,7 @@ Page({
 		request.post('pay', {
 			code: that.data.order.code,
 			payment: that.data.payment,
-			contact: e.detail.value.contact,
+			//contact: e.detail.value.contact,
 			mobile: e.detail.value.mobile,
 			formId: e.detail.formId
 		}).then(res => {

@@ -251,8 +251,9 @@ Page({
 					//prePage.setData({dragon:res.data});
 					prePage.onLoad();
 				}
+				console.log('aaaaa', res.data.code)
 				wx.redirectTo({
-					url: `index?code=${res.data.code}`
+					url: `/pages/pay/index?code=${res.data.code}`
 				});
 			}).catch(err => {
 				console.log('commit order error', err)

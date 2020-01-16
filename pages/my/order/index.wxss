@@ -20,14 +20,13 @@ page{
     padding-right: 31.25rpx;
     border-bottom: 1px solid #f4f4f4;
     font-size: 30rpx;
-    color: #333;
 }
 .order .h .l{
     float: left;
 }
 .order .h .r{
     float: right;
-    color: #b4282d;
+    color: #481A0E;
     font-size: 24rpx;
 }
 .order .goods{
@@ -55,7 +54,6 @@ page{
     display: block;
     height: 44rpx;
     line-height: 44rpx;
-    color: #333;
     font-size: 30rpx;
 }
 .order .goods .number{
@@ -67,7 +65,7 @@ page{
 }
 .order .goods .status{
     width:105rpx;
-    color: #b4282d;
+    color: #481A0E;
     font-size: 25rpx;
 }
 .order .b{
@@ -94,5 +92,5 @@ page{
     border-radius: 5rpx;
     font-size: 28rpx;
     color: #fff;
-    background: #b4282d;
+    background: #481A0E;
 }

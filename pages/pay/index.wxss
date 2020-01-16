@@ -5,13 +5,17 @@
 	font-weight: bold;
 }
 
-.total .label{
-}
-
-.total .txt{
+.total .price {
+	display: flex;
 	flex: 1;
-	font-size: 48rpx;
-	text-align: center;
+	justify-content: center;
+	align-items: center;
+	/*flex: 1;*/
+	font-size: 64rpx;
+	background-color: #481A0E;
+	color: #ffffff;
+	border-radius: 20rpx;
+	padding: 40rpx;
 }
 
 .payments {
@@ -20,10 +24,20 @@
 	padding: 40rpx 30rpx;
 }
 
-.payments .title {
+.title {
 	font-weight: bold;
-	border-bottom: 1rpx solid #e8e8e8;
+	border-bottom: 1rpx solid #d1d1d1;
 	padding-bottom: 4rpx;
+}
+
+.total button {
+	flex: 1;
+	height: 80rpx;
+	line-height: 80rpx;
+	background: #481A0E;
+	color: #ffffff;
+	font-size: 32rpx;
+	z-index: 10rpx;
 }
 
 .tips{

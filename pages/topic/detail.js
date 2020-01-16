@@ -15,9 +15,9 @@ Page({
 		pickup_address: 0,
 		delivery_address: 0,
 		payment: 4,
-		note: '',
+		note: "",
 		current_height: 220,
-		canvas_id: 'shareCanvas'
+		canvas_id: "shareCanvas"
 	},
 
 	onShareAppMessage: function (res) {
@@ -38,6 +38,7 @@ Page({
 			title: '加载中，请稍候',
 			mask: true
 		})
+
 		request.get('promotion', {
 			id: that.data.id
 		}).then(r => {
@@ -62,7 +63,7 @@ Page({
 						ele.product.summary = ele.product.summary.slice(0, 50) + '...'
 					products.push(ele)
 				}
-			});
+			})
 
 			var lod = util.strToDate(r.data.last_order_time);
 			var fd = util.strToDate(r.data.from_time);
@@ -112,11 +113,17 @@ Page({
 	},
 
 	onLoad: function (res) {
-		var that = this;
+		var that = this
 
 		//request.get(`promotion?id=${res.id}`, {})
+		var id
+		if (!!res && !!res.id)
+			id = res.id
+		else {
+			id = wx.getStorageSync('promotion')
+		}
 		that.setData({
-			id: res.id
+			id: id
 		})
 
 		//var inter = setInterval(() => {

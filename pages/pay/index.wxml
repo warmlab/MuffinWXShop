@@ -1,6 +1,5 @@
 <view class="total">
-		<view class="label">订单金额</view>
-		<view class="txt">￥{{(order.delivery_fee+order.cost)/100}}</view>
+		<view class="price">￥{{(order.delivery_fee+order.cost)/100}}</view>
 </view>
 <view class="payments">
 		<view class="title">请选择支付方式</view>
@@ -14,8 +13,13 @@
 				本次交易需要店员手工操作，如果您的小麦芬储值卡余额不足以完成本次交易，小麦芬客服人员会及时联系您，请保持电话畅通，谢谢!!
 		</view>
 </view>
-<form bindsubmit="startPay" report-submit="true">
-	<!--view wx:if="{{cur_addr}}" class="adds-center-bg ui-row" style="height:70px;">
+<view class="total">
+	<button wx:if="{{payment===0}}" disabled="{{true}}">请选择支付方式</button>
+	<button bindtap="startPay" wx:elif="{{(payment===2 && order.member_openid.name && order.member_openid.phone) || payment===4}}">确定支付</button>
+	<button wx:else bindtap="bindValuecard">绑定储值卡</button>
+</view>
+<!--form bindsubmit="startPay" report-submit="true">
+	<view wx:if="{{cur_addr}}" class="adds-center-bg ui-row" style="height:70px;">
     <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 90px;">
       <view class="ui-col-content align-center valign-middle">
         <view class="adress-name">{{cur_addr.contact}}</view>
@@ -95,12 +99,12 @@
 		<view class="form-line">
 				<text class="title">联系人电话</text>
 				<input name="mobile" value="{{mobile}}" type="number" placeholder="13300000000" maxlength="11" />
-		</view-->
-		<button wx:if="{{payment===0}}" class="button-bottom" type="primary" disabled="{{true}}">
+		</view>
+		<button wx:if="{{payment===0}}" class="button-bottom" disabled="{{true}}">
 				请选择支付方式
 		</button>
-		<button wx:elif="{{(payment===2 && order.member_openid.name && order.member_openid.phone) || payment===4}}" class="button-bottom" type="primary" form-type="submit">
+		<button wx:elif="{{(payment===2 && order.member_openid.name && order.member_openid.phone) || payment===4}}" class="button-bottom" form-type="submit">
 				确定支付
 		</button>
-		<button wx:else class="button-bottom" type="primary" bindtap="bindValuecard">绑定储值卡</button>
-</form>
+		<button wx:else class="button-bottom" bindtap="bindValuecard">绑定储值卡</button>
+</form-->
