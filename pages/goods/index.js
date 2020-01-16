@@ -19,6 +19,9 @@ Page({
 	 */
 	data: {
 		base_image_url: config.base_image_url,
+		NAV_HEIGHT: wx.STATUS_BAR_HEIGHT + wx.DEFAULT_HEADER_HEIGHT,
+		NAV_WIDTH: wx.getSystemInfoSync().windowWidth,
+		NAV_OFFSET: 0,
 		category_id: 0,
 		extra_info: 0
 	},
@@ -36,7 +39,8 @@ Page({
 		}).then(res => {
 			console.log('products', res.data)
 			that.setData({
-				products: res.data
+				products: res.data,
+				NAV_OFFSET: e.currentTarget.offsetLeft - this.data.NAV_WIDTH / 2
 			})
 			wx.hideLoading()
 			wx.stopPullDownRefresh()
