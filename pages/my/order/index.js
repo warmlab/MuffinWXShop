@@ -65,7 +65,7 @@ Page({
 		// console.log('订单信息', currentOrder);
 		// 直接支付即可
 		wx.navigateTo({
-			url: `../../pay/index?code=${code}`
+			url: `/pages/pay/pay?code=${code}`
 		})
 	}
 })

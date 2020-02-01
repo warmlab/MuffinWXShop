@@ -38,18 +38,22 @@ Page({
 		request.get('product', {
 			code: options.code
 		}).then(res => {
-			console.log(res)
+			console.log('product info', res)
 			var banners = []
 			var details = []
 			res.data.images.forEach(ele => {
-				console.log('aaa', ele)
 				if ((ele.type & 2) === 2)
 					details.push(ele.image)
 				else
 					banners.push(ele.image)
 			})
-			console.log('aaa', banners, details)
 			res.data.want_amount = 1
+			var now = new Date()
+			var begin_time = new Date(res.data.promote_begin_time)
+			var end_time = new Date(res.data.promote_end_time)
+			if (begin_time <= now && end_time >= now && (res.data.promote_type & 0x04) === 0x04)
+				res.data.in_promote = true
+
 			if (res.data.category.extra_info & 1 === 1 && res.data.sizes.length > 0)
 				that.setData({
 					banners: banners,
@@ -204,7 +208,7 @@ Page({
 			cost: this.data.product.want_amount * this.data.product.price
 		})
 		wx.navigateTo({
-			url: "../pay/pre_order?type=buy"
+			url: "../pay/order?type=buy"
 		})
 	},
 
@@ -228,7 +232,7 @@ Page({
 				return
 			}
 		}
-		addToShoppingCart(this, this.data.product, this.data.current_size, 1)
+		addToShoppingCart(this.data.product, this.data.current_size, 1)
 		this.closeAttr()
 		wx.showToast({
 			title: '成功加入购物车',

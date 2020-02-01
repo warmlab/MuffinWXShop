@@ -10,6 +10,7 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
+		userInfo: {},
 		payment: 0,
 		payments: []
 	},
@@ -53,17 +54,30 @@ Page({
 		//options.code, options.promotion_id
 		// TODO to do prepay_id
 
+		// get user info
+		//wx.setStorageSync('appUserInfo', e.detail.userInfo);
 		this.setData({
 			code: options.code,
 			//privilege: wx.getStorageSync('privilege')
-		})
+		});
 
+		this.toGetUserInfo()
 		this.getOrder()
+	},
+
+	toGetUserInfo: function(e) {
+		// get user info
+		var userInfo = wx.getStorageSync('appUserInfo')
+		//wx.setStorageSync('appUserInfo', e.detail.userInfo);
+		this.setData({
+			userInfo: userInfo
+			//privilege: wx.getStorageSync('privilege')
+		});
 	},
 
 	paymentChange: function (e) {
 		this.setData({
-			payment: parseInt(e.detail.value)
+			payment: parseInt(e.currentTarget.dataset.value)
 		})
 	},
 
@@ -104,7 +118,7 @@ Page({
 			code: that.data.order.code,
 			payment: that.data.payment,
 			//contact: e.detail.value.contact,
-			mobile: e.detail.value.mobile,
+			//mobile: e.detail.value.mobile,
 			formId: e.detail.formId
 		}).then(res => {
 			if (res.statusCode === 201) {
@@ -146,6 +160,7 @@ Page({
 				});
 			}
 		}).catch(err => {
+			console.log('pay failed', err)
 			//wx.navigateTo({
 			wx.redirectTo({
 				url: `result?status=error&code=${that.data.order.code}`

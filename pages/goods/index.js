@@ -5,7 +5,6 @@ const app = getApp();
 
 import {
 	addToShoppingCart,
-	syncCart
 } from '../../utils/cart.js'
 
 import {
@@ -26,7 +25,7 @@ Page({
 		extra_info: 0
 	},
 
-	getProducts: function (category_id) {
+	getProducts: function (category_id, offsetLeft) {
 		var that = this;
 		wx.showLoading({
 			title: '加载中，请稍候',
@@ -40,7 +39,7 @@ Page({
 			console.log('products', res.data)
 			that.setData({
 				products: res.data,
-				NAV_OFFSET: e.currentTarget.offsetLeft - this.data.NAV_WIDTH / 2
+				NAV_OFFSET: offsetLeft - this.data.NAV_WIDTH / 2
 			})
 			wx.hideLoading()
 			wx.stopPullDownRefresh()
@@ -55,13 +54,6 @@ Page({
 		})
 	},
 
-	syncCartInfo: function () {
-		var cart = syncCart()
-		this.setData({
-			cart: cart
-		})
-	},
-
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
@@ -69,12 +61,7 @@ Page({
 		var that = this
 		app.getUserInfo().then(res => {
 			that.syncProductInfo()
-			that.syncCartInfo()
 		})
-	},
-
-	onShow: function (e) {
-		this.syncCartInfo()
 	},
 
 	categorySwitch: function (e) {
@@ -83,7 +70,7 @@ Page({
 			category_id: e.currentTarget.dataset.id,
 			extra_info: parseInt(e.currentTarget.dataset.extra)
 		})
-		this.getProducts(e.currentTarget.dataset.id)
+		this.getProducts(e.currentTarget.dataset.id, e.currentTarget.offsetLeft)
 	},
 
 	toViewDetail: function (e) {
@@ -145,7 +132,7 @@ Page({
 		})
 		*/
 
-		addToShoppingCart(this, product, 0, 1)
+		addToShoppingCart(product, 0, 1)
 		wx.showToast({
 			title: '成功加入购物车',
 			icon: 'success',

@@ -1,15 +1,19 @@
-const app = getApp();
-
-//const util = require('../../utils/util.js');
-//import {request, BASE_URL} from '../../utils/request.js'
-//const {request, base_url} = require('../../utils/request.js')
 import config from '../../config.js'
 import request from '../../utils/request.js'
-//import base_url from '../../utils/request.js'
+
+import {
+	addToShoppingCart
+} from '../../utils/cart.js'
+
+const app = getApp();
 
 Page({
 	data: {
 		promotions: [],
+		goods_01: [],
+		goods_02: [],
+		goods_04: [],
+		goods_08: [],
 		page: 1,
 		size: 10,
 		count: 0,
@@ -44,6 +48,10 @@ Page({
 
 	getPromotions: function () {
 		var that = this;
+		var goods_01 = []
+		var goods_02 = []
+		var goods_04 = []
+		var goods_08 = []
 		wx.showLoading({
 			title: '加载中，请稍候',
 			mask: true
@@ -52,17 +60,35 @@ Page({
 			console.log('get promotions', r);
 			if (r.data.length === 0)
 				throw 'no promotion available'
-			var goods = []
 			r.data.forEach(promotion => {
-				goods = goods.concat(promotion.products.map(item => {
-					item.product.promotion_id = promotion.id
-					return item.product
-				}))
+				if ((promotion.type & 0x01) > 0) // 热卖
+					goods_01 = goods_01.concat(promotion.products.map(item => {
+						item.product.promotion_id = promotion.id
+						return item.product
+					}))
+				if ((promotion.type & 0x02) > 0) // 上新
+					goods_02 = goods_02.concat(promotion.products.map(item => {
+						item.product.promotion_id = promotion.id
+						return item.product
+					}))
+				if ((promotion.type & 0x04) > 0) // 特价
+					goods_04 = goods_04.concat(promotion.products.map(item => {
+						item.product.promotion_id = promotion.id
+						return item.product
+					}))
+				if ((promotion.type & 0x08) > 0) // 预售
+					goods_08 = goods_08.concat(promotion.products.map(item => {
+						item.product.promotion_id = promotion.id
+						return item.product
+					}))
 			})
 
 			that.setData({
 				promotions: r.data,
-				goods: goods,
+				goods_01: goods_01,
+				goods_02: goods_02,
+				goods_04: goods_04,
+				goods_08: goods_08,
 				show_banner: r.data.length > 0 ? false : true
 			})
 			wx.hideLoading()
@@ -111,13 +137,35 @@ Page({
 
 	toViewDetail: function (e) {
 		var url
-		if (e.currentTarget.dataset.type === 'promotion') {
-			wx.setStorageSync('promotion', e.currentTarget.dataset.id)
-			url = `detail?id=${e.currentTarget.dataset.id}`
-		} else
-			url = `../goods/detail?code=${e.currentTarget.dataset.code}`
+		//if (e.currentTarget.dataset.type === 'promotion') {
+		//	wx.setStorageSync('promotion', e.currentTarget.dataset.id)
+		//	url = `detail?id=${e.currentTarget.dataset.id}`
+		//} else
+		url = `../goods/detail?code=${e.currentTarget.dataset.code}`
 		wx.navigateTo({
 			url: url
+		})
+	},
+
+	addToCart: function (e) {
+		var product;
+		var type = e.currentTarget.dataset.type
+		if (type == 1)
+			product = this.data.goods_01[parseInt(e.currentTarget.dataset.index)]
+		else if (type == 2)
+			product = this.data.goods_02[parseInt(e.currentTarget.dataset.index)]
+		else if (type == 4) {
+			product = this.data.goods_04[parseInt(e.currentTarget.dataset.index)]
+			product.in_promote = true
+		} else if (type == 8)
+			product = this.data.goods_08[parseInt(e.currentTarget.dataset.index)]
+		console.log('aa', product)
+
+		addToShoppingCart(product, 0, 1)
+		wx.showToast({
+			title: '成功加入购物车',
+			icon: 'success',
+			duration: 2000
 		})
 	},
 

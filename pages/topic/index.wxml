@@ -1,4 +1,5 @@
 <import src="../templates/module.wxml"/>
+<!--
 <view class="swiper-area" style="height: {{banner_height}}px" wx:if="{{promotions.length > 0}}">
 		<swiper circular autoplay interval="6000" duration="500" bindchange="swiperChange" style="height: {{banner_height}}px">
 			<block wx:for="{{promotions}}" wx:for-item="promotion" wx:key="id">
@@ -27,5 +28,32 @@
 				</block>
 		</view>
 </view>
-<view class="goods-message">{{promotions.length === 0?'小麦芬推荐商品':'小麦芬团购进行中...'}}</view>
-<template is="goods-list" data="{{goods: goods, base_image_url: base_image_url, is_promote: promotions.length>0}}"/>
+-->
+<block wx:if="{{goods_04.length>0}}">
+	<view class="goods-message">
+		<text class="title">今日特价</text>
+		<text class="desc">Here you can find everything for your hunny's happiness and leisure!</text>
+	</view>
+	<template is="goods-list" data="{{goods: goods_04, promote_type: 4, base_image_url: base_image_url, is_promote: promotions.length>0}}"/>
+</block>
+<block wx:if="{{goods_02.length>0}}">
+	<view class="goods-message">0}}">
+		<text class="title">今日上新</text>
+		<text class="desc">Here you can find everything for your hunny's happiness and leisure!</text>
+	</view>
+	<template is="goods-list" data="{{goods: goods_02, promote_type: 2, base_image_url: base_image_url, is_promote: promotions.length>0}}"/>
+</block>
+<block wx:if="{{goods_01.length>0}}">
+	<view class="goods-message" wx:if="{{goods_01.length>0}}">
+		<text class="title">今日热卖</text>
+		<text class="desc">Here you can find everything for your hunny's happiness and leisure!</text>
+	</view>
+	<template is="goods-list" data="{{goods: goods_01, promote_type: 1, base_image_url: base_image_url, is_promote: promotions.length>0}}"/>
+</block>
+<block wx:if="{{goods_08.length>0}}">
+	<view class="goods-message" wx:if="{{goods_08.length>0}}">
+		<text class="title">预售</text>
+		<text class="desc">Here you can find everything for your hunny's happiness and leisure!</text>
+	</view>
+	<template is="goods-list" data="{{goods: goods_08,  promote_type: 8,base_image_url: base_image_url, is_promote: promotions.length>0}}"/>
+</block>

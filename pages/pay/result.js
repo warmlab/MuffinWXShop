@@ -23,7 +23,7 @@ Page({
 		// console.log('订单信息', currentOrder);
 		// 直接支付即可
 		wx.redirectTo({
-			url: `../pay/index?code=${that.data.code}`
+			url: `../pay/pay?code=${that.data.code}`
 		})
 	},
 

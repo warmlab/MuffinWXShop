@@ -1,6 +1,6 @@
 .total{
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	padding: 0 30rpx;
 	font-weight: bold;
 }
@@ -25,9 +25,9 @@
 }
 
 .title {
-	font-weight: bold;
-	border-bottom: 1rpx solid #d1d1d1;
+	border-bottom: 1rpx solid #9b9b9b;
 	padding-bottom: 4rpx;
+	color: #9b9b9b;
 }
 
 .total button {
@@ -52,9 +52,10 @@
 
 .radio-group {
     display:flex;
-    flex-direction:column;
 }
 
-.radio-group radio {
-    margin-bottom: 5px;
+.radio-group text {
+	flex: 1;
+	margin-bottom: 5px;
+	color: #481A0E;
 }

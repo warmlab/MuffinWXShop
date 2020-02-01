@@ -12,11 +12,16 @@ page {
   background: #fff;
 }
 .pay-result .msg {
-  text-align: center;
-  margin: 100rpx auto;
-  color: #2bab25;
-  font-size: 36rpx;
+  color: #ffffff;
+  font-size: 48rpx;
+  background-color: #481a0e;
+  display: flex;
+  justify-content: center;
+  padding: 100rpx 0;
+  margin: 20rpx 4%;
+  border-radius: 20rpx;
 }
+
 .pay-result .btns {
   display: flex;
   align-items: center;
@@ -28,12 +33,12 @@ page {
   margin: 0 20rpx;
   width: 200rpx;
   line-height: 78rpx;
-  border: 1px solid #868686;
-  color: #000000;
+  border: 1px solid #481a0e;
+  color: #481a0e;
   border-radius: 5rpx;
 }
 .pay-result .error .msg {
-  color: #b4282d;
+  background-color: #6B4935;
   margin-bottom: 60rpx;
 }
 .pay-result .error .tips {

@@ -414,7 +414,7 @@ Page({
 		})
 
 		wx.navigateTo({
-			url: `../pay/pre_order?type=cart&promotion=${this.data.promotion.id}`
+			url: `../pay/order?type=cart&promotion=${this.data.promotion.id}`
 		})
 
 		// 快递/自提模式
@@ -462,7 +462,7 @@ Page({
 			.then(res => {
 				console.log(res);
 				wx.navigateTo({
-					url: `/pages/pay/index?code=${res.data.code}`
+					url: `/pages/pay/pay?code=${res.data.code}`
 				});
 			}).catch(err => {
 

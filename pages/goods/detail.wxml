@@ -33,7 +33,12 @@
         <view class="name">{{product.name}}</view>
         <view class="banner" wx:if="{{product.category.extra_info===0}}">纯手工制作 拒绝添加</view>
         <view class="banner" wx:else>100%天然乳脂奶油 拒绝添加</view>
-        <view class="price">￥{{(product.price+price_plus)/100}}</view>
+        <view style="display: flex;" wx:if="{{product.in_promote}}">
+            <view class="price">￥{{(product.promote_price+price_plus)/100}}</view>
+            <view class="price original">￥{{(product.price+price_plus)/100}}</view>
+        </view>
+        <view class="price" wx:else>￥{{(product.price+price_plus)/100}}</view>
+        
         <!-- view class="tags">
         <label wx:for="{{product.tags}}" wx:key="code" class="tag">{{item}}</label>
     </view -->

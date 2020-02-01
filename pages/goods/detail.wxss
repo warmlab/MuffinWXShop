@@ -72,28 +72,33 @@
 
 .product-info .name {
   font-size: 40rpx;
-  line-height: 40rpx;
-  height: 40rpx;
   margin-bottom: 10rpx;
 }
 
 .product-info .banner {
   font-size: 24rpx;
   margin-bottom: 10rpx;
-  line-height: 40rpx;
-  height: 40rpx;
   color: #9b9b9b;
 }
 
 .product-info .price {
-  height: 35rpx;
-  font-size: 35rpx;
-  line-height: 35rpx;
+  display: flex;
+  align-items: flex-end;
+  font-size: 36rpx;
   color: #481A0E;
+  font-weight: bold;
   /*justify-items: right;
     text-align: right;
     width:50%;
     justify-content: right;*/
+}
+
+.product-info .price.original {
+  color: #9b9b9b;
+  text-decoration: line-through;
+  font-size: 28rpx;
+  margin-left: 8rpx;
+  font-weight: normal;
 }
 
 .product-info .title {

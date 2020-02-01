@@ -41,14 +41,19 @@
 }
 
 .goods-message {
-	display: flex;
+    display: flex;
+    flex-direction: column;
 	justify-content: center;
-	align-items: center;
-	margin-top: 10rpx;
-	padding: 10rpx 0;
-	font-size: 24rpx;
-	background-color: #EDE2D3e0;
+	margin: 0 1%;
 	color: #481A0E;
+}
+
+.goods-message .title {
+
+}
+
+.goods-message .desc {
+
 }
 
 .topic-list{

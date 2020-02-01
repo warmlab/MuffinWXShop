@@ -17,7 +17,7 @@
 		</navigator>
 		<navigator class="item" url="./order/index?status=paid">
 				<text class="fa fa-clipboard-list fa-2x"></text>
-				<text class="title">待取货</text>
+				<text class="title">待交付</text>
 		</navigator>
 		<navigator class="item" url="./order/index?status=finished">
 				<text class="fa fa-clipboard-check fa-2x"></text>

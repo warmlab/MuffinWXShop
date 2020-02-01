@@ -119,7 +119,7 @@ Page({
 
 	handleDeliveryChange: function (e) {
 		this.setData({
-			delivery_way: e.detail.value
+			delivery_way: parseInt(e.currentTarget.dataset.value)
 		})
 	},
 
@@ -136,39 +136,17 @@ Page({
 	},
 
 	pickupAddressChange: function (e) {
-		var index = e.detail.value
+		var index = parseInt(e.currentTarget.dataset.index)
+		console.log('aaa', e)
 		this.setData({
 			pickup_index: index
 		})
-	},
-
-	addressChange: function (e) {
-		if (this.data.delivery_way === 1)
-			this.setData({
-				pickup_address: parseInt(e.detail.value)
-			})
-		else
-			this.setData({
-				delivery_address: parseInt(e.detail.value)
-			})
 	},
 
 	newAddress: function (e) {
 		wx.navigateTo({
 			url: '/pages/my/address/detail?id=0'
 		})
-	},
-
-	deliveryWayChange: function (e) {
-		//var total_cost = this.data.total_cost;
-		//if (e.detail.value === 2) // 快递模式
-		//    total_cost += this.data.promotion.delivery_fee;
-		//else
-		//    total_cost -= this.data.promotion.delivery_fee;
-		this.setData({
-			delivery_way: parseInt(e.detail.value),
-			//total_cost: total_cost
-		});
 	},
 
 	checkoutOrder: function (e) {
@@ -220,11 +198,11 @@ Page({
 		var data = {
 			//promotion_id: 0,
 			//openid: wx.getStorageSync('openid'),
-			promotion_id: this.data.promotion,
+			//promotion_id: this.data.promotion,
 			products: ps,
 			delivery_way: this.data.delivery_way,
 			delivery_address: this.data.delivery_addresses[this.data.delivery_address].id,
-			pickup_address: this.data.pickup_index>=0?this.data.pickup_addresses[this.data.pickup_index].id:-1,
+			pickup_address: this.data.pickup_index>=0?this.data.pickup_addresses[this.data.pickup_index].id:1,
 			note: e.detail.value.note,
 			nickname: this.data.userInfo.nickname,
 			avatarUrl: this.data.userInfo.avatarUrl
@@ -251,9 +229,8 @@ Page({
 					//prePage.setData({dragon:res.data});
 					prePage.onLoad();
 				}
-				console.log('aaaaa', res.data.code)
 				wx.redirectTo({
-					url: `/pages/pay/index?code=${res.data.code}`
+					url: `pay?code=${res.data.code}`
 				});
 			}).catch(err => {
 				console.log('commit order error', err)
