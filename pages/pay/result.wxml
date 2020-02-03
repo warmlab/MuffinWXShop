@@ -1,31 +1,29 @@
-<view class="container">
-  <view class="pay-result">
-    <view class="success" wx:if="{{status=='success'}}">
-      <view class="msg">付款成功</view>
-      <view class="btns">
-        <navigator class="btn" url="/pages/my/order/detail?code={{code}}" open-type="redirect">查看订单</navigator>
-        <navigator class="btn" url="/pages/topic/index" open-type="switchTab">继续逛</navigator>
-      </view>
+<view class="pay-result">
+  <view class="success" wx:if="{{status=='success'}}">
+    <view class="msg">付款成功</view>
+    <view class="btns">
+      <navigator class="btn" url="/pages/my/order/detail?code={{code}}" open-type="redirect">查看订单</navigator>
+      <navigator class="btn" url="/pages/topic/index" open-type="switchTab">继续逛</navigator>
     </view>
-    <view class="success" wx:elif="{{status=='paid'}}">
-      <view class="msg">已付款，无需重复付款</view>
-      <view class="btns">
-        <navigator class="btn" url="/pages/my/order/detail?code={{code}}" open-type="redirect">查看订单</navigator>
-        <navigator class="btn" url="/pages/topic/index" open-type="switchTab">继续逛</navigator>
-      </view>
+  </view>
+  <view class="success" wx:elif="{{status=='paid'}}">
+    <view class="msg">已付款，无需重复付款</view>
+    <view class="btns">
+      <navigator class="btn" url="/pages/my/order/detail?code={{code}}" open-type="redirect">查看订单</navigator>
+      <navigator class="btn" url="/pages/topic/index" open-type="switchTab">继续逛</navigator>
     </view>
-    <view class="error" wx:else>
-      <view class="msg">付款失败</view>
-      <view class="tips">
-        <view class="p">如果您使用小麦芬储值卡付款，请确定在“我的”页面中绑定了储值卡</view>
-        <view class="p">绑定储值卡后，请重新付款</view>
-        <view class="p">请在 <text class="time">1小时</text> 内完成付款</view>
-        <view class="p">否则订单将会被系统取消</view>
-      </view>
-      <view class="btns">
-        <navigator class="btn" url="/pages/my/order/detail?code={{code}}" open-type="redirect">查看订单</navigator>
-        <view class="btn" bindtap='payOrder'>重新付款</view>
-      </view>
+  </view>
+  <view class="error" wx:else>
+    <view class="msg">付款失败</view>
+    <view class="tips">
+      <view class="p">如果您使用小麦芬储值卡付款，请确定在“我的”页面中绑定了储值卡</view>
+      <view class="p">绑定储值卡后，请重新付款</view>
+      <view class="p">请在 <text class="time">1小时</text> 内完成付款</view>
+      <view class="p">否则订单将会被系统取消</view>
+    </view>
+    <view class="btns">
+      <navigator class="btn" url="/pages/my/order/detail?code={{code}}" open-type="redirect">查看订单</navigator>
+      <view class="btn" bindtap='payOrder'>重新付款</view>
     </view>
   </view>
 </view>

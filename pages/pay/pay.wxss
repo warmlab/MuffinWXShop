@@ -56,6 +56,4 @@
 
 .radio-group text {
 	flex: 1;
-	margin-bottom: 5px;
-	color: #481A0E;
 }

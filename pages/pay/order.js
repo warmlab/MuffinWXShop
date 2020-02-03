@@ -3,6 +3,7 @@ const app = getApp();
 
 import config from '../../config.js'
 import request from '../../utils/request.js'
+import {syncCart} from '../../utils/cart.js'
 
 Page({
 	/**
@@ -60,47 +61,51 @@ Page({
 	 */
 	onLoad: function (options) {
 		var that = this
-		var cart = wx.getStorageSync(options.type); // buy-点击立即购买, cart-购物车点击下单
+		//var cart = wx.getStorageSync(options.type); // buy-点击立即购买, cart-购物车点击下单
 
-		app.getUserInfo().then(res => {
-			that.setData({
-				userInfo: res,
-				type: options.type,
-				promotion: options.promotion ? options.promotion : 0
-			})
-		})
+		//app.getUserInfo().then(res => {
+		//	that.setData({
+		//		userInfo: res,
+		//		type: options.type,
+		//		promotion: options.promotion ? options.promotion : 0
+		//	})
+		//})
 
-		if (cart === undefined || typeof cart !== "object") {
-			cart = {
-				products: [],
-				amount: 0,
-				cost: 0
-			}
-			wx.setStorageSync(options.type, cart)
-		}
+		//if (cart === undefined || typeof cart !== "object") {
+		//	cart = {
+		//		products: [],
+		//		amount: 0,
+		//		cost: 0
+		//	}
+		//	wx.setStorageSync(options.type, cart)
+		//}
 
-		var cost = 0
-		var products = []
-		var product_ids = []
-		cart.products.forEach(ele => {
-			console.log('aaa', ele)
-			if (ele.checked) {
-				products.push(ele)
-				product_ids.push(ele.id)
-				if (ele.want_size)
-					cost += (ele.price + ele.want_size.price_plus) * ele.want_amount
-				else
-				if (ele.promotion_id > 0)
-					cost += ele.promote_price * ele.want_amount
-				else
-					cost += ele.price * ele.want_amount
-			}
-		})
+		//var cost = 0
+		//var products = []
+		//var product_ids = []
+		
+		//cart.products.forEach(ele => {
+		//	console.log('aaa', ele)
+		//	if (ele.checked) {
+		//		products.push(ele)
+		//		product_ids.push(ele.id)
+		//		if (ele.want_size)
+		//			cost += (ele.price + ele.want_size.price_plus) * ele.want_amount
+		//		else
+		//		if (ele.in_promote)
+		//			cost += ele.promote_price * ele.want_amount
+		//		else
+		//			cost += ele.price * ele.want_amount
+		//	}
+		//})
+
+		var cart = syncCart(options.type)
 
 		this.setData({
-			products: products,
-			product_ids: product_ids,
-			cost: cost,
+			cart: cart,
+			//products: cart.products,
+			//product_ids: product_ids,
+			//cost: cart.cost,
 			type: options.type,
 		})
 
@@ -150,16 +155,16 @@ Page({
 	},
 
 	checkoutOrder: function (e) {
-		var that = this;
+		var that = this
 
-		if (this.data.products.length <= 0) {
+		if (this.data.cart.products.length <= 0) {
 			wx.showToast({
 				title: '没有选购商品',
 				icon: 'none',
 				duration: 2000
-			});
+			})
 
-			return;
+			return
 		}
 
 		if (this.data.delivery_address < 0) {
@@ -167,9 +172,9 @@ Page({
 				title: '请选择个人地址信息',
 				icon: 'none',
 				duration: 2000
-			});
+			})
 
-			return;
+			return
 		}
 
 		// 快递/自提模式
@@ -184,7 +189,7 @@ Page({
 		}
 
 		var ps = []
-		this.data.products.forEach(ele => {
+		this.data.cart.products.forEach(ele => {
 			ps.push({
 				id: ele.id,
 				want_amount: ele.want_amount,
@@ -209,19 +214,21 @@ Page({
 			//formId: e.detail.formId,
 		}
 
-		request.post('order', data)
-			.then(res => {
-				console.log(res);
-				// delete checked items from cart
+		request.post('order', data).then(res => {
+			console.log(res);
+			// delete checked items from cart
+			if (that.data.type === 'cart') {
 				var cart = wx.getStorageSync('cart')
-				for (var index = 0; index < cart.products.length; index++) {
-					var element = cart.products[index]
-					if (this.data.product_ids.includes(element.id)) {
-						cart.products.splice(index, 1)
-						//cart.amount -= element.want_amount
-						index--
-					}
-				}
+				//for (var index = 0; index < cart.products.length; index++) {
+				//	var element = cart.products[index]
+				//	if (this.data.product_ids.includes(element.id)) {
+				//		cart.products.splice(index, 1)
+				//		//cart.amount -= element.want_amount
+				//		index--
+				//	}
+				//}
+				cart.products = cart.products.filter(ele => !ele.checked)
+				cart.cost = 0
 				if (that.data.type === 'cart') {
 					wx.setStorageSync('cart', cart)
 					var pages = getCurrentPages();
@@ -229,12 +236,13 @@ Page({
 					//prePage.setData({dragon:res.data});
 					prePage.onLoad();
 				}
-				wx.redirectTo({
-					url: `pay?code=${res.data.code}`
-				});
-			}).catch(err => {
-				console.log('commit order error', err)
-			})
+			}
+			wx.redirectTo({
+				url: `pay?code=${res.data.code}`
+			});
+		}).catch(err => {
+			console.log('commit order error', err)
+		})
 	},
 
 	toGetUserInfo: function (e) {

@@ -111,7 +111,8 @@
 .delivery-area .delivery-header {
   display: flex;
   padding: 30rpx 20rpx;
-  font-size: 30rpx;
+  font-size: 32rpx;
+  font-weight: bold;
 }
 
 .delivery-area .delivery-header view {
@@ -145,6 +146,7 @@
 .delivery-area .delivery-content .delivery-item text {
   display: flex;
   flex: 1;
+  font-size: 32rpx;
 }
 
 .delivery-area .delivery-content .delivery-item {
@@ -161,12 +163,16 @@
   display: flex;
   border-bottom: 2rpx solid #e5e5e5;
   padding: 32rpx 20rpx;
+  font-weight: bold;
+  font-size: 32rpx;
 }
 
 .pickup-header .pickup-title {
   margin: 10rpx 0;
   display: flex;
   flex: 1;
+  height: 48rpx;
+  overflow: hidden;
 }
 
 .pickup-header .pickup-nums {
@@ -195,11 +201,10 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  font-size: 30rpx;
 }
 
 .pickup-name .pickup-address {
-  font-size: 24rpx;
+  font-size: 32rpx;
 }
 
 .pickup-name .pickup-desc {

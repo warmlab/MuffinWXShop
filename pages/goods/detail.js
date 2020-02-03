@@ -124,9 +124,9 @@ Page({
 		})
 	},
 
-	openHomePage: function (e) {
+	openCartPage: function (e) {
 		wx.reLaunch({
-			url: '/pages/topic/index'
+			url: '/pages/cart/index'
 		})
 	},
 

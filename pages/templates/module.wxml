@@ -7,8 +7,8 @@
 								<view class="goods-title">{{item.name}}</view>
 						</view>
 						<view style="display:flex;">
-								<view class="goods-price">Ұ{{item.promote_price/100}}</view>
-								<view class="goods-price original">{{is_promote?'¥'+item.price/100:''}}</view>
+								<view class="goods-price">Ұ{{item.is_prmote?item.promote_price/100:item.price/100}}</view>
+								<view class="goods-price original">{{item.is_promote?'¥'+item.price/100:''}}</view>
 								<view class="add-to-cart" bindtap="addToCart" data-type="{{promote_type}}" data-index="{{index}}">加入购物车</view>
 								<view class="goods-price-naver" wx:if="{{item.sold && item.sold>0}}">已售{{item.sold}}</view>
 						</view>
@@ -16,17 +16,18 @@
 		</view>
 </template>
 <template name="goods-swiper">
-		<view class="swiper-container">
+		<view class="swiper-area">
 				<swiper circular autoplay interval="8000" duration="500" bindchange="swiperChange" class="swiper">
 					<block wx:for="{{images}}" wx:key="id">
 						<swiper-item>
-								<image lazy-load="true" src="{{base_image_url}}/{{item.name}}" mode="aspectFit" />
+								<image lazy-load="true" src="{{base_image_url}}/{{item.name}}" mode="aspectFill" />
 						</swiper-item>
 					</block>
 				</swiper>
-				<view class="dots">
-						<text>{{swiper_current+1}}</text>
-						<text>/{{images.length}}</text>
-				</view>
+		<view class="banner-dots">
+				<block wx:for="{{images}}" wx:key="id">
+					<view class="banner-dot {{index == swiper_current ? 'active' : ''}}"></view>
+				</block>
+		</view>
 		</view>
 </template>

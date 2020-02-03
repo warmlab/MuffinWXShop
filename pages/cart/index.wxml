@@ -27,7 +27,9 @@
 					</view>
 				</view>
 				<view style="display: flex; align-items: flex-end; width: 100%;">
-				<view class="icon {{item.checked?'checked':''}}" bindtap="checkItem" data-index="{{index}}" data-id="{{item.id}}">✔</view>
+				<view class="icon {{item.checked?'checked':''}}" bindtap="checkItem" data-index="{{index}}" data-id="{{item.id}}">
+					<text class="fa fa-check"/>
+				</view>
 				<view style="flex:1;"/>
 				<view class="amount-op">
 						<text wx:if="{{item.want_amount > 1}}" class="op cut" bindtap="amountChange" data-value="-1" data-index="{{index}}">-</text>
@@ -52,7 +54,7 @@
 	</view>
 	<view class="cart-bottom">
 		<label class="cart-info">
-			<view class="icon {{cart.checked_num===cart.products.length?'checked':''}}" style="color: #f4f4f4;" bindtap="checkAll">✔</view>
+			<view class="icon {{cart.checked_num===cart.products.length?'checked':''}}" style="color: #f4f4f4;" bindtap="checkAll"><text class="fa fa-check"/></view>
 			<text class="label">全选</text>
 			<text class="label-icon">{{cart.amount?cart.amount:0}}</text>
 		</label>

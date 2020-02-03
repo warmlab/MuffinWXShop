@@ -7,7 +7,7 @@ const addToShoppingCart = (product, size, amount) => {
 	else
 		price = product.price
 
-	var cart = syncCart()
+	var cart = syncCart('cart')
 	for (var p of cart.products) {
 		if (!p.want_size)
 			p.want_size = 0
@@ -53,8 +53,8 @@ const addToShoppingCart = (product, size, amount) => {
 	//})
 }
 
-const syncCart = () => {
-	var cart = wx.getStorageSync('cart')
+const syncCart = (type) => {
+	var cart = wx.getStorageSync(type)
 	if (cart === undefined || typeof cart !== "object") {
 		cart = {
 			products: [],
@@ -62,7 +62,7 @@ const syncCart = () => {
 			cost: 0,
 			checked_num: 0
 		}
-		wx.setStorageSync('cart', cart)
+		wx.setStorageSync(type, cart)
 	}
 
 	cart.cost = 0

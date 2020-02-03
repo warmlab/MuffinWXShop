@@ -18,7 +18,7 @@ page {
   display: flex;
   justify-content: center;
   padding: 100rpx 0;
-  margin: 20rpx 4%;
+  margin: 20rpx;
   border-radius: 20rpx;
 }
 
@@ -36,6 +36,7 @@ page {
   border: 1px solid #481a0e;
   color: #481a0e;
   border-radius: 5rpx;
+  flex: 1;
 }
 .pay-result .error .msg {
   background-color: #6B4935;
@@ -53,4 +54,9 @@ page {
 .pay-result .error .tips .p {
   line-height: 42rpx;
   text-align: center;
+}
+.pay-result .error .tips .p .time{
+  color: #481A0E;
+  font-size: 28rpx;
+  font-weight: bold;
 }

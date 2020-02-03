@@ -5,7 +5,7 @@
 		<view class="title">请选择支付方式</view>
 		<view wx:for="{{payments}}" wx:key="value" bindtap="paymentChange" class="radio-group" data-value="{{item.value}}">
       <text>{{item.name}}</text>
-      <view class="icon {{item.value===payment?'checked':''}}">✔</view>
+      <view class="icon {{item.value===payment?'checked':''}}"><text class="fa fa-check" style="display: flex;justify-content: center;"/></view>
     </view>
 				<!-- radio value="4" wx:if="{{order.payment&4==4}}" checked>微信支付</radio>
 						<radio value="2" wx:if="{{order.payment&2==2}}">小麦芬储值卡支付</radio -->

@@ -46,7 +46,7 @@ Page({
 		//		}))
 		//	})
 
-			var cart = syncCart()
+			var cart = syncCart('cart')
 			this.setData({
 				cart: cart,
 			})

@@ -19,13 +19,13 @@
     </view-->
         <view class="service-policy">
             <view class="item">
-                <text class="far fa-circle icon" />会员9折
+                <text class="icon"/>会员9折
             </view>
             <view class="item">
-                <text class="far fa-circle icon" />满38元3公里免邮费
+                <text class="icon" />满38元3公里免邮费
             </view>
             <view class="item">
-                <text class="far fa-circle icon" />满68元5公里免邮费
+                <text class="icon" />满68元5公里免邮费
             </view>
             <!-- <view class="item">满98元免邮费</view> -->
         </view>
@@ -139,9 +139,9 @@
         <view class="short" bindtap="openShareDialog">
             <image class="icon" model="aspectFill" src="/images/share_sel.png" />
         </view>
-        <view class="short" bindtap="openHomePage">
+        <view class="short" bindtap="openCartPage">
             <!--text class="cart-count">{{cart.amount}}</text-->
-            <image class="icon" model="aspectFill" src="/images/tabbar/shop_sel.png" />
+            <image class="icon" model="aspectFill" src="/images/tabbar/cart_sel.png" />
         </view>
         <view class="long cart" bindtap="openAttrDialog" wx:if="{{product.sizes.length>0}}">加入购物车</view>
         <view class="long cart" bindtap="addToCart" wx:else data-type="cart">加入购物车</view>

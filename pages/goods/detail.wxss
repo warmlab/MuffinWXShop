@@ -1,4 +1,47 @@
 /* pages/shop/product.wxss */
+.swiper-area {
+  display: flex;
+  flex-direction: column;
+}
+
+.swiper-area swiper {
+	width: 100%;
+  height: 750rpx;
+}
+
+.swiper-area swiper image {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.swiper-area .banner-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -60rpx;
+  z-index: 10;
+}
+
+.swiper-area .banner-dots .banner-dot {
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  margin: 8rpx;
+  border: 1rpx solid #481a0e;
+}
+
+.swiper-area .banner-dots .banner-dot.active {
+  background-color: #481A0E;
+}
+
+.swiper-area text.message {
+	margin: -30rpx 0 0 10rpx;
+	z-index: 30;
+	font-size: 28rpx;
+	color: #603912;
+}
+
 .swiper-container {
   position: relative;
 }
@@ -42,6 +85,7 @@
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-between;
+  z-index: 10;
 }
 
 .service-policy .item {
@@ -54,9 +98,8 @@
 }
 
 .service-policy .item .icon {
-  color: #CFA57E;
-  font-size: 16rpx;
-  margin-right: 6rpx;
+  width: 14rpx;
+  height: 14rpx;
 }
 
 .product-banner {
@@ -244,9 +287,10 @@ view.bottom {
 }
 
 .bottom .short .icon {
-  display: block;
-  height: 64rpx;
-  width: 64rpx;
+  height: 56rpx;
+  width: 56rpx;
+  border:none;
+  border-radius: 0;
 }
 
 .bottom .long {

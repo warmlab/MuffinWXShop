@@ -26,18 +26,18 @@
     <view class="delivery-content" style="display: {{delivery_show?'flex':'none'}}">
       <view class="delivery-item">
         <text>上门自提</text>
-        <view class="icon {{delivery_way===1?'checked':''}}" style="color: #f5f5f5;" bindtap="handleDeliveryChange" data-value="1">✔</view>
+        <view class="icon {{delivery_way===1?'checked':''}}" style="color: #f5f5f5;" bindtap="handleDeliveryChange" data-value="1"><text class="fa fa-check" style="display: flex;justify-content: center;"/></view>
       </view>
       <view class="delivery-item">
         <text>快递配送</text>
-        <view class="icon {{delivery_way===2?'checked':''}}" style="color: #f5f5f5;" bindtap="handleDeliveryChange" data-value="2">✔</view>
+        <view class="icon {{delivery_way===2?'checked':''}}" style="color: #f5f5f5;" bindtap="handleDeliveryChange" data-value="2"><text class="fa fa-check" style="display: flex;justify-content: center;"/></view>
       </view>
     </view>
   </view>
   <view class="pickup-area" wx:if="{{delivery_address >= 0 && delivery_way == 1}}">
     <view class="pickup-header" bindtap="pickupAddressTap">
-      <view class="pickup-title">自提点：{{pickup_index==-1?'请选择自提点':pickup_addresses[pickup_index].name}}</view>
-      <view class="pickup-nums">{{pickup_addresses.length}}个自提点
+      <view class="pickup-title">自提点：{{pickup_index==-1?'请选择自提点':pickup_addresses[pickup_index].address}}</view>
+      <view class="pickup-nums">{{pickup_addresses.length}}个
         <text class="fa fa-chevron-down" style="transform:rotate({{pickup_show?180:0}}deg);" />
       </view>
     </view>
@@ -50,14 +50,14 @@
           </view>
           <view class="pickup-address">{{item.address}}</view>
         </view>
-        <view class="icon {{index===pickup_index?'checked':''}}" style="color: #f5f5f5;">✔</view>
+        <view class="icon {{index===pickup_index?'checked':''}}" style="color: #f5f5f5;"><text class="fa fa-check"/></view>
       </view>
     </view>
   </view>
   <view class="list">
     <view class="goods-title">
       <text class="goods-name">商品合计</text>
-      <text class="goods-price">¥{{cost/100}}</text>
+      <text class="goods-price">¥{{cart.cost/100}}</text>
     </view>
     <view class="goods-title" wx:if="{{delivery_way==2}}">
       <text class="goods-name">运费</text>
@@ -65,7 +65,7 @@
     </view>
     <view class="group-item">
       <view class="goods" bindchange="checkItem">
-        <view class="item" wx:for="{{products}}" wx:key="id">
+        <view class="item" wx:for="{{cart.products}}" wx:key="id" wx:if="{{item.checked}}">
           <image class="image" src="{{base_image_url}}/{{item.images[0].image.name}}" mode="aspectFill" data-index="{{index}}" />
           <view class="summary-area">
             <view class="name-area">
@@ -73,7 +73,7 @@
                 {{item.name}}
                 <text wx:if="{{!!item.want_size}}">-{{item.want_size.size.name}}</text>
               </view>
-              <block wx:if="{{item.promotion_id>0}}">
+              <block wx:if="{{item.is_promote}}">
                 <view class="price green-color" wx:if="{{!item.want_size}}">￥{{item.promote_price/100}}</view>
                 <view class="price green-color" wx:else>
                   <text wx:if="{{!item.want_size}}">￥{{item.promote_price/100}}</text>
@@ -102,8 +102,8 @@
   </view>
   <view class="cart-bottom">
     <view class="cost">
-      <text wx:if="{{delivery_way===1}}">需支付: ￥{{cost/100}}</text>
-      <text wx:else>需支付: ￥{{(cost+delivery_fee)/100}}</text>
+      <text wx:if="{{delivery_way===1}}">需支付: ￥{{cart.cost/100}}</text>
+      <text wx:else>需支付: ￥{{(cart.cost+delivery_fee)/100}}</text>
     </view>
     <button class="checkout" formType="submit" wx:if="{{userInfo.nickname}}">提交订单</button>
     <button class="checkout" open-type="getUserInfo" bindgetuserinfo="toGetUserInfo" type="warn" wx:else>点击登录</button>

@@ -355,9 +355,10 @@ picker .picker text {
   border-radius: 50%;
   color: #ffffff;
   border: 1rpx solid #481a0e;
-  width: 40rpx;
-  height: 40rpx;
+  width: 64rpx;
+  height: 64rpx;
   margin-right: 8rpx;
+  font-size: 32rpx;
 }
 
 .icon.checked {
