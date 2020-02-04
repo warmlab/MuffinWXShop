@@ -193,20 +193,22 @@ page {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  background-color: #EDE2D3e0;
+  background-color: #ede2d380;
   color: #481A0E;
-  height: 70rpx;
-  line-height: 70rpx;
-  margin-top: -70rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  margin-top: -60rpx;
   padding: 0 10rpx;
+  font-weight: bold;
 }
 
 .goods-box .goods-price {
   color: #481A0E;
-  font-size: 28rpx;
+  font-size: 36rpx;
   display: flex;
   align-items: flex-end;
   font-weight: bold;
+  flex: 1;
 }
 
 .goods-box .goods-price.original {
@@ -238,11 +240,16 @@ page {
 
 .goods-box .goods-add {
 	display: flex;
-	justify-content: flex-end;
+	justify-content: center;
 	align-items: center;
-	flex: 1;
 	color: #481A0E;
-	padding-right: 10rpx;
+  margin-right: 10rpx;
+  border: 1rpx solid #481A0E;
+  height: 48rpx;
+  width: 48rpx;
+  border-radius: 8rpx;
+  font-size: 36rpx;
+  font-weight: bold;
 }
 
 /* for form action begin */
@@ -355,10 +362,10 @@ picker .picker text {
   border-radius: 50%;
   color: #ffffff;
   border: 1rpx solid #481a0e;
-  width: 64rpx;
-  height: 64rpx;
+  width: 48rpx;
+  height: 48rpx;
   margin-right: 8rpx;
-  font-size: 32rpx;
+  font-size: 28rpx;
 }
 
 .icon.checked {

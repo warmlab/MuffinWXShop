@@ -107,7 +107,7 @@
     <view class="attr-pop-box" hidden="{{!openAttr}}">
         <view class="attr-pop">
             <view class="close" bindtap="closeAttr">
-                <text class="fas fa-times red-color" />
+                <text class="fas fa-times" style="color: #481A0E;" />
             </view>
             <view class="size-area" wx:if="{{product.category.extra_info&1===1 && product.sizes.length>0}}">
                 <text>选择大小</text>

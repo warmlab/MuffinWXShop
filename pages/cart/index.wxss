@@ -1,4 +1,8 @@
 /* pages/shop/cart.wxss */
+page {
+    height: 100%;
+}
+
 .cart-list {
     display: flex;
     flex-direction: column;

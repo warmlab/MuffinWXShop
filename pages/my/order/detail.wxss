@@ -1,222 +1,136 @@
 /* pages/my/order_detail.wxss */
-page{
+page {
     height: 100%;
-    width: 100%;
     background: #f4f4f4;
 }
-.order-info{
+
+.order-header {
     padding-top: 25rpx;
     background: #fff;
     height: auto;
     overflow: hidden;
     width: 100%;
 }
-.item-a{
-    padding-left: 31.25rpx;
-    height: 42.5rpx;
-    padding-bottom: 12.5rpx;
-    line-height: 30rpx;
+
+.order-header .order-label {
     font-size: 30rpx;
-    color: #666;
+    color: #9b9b9b;
+    padding: 0 20rpx 8rpx 20rpx;
 }
-.item-b{
-    padding-left: 31.25rpx;
-    height: 29rpx;
-    line-height: 29rpx;
-    margin-top: 12.5rpx;
-    margin-bottom: 41.5rpx;
-    font-size: 30rpx;
-    color: #666;
-}
-.item-c{
-    margin-left: 31.25rpx;
+
+.order-header .order-cost {
+    display: flex;
+    margin: 0 20rpx;
+    padding: 20rpx 0;
     border-top: 1px solid #f4f4f4;
-    height: 103rpx;
-    line-height: 103rpx;
+    color: #481A0E;
 }
-.item-c .l{
-    float: left;
+
+.order-header .order-cost .cost {
+    display:flex;
+    align-items: center;
 }
-.item-c .r{
-    height: 103rpx;
-    float: right;
+
+.order-header .order-cost .action {
     display: flex;
     align-items: center;
-    padding-right: 16rpx;
+    justify-content: flex-end;
+    flex: 1;
 }
-.item-c .r .btn{
-    float: right;
-}
-.item-c .cost{
-    color: #b4282d;
-}
-.item-c .btn{
+
+.order-header .order-cost .action .pay{
     line-height: 66rpx;
     border-radius: 5rpx;
     text-align: center;
-    margin: 0 15rpx;
     padding: 0 20rpx;
     height: 66rpx;
-}
-.item-c .btn.active{
-    background: #b4282d;
+    background: #481A0E;
     color: #fff;
 }
-.order-goods{
+
+.order-info {
     margin-top: 20rpx;
     background: #fff;
     width: 100%;
 }
-.order-goods .h{
-    height: 93.75rpx;
-    line-height: 93.75rpx;
-    margin-left: 31.25rpx;
+
+.order-info .order-title {
     border-bottom: 1px solid #f4f4f4;
-    padding-right: 31.25rpx;
+    display: flex;
+    margin: 0 20rpx;
+    padding: 20rpx 0;
 }
-.order-goods .h .label{
+
+.order-info .order-title .label {
     float: left;
     font-size: 30rpx;
     color: #333;
 }
-.order-goods .h .status{
+
+.order-info .order-title .status {
     float: right;
     font-size: 30rpx;
-    color: #b4282d;
-}
-.order-goods .item{
+    color: #481A0E;
+    flex: 1;
     display: flex;
-    align-items: center;
-    height: 192rpx;
-    margin-left: 31.25rpx;
-    padding-right: 31.25rpx;
-    border-bottom: 1px solid #f4f4f4;
+    justify-content: flex-end;
 }
-.order-goods .item:last-child{
+
+.order-info .order-item {
+    display: flex;
+    padding: 4rpx 20rpx;
+    border-bottom: 1px solid #f4f4f4;
+    font-size: 30rpx;
+}
+
+.order-info .order-item:last-child {
     border-bottom: none;
 }
-.order-goods .item .img{
-    height: 145.83rpx;
-    width: 145.83rpx;
-    background: #f4f4f4;
+
+.order-info .order-item image {
+    height: 146rpx;
+    width: 146rpx;
 }
-.order-goods .item .img image{
-    height: 145.83rpx;
-    width: 145.83rpx;
-}
-.order-goods .item .info{
-    flex: 1;
-    height: 145.83rpx;
-    margin-left: 20rpx;
-}
-.order-goods .item .t{
-    margin-top: 8rpx;
-    height: 33rpx;
-    line-height: 33rpx;
-    margin-bottom: 10.5rpx;
-}
-.order-goods .item .t .name{
-    display: block;
-    float: left;
-    height: 33rpx;
-    line-height: 33rpx;
-    color: #333;
-    font-size: 30rpx;
-}
-.order-goods .item .t .number{
-    display: block;
-    float: right;
-    height: 33rpx;
-    text-align: right;
-    line-height: 33rpx;
-    color: #333;
-    font-size: 30rpx;
-}
-.order-goods .item .attr{
-    height: 29rpx;
-    line-height: 29rpx;
-    color: #666;
-    margin-bottom: 25rpx;
-    font-size: 25rpx;
-}
-.order-goods .item .price{
-    height: 30rpx;
-    line-height: 30rpx;
-    color: #333;
-    font-size: 30rpx;
-}
-.order-bottom{
-    margin-top: 20rpx;
-    padding-left: 31.25rpx;
-    height: auto;
-    overflow: hidden;
-    background: #fff;
-    width: 100%;
-}
-.order-bottom .address{
-    height: 128rpx;
-    padding-top: 25rpx;
-    border-bottom: 1px solid #f4f4f4;
-}
-.order-bottom .address .t{
-    height: 35rpx;
-    line-height: 35rpx;
-    margin-bottom: 7.5rpx;
-}
-.order-bottom .address .name{
-    display: inline-block;
-    height: 35rpx;
-    width: 140rpx;
-    line-height: 35rpx;
-    font-size: 25rpx;
-}
-.order-bottom .address .mobile{
-    display: inline-block;
-    height: 35rpx;
-    line-height: 35rpx;
-    font-size: 25rpx;
-}
-.order-bottom .address .b{
-    height: 35rpx;
-    line-height: 35rpx;
-    font-size: 25rpx;
-}
-.order-bottom .total{
-    height: 106rpx;
-    padding-top: 20rpx;
-    border-bottom: 1px solid #f4f4f4;
-}
-.order-bottom .total .t{
-    height: 25rpx;
-    line-height: 25rpx;
-    margin-bottom: 7.5rpx;
+
+.order-info .order-item .item-info {
     display: flex;
-}
-.order-bottom .total .label{
-    width: 140rpx;
-    display: inline-block;
-    height: 35rpx;
-    line-height: 35rpx;
-    font-size: 25rpx;
-}
-.order-bottom .total .txt{
+    flex-direction: column;
     flex: 1;
-    display: inline-block;
-    height: 35rpx;
-    line-height: 35rpx;
-    font-size: 25rpx;
+    margin-left: 10rpx;
 }
-.order-bottom .pay-fee{
-    height: 81rpx;
-    line-height: 81rpx;
+
+.order-info .order-item .item-info .name-info {
+    display: flex;
+    margin-bottom: 10rpx;
 }
-.order-bottom .pay-fee .label{
-    display: inline-block;
-    width: 140rpx;
-    color: #b4282d;
+
+.order-info .order-item .item-info .name-info .name {
+    flex: 1;
 }
-.order-bottom .pay-fee .txt{
-    display: inline-block;
-    width: 140rpx;
-    color: #b4282d;
+
+.order-info .order-footer {
+    display: flex;
+    margin: 0 20rpx;
+}
+
+.order-info .order-footer .keyvalue {
+    display: flex;
+    flex: 1;
+    padding: 20rpx 0;
+}
+
+.order-info .order-footer .key {
+    font-size: 30rpx;
+}
+
+.order-info .order-footer .value {
+    flex: 1;
+}
+
+.order-info .order-footer .address {
+    display: flex;
+    flex-direction: column;
+    color: #9b9b9b;
+    padding: 20rpx 0;
+    font-size: 26rpx;
 }

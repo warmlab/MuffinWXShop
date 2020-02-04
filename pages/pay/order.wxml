@@ -4,14 +4,14 @@
       <view class="address-contact">
         <text wx:if="{{delivery_addresses[delivery_address].is_default}}" class="default">默认</text>
         <text class="name">{{delivery_addresses[delivery_address].contact}}</text>
-        <text class="phone">{{addrresses[delivery_address].phone}}</text>
+        <text class="phone">{{delivery_addresses[delivery_address].phone}}</text>
       </view>
       <view class="address-address">
         {{delivery_addresses[delivery_address].province}}{{delivery_addresses[delivery_address].city}}{{delivery_addresses[delivery_address].district}}{{delivery_addresses[delivery_address].address}}
       </view>
     </view>
     <view bindtap="getAddressTap" class="address-choose">
-      <text class="fa fa-chevron-right" />
+      <text class="fa fa-chevron-right" style="font-weight: lighter;" />
     </view>
   </view>
   <view wx:else class="address-empty" bindtap="getAddressTap">
@@ -63,34 +63,29 @@
       <text class="goods-name">运费</text>
       <view class="goods-price">¥{{delivery_fee/100}}</view>
     </view>
-    <view class="group-item">
-      <view class="goods" bindchange="checkItem">
-        <view class="item" wx:for="{{cart.products}}" wx:key="id" wx:if="{{item.checked}}">
-          <image class="image" src="{{base_image_url}}/{{item.images[0].image.name}}" mode="aspectFill" data-index="{{index}}" />
-          <view class="summary-area">
-            <view class="name-area">
-              <view class="name">
-                {{item.name}}
-                <text wx:if="{{!!item.want_size}}">-{{item.want_size.size.name}}</text>
+    <view class="goods">
+      <view class="item" wx:for="{{cart.products}}" wx:key="id" wx:if="{{item.checked}}">
+        <image class="image" src="{{base_image_url}}/{{item.images[0].image.name}}" mode="aspectFill" data-index="{{index}}" />
+        <view class="summary-area">
+          <view class="name-area">
+            <view class="name">{{item.name}}{{!!item.want_size?'-'+item.want_size.size.name:''}}</view>
+            <block wx:if="{{item.is_promote}}">
+              <view class="price" wx:if="{{!item.want_size}}">￥{{item.promote_price/100}}</view>
+              <view class="price" wx:else>
+                <text wx:if="{{!item.want_size}}">￥{{item.promote_price/100}}</text>
+                <text wx:else>￥{{(item.price+item.want_size.price_plus)/100}}</text>
               </view>
-              <block wx:if="{{item.is_promote}}">
-                <view class="price green-color" wx:if="{{!item.want_size}}">￥{{item.promote_price/100}}</view>
-                <view class="price green-color" wx:else>
-                  <text wx:if="{{!item.want_size}}">￥{{item.promote_price/100}}</text>
-                  <text wx:else>￥{{(item.price+item.want_size.price_plus)/100}}</text>
-                </view>
-              </block>
-              <block wx:else>
-                <view class="price green-color" wx:if="{{!item.want_size}}">￥{{item.price/100}}</view>
-                <view class="price green-color" wx:else>
-                  <text wx:if="{{!item.want_size}}">￥{{item.price/100}}</text>
-                  <text wx:else>￥{{(item.price+item.want_size.price_plus)/100}}</text>
-                </view>
-              </block>
-            </view>
-            <view class="amount-area">
-              <text class="amount">x {{item.want_amount}}</text>
-            </view>
+            </block>
+            <block wx:else>
+              <view class="price" wx:if="{{!item.want_size}}">￥{{item.price/100}}</view>
+              <view class="price" wx:else>
+                <text wx:if="{{!item.want_size}}">￥{{item.price/100}}</text>
+                <text wx:else>￥{{(item.price+item.want_size.price_plus)/100}}</text>
+              </view>
+            </block>
+          </view>
+          <view class="amount-area">
+            <text class="amount">x {{item.want_amount}}</text>
           </view>
         </view>
       </view>
