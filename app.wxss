@@ -208,7 +208,6 @@ page {
   display: flex;
   align-items: flex-end;
   font-weight: bold;
-  flex: 1;
 }
 
 .goods-box .goods-price.original {
@@ -223,10 +222,15 @@ page {
 .goods-box .add-to-cart {
   display: flex;
   font-size: 24rpx;
-  border: 0.5px solid #481A0E;
   padding: 0 4rpx;
-  border-radius: 8rpx;
+  /*border-radius: 8rpx;
   color: #481A0E;
+  border: 0.5px solid #481A0E;*/
+}
+
+.goods-box .add-to-cart image {
+  width: 48rpx;
+  height: 48rpx;
 }
 
 .goods-box .goods-price-naver {

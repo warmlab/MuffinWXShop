@@ -1,4 +1,5 @@
 {
-		"navigationBarTitleText": "小麦芬",
-		"enablePullDownRefresh": true
+  "navigationBarTitleText": "小麦芬烘焙",
+	"enablePullDownRefresh": false,
+  "usingComponents": {}
 }

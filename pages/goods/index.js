@@ -34,7 +34,7 @@ Page({
 
 		request.get('products', {
 			category: category_id,
-			type: WEB_ALLOWED
+			show_type: WEB_ALLOWED
 		}).then(res => {
 			console.log('products', res.data)
 			that.setData({

@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/topic/index",
+    "pages/topic/topic",
     "pages/topic/detail",
     "pages/goods/index",
     "pages/goods/detail",
@@ -39,7 +40,7 @@
         "pagePath": "pages/goods/index",
         "iconPath": "images/tabbar/shop.png",
         "selectedIconPath": "images/tabbar/shop_sel.png",
-        "text": "店铺"
+        "text": "分类"
       },
       {
         "pagePath": "pages/cart/index",
