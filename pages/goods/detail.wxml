@@ -135,7 +135,7 @@
             <view class="confirm" wx:if="{{buy_type!=='choose'}}" bindtap="toBuy" data-code="{{product.code}}">立即购买</view>
         </view>
     </view>
-    <view class="bottom">
+    <view class="bottom" style="{{is_iphonex?'height:148rpx;':''}}">
         <view class="short" bindtap="openShareDialog">
             <image class="icon" model="aspectFill" src="/images/share_sel.png" />
         </view>
@@ -144,7 +144,7 @@
             <image class="icon" model="aspectFill" src="/images/tabbar/cart_sel.png" />
         </view>
         <view class="long cart" bindtap="openAttrDialog" wx:if="{{product.sizes.length>0}}">加入购物车</view>
-        <view class="long cart" bindtap="addToCart" wx:else data-type="cart">加入购物车</view>
+        <view class="long cart" bindtap="addToCart" data-type="cart" wx:else>加入购物车</view>
         <view class="long buy" bindtap="openAttrDialog" data-type="immediate">立即购买</view>
     </view>
 <!-- canvas海报 -->

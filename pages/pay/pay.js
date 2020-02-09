@@ -1,8 +1,6 @@
-// pages/pay/weixin.js
-const app = getApp()
-
 import request from '../../utils/request.js'
-//import sendTemplateMessage from '../../utils/message.js'
+
+const app = getApp()
 
 Page({
 
@@ -17,6 +15,10 @@ Page({
 
 	getOrder: function () {
 		var that = this;
+		wx.showLoading({
+			title: '订单加载中...',
+			mask: true
+		})
 		request.get('order', {
 			code: that.data.code,
 			extra: true
@@ -43,6 +45,10 @@ Page({
 				order: res.data,
 				payments: payments
 			})
+			wx.hideLoading()
+		}).catch(err => {
+			console.log('get order error', err)
+			wx.hideLoading()
 		})
 	},
 
@@ -112,6 +118,11 @@ Page({
 
 			return
 		}
+
+		wx.showLoading({
+			title: '支付中，请稍后...',
+			mask: true
+		})
 		// console.log('pay页直接支付,请求结果', res);
 		// payment
 		request.post('pay', {
@@ -154,12 +165,14 @@ Page({
 					});
 				}
 			} else if (res.statusCode === 200) { // already paid
+				wx.hideLoading()
 				//wx.navigateTo({
 				wx.redirectTo({
 					url: `result?status=paid&code=${that.data.order.code}`
 				});
 			}
 		}).catch(err => {
+			wx.hideLoading()
 			console.log('pay failed', err)
 			//wx.navigateTo({
 			wx.redirectTo({

@@ -2,6 +2,7 @@
 const app = getApp()
 
 import request from '../../../utils/request.js'
+import config from '../../../config.js'
 
 Page({
 	/**
@@ -9,7 +10,8 @@ Page({
 	 */
 	data: {
 		width: 0,
-		transparent: 0
+		transparent: 0,
+		is_iphonex: wx.IPHONEX
 	},
 
 	/**

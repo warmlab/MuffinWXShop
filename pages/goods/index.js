@@ -1,8 +1,6 @@
 import config from '../../config.js'
 import request from '../../utils/request.js'
 
-const app = getApp();
-
 import {
 	addToShoppingCart,
 } from '../../utils/cart.js'
@@ -11,6 +9,8 @@ import {
 	WEB_ALLOWED,
 	getCategories
 } from '../../utils/resource.js'
+
+const app = getApp();
 
 Page({
 	/**

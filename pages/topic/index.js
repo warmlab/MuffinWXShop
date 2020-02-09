@@ -1,6 +1,8 @@
 import config from '../../config.js'
 import request from '../../utils/request.js'
 
+import { addToShoppingCart } from '../../utils/cart.js'
+
 Page({
 
   /**
@@ -86,7 +88,7 @@ Page({
 			console.log(res.data)
 			wx.hideNavigationBarLoading()
 			that.setData({
-				goods: res.data
+				products: res.data
 			})
 		}).catch(err => {
 			console.log('get products error', err)
@@ -103,6 +105,17 @@ Page({
 	toViewDetail: function (e) {
 		wx.navigateTo({
 			url: `/pages/goods/detail?code=${e.currentTarget.dataset.code}`
+		})
+	},
+
+	addToCart: function (e) {
+		var product = this.data.products[parseInt(e.currentTarget.dataset.index)]
+
+		addToShoppingCart(product, 0, 1)
+		wx.showToast({
+			title: '成功加入购物车',
+			icon: 'success',
+			duration: 2000
 		})
 	},
 

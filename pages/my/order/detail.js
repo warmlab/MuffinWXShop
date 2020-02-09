@@ -20,6 +20,10 @@ Page({
 		var that = this;
 		//options.code, options.promotion_id
 		// TODO to do prepay_id
+		wx.showLoading({
+			title: '订单信息加载中...',
+			mask: true
+		})
 		request.get('order', {
 				code: options.code
 			}).then(res => {
@@ -28,9 +32,9 @@ Page({
 				that.setData({
 					order: res.data,
 				})
-			})
-			.catch(err => {
-				// 
+				wx.hideLoading()
+			}).catch(err => {
+				wx.hideLoading()
 			})
 	},
 

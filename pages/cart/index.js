@@ -34,7 +34,8 @@ Page({
 	syncGoods: function (e) {
 		var that = this
 		wx.showLoading({
-			title: '加载购物车'
+			title: '加载购物车',
+			mask: true
 		})
 		// get current activate promotion
 		//request.get('promotions').then(r => {

@@ -26,6 +26,7 @@ page {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 80rpx;
 }
 .pay-result .btn {
   text-align: center;
@@ -35,7 +36,7 @@ page {
   line-height: 78rpx;
   border: 1px solid #481a0e;
   color: #481a0e;
-  border-radius: 5rpx;
+  border-radius: 10rpx;
   flex: 1;
 }
 .pay-result .error .msg {

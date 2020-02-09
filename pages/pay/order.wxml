@@ -92,13 +92,12 @@
     </view>
     <view class="form-line">
       <text class="title">订单备注</text>
-      <textarea class="note" name="note" placeholder="需要告诉我们什么 可以填在这里" />
+      <input class="note" name="note" placeholder="需要告诉我们什么 可以填在这里" />
     </view>
   </view>
-  <view class="cart-bottom">
+  <view class="cart-bottom" style="{{is_iphonex?'height: 148rpx;':''}}">
     <view class="cost">
-      <text wx:if="{{delivery_way===1}}">需支付: ￥{{cart.cost/100}}</text>
-      <text wx:else>需支付: ￥{{(cart.cost+delivery_fee)/100}}</text>
+      需支付:{{delivery_way===1?"￥"+cart.cost/100:"￥"+(cart.cost+delivery_fee)/100}}
     </view>
     <button class="checkout" formType="submit" wx:if="{{userInfo.nickname}}">提交订单</button>
     <button class="checkout" open-type="getUserInfo" bindgetuserinfo="toGetUserInfo" type="warn" wx:else>点击登录</button>

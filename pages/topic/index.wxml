@@ -21,7 +21,7 @@
 </view>
 <!-- 本周推荐 -->
 <view class="recommend">本周推荐</view>
-<template is="goods-list" data="{{goods: goods, base_image_url: base_image_url}}"/>
+<template is="goods-list" data="{{goods: products, base_image_url: base_image_url}}"/>
 <!-- 声明区 -->
 <view class="proclaim-area">
     <text class="title">为你鉴证每一口安心</text>

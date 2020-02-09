@@ -1,5 +1,5 @@
 <view class="total">
-		<view class="price">￥{{(order.delivery_fee+order.cost)/100}}</view>
+		<view class="price">{{order.cost?'￥'+(order.delivery_fee+order.cost)/100:'计算中...'}}</view>
 </view>
 <view class="payments">
 		<view class="title">请选择支付方式</view>

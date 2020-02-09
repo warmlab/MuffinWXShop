@@ -21,7 +21,7 @@ class MyCanvas {
 
 	drawCanvas(logo, pic, qrimage) {
 		wx.showLoading({
-			title: '绘制海报图片'
+			title: '绘制海报图片',
 		})
 		var ctxs = wx.createCanvasContext(this.canvas_id)
 		ctxs.setFillStyle('#ffffff')

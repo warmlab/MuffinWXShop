@@ -240,7 +240,7 @@
   padding: .4em;
 }
 
-view.bottom {
+.bottom {
   position: fixed;
   left: 0;
   bottom: 0;
@@ -249,7 +249,7 @@ view.bottom {
   height: 90rpx;
   display: flex;
 	background: #f4f4f4;
-	font-size: 28rpx;
+	font-size: 32rpx;
 }
 
 .bottom .short {
@@ -257,8 +257,8 @@ view.bottom {
   width: 20%;
   border: 1px solid #f4f4f4;
   display: flex;
-  align-items: center;
   justify-content: center;
+  padding-top: 17rpx;
 }
 
 .bottom .short .share {
@@ -296,10 +296,9 @@ view.bottom {
 .bottom .long {
 	display: flex;
 	flex: 1;
-  height: 100%;
 	color: #fff;
-	justify-content: center;
-	align-items: center;
+  justify-content: center;
+  padding-top: 20rpx;
 }
 
 .bottom .long.cart {

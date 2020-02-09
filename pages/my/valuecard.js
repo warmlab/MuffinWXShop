@@ -16,19 +16,30 @@ Page({
    */
   onLoad: function (options) {
     let that = this;
-    request.get('openid')
-      .then(res => {
+		wx.showLoading({
+			title: '信息加载中...',
+			mask: true
+		})
+    request.get('openid').then(res => {
         that.setData({
           member: res.data
         })
+        wx.hideLoading()
+      }).catch(err => {
+        wx.hideLoading()
       })
   },
 
   bindValuecard: function (e) {
+		wx.showLoading({
+			title: '会员卡绑定中...',
+			mask: true
+		})
     request.post('openid', {
       name: e.detail.value.name,
       phone: e.detail.value.phone
     }).then(res => {
+      wx.hideLoading()
       var userInfo = wx.getStorageSync('appUserInfo')
       userInfo.name = e.detail.value.name
       userInfo.phone = e.detail.value.phone
@@ -42,6 +53,8 @@ Page({
 
       //prePage.setData({dragon:res.data});
       wx.navigateBack()
+    }).catch(err => {
+      wx.hideLoading()
     })
   },
 })

@@ -31,15 +31,15 @@
     "list": [
       {
         "pagePath": "pages/topic/index",
-        "iconPath": "images/tabbar/focus.png",
-        "selectedIconPath": "images/tabbar/focus_sel.png",
+        "iconPath": "images/tabbar/home.png",
+        "selectedIconPath": "images/tabbar/home_sel.png",
 				"text": "首页",
 				"backgroundColor": "#481A0E"
       },
       {
         "pagePath": "pages/goods/index",
-        "iconPath": "images/tabbar/shop.png",
-        "selectedIconPath": "images/tabbar/shop_sel.png",
+        "iconPath": "images/tabbar/goods.png",
+        "selectedIconPath": "images/tabbar/goods_sel.png",
         "text": "分类"
       },
       {

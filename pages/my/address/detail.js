@@ -25,6 +25,10 @@ Page({
 			address_id: options.id
 		})
 		if (parseInt(options.id) !== 0) {
+			wx.showLoading({
+				title: '地址信息加载中...',
+				mask: true
+			})
 			request.get('openid/address', {
 				id: options.id,
 			}).then(res => {
@@ -36,6 +40,9 @@ Page({
 					district: res.data.district,
 					address: res.data.address,
 				})
+				wx.hideLoading()
+			}).catch(err => {
+				wx.hideLoading()
 			})
 		}
 
@@ -162,6 +169,11 @@ Page({
 			return;
 		}
 
+		wx.showLoading({
+			title: '信息更新中...',
+			mask: true
+		})
+
 		request.post('openid/address', {
 			id: that.data.address_id,
 			contact: e.detail.value.contact,
@@ -173,6 +185,7 @@ Page({
 			is_default: that.data.is_default
 		}).then(res => {
 			console.log('succeed in updating address', res)
+			wx.hideLoading()
 			wx.showToast({
 				title: '地址添加成功',
 				icon: 'success',
@@ -188,6 +201,7 @@ Page({
 			wx.navigateBack();
 		}).catch(err => {
 			console.log('failed in updating address', err)
+			wx.hideLoading()
 			wx.showToast({
 				title: '地址添加失败',
 				icon: 'fail',

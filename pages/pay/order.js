@@ -16,24 +16,35 @@ Page({
 		pickup_address: 0,
 		delivery_address: -1,
 		pickup_index: -1,
+		is_iphonex: wx.IPHONEX
 		//cur_addr: -1
 	},
 
 	getAddresses: function () {
 		var that = this;
 
+		wx.showLoading({
+			title: '加载中，请稍后...',
+			mask: true
+		})
 		request.get('addresses').then(res => {
+			wx.hideLoading()
 			that.setData({
 				pickup_address: res.data.length > 0 ? res.data[0].id : -1,
 				pickup_addresses: res.data
 			})
 		}).catch(err => {
 			console.log('get pick up addresses error', err)
+			wx.hideLoading()
 		})
 	},
 
 	getMemberAddresses: function (address_id) {
 		var that = this
+		wx.showLoading({
+			title: '加载中，请稍后...',
+			mask: true
+		})
 		request.get('openid/addresses').then(res => {
 			var delivery_address = -1;
 			for (var index in res.data) {
@@ -47,12 +58,14 @@ Page({
 			if (delivery_address === -1 && res.data.length > 0)
 				delivery_address = 0
 			console.log('my addresses', res.data)
+			wx.hideLoading()
 			that.setData({
 				delivery_addresses: res.data,
 				delivery_address: delivery_address
 			})
 		}).catch(err => {
 			console.log('get customer addresses error', err)
+			wx.hideLoading()
 		})
 	},
 
@@ -100,6 +113,7 @@ Page({
 		//})
 
 		var cart = syncCart(options.type)
+		var userInfo = wx.getStorageSync('appUserInfo');
 
 		this.setData({
 			cart: cart,
@@ -107,6 +121,7 @@ Page({
 			//product_ids: product_ids,
 			//cost: cart.cost,
 			type: options.type,
+			userInfo: userInfo
 		})
 
 		this.getAddresses()
@@ -157,16 +172,6 @@ Page({
 	checkoutOrder: function (e) {
 		var that = this
 
-		if (this.data.cart.products.length <= 0) {
-			wx.showToast({
-				title: '没有选购商品',
-				icon: 'none',
-				duration: 2000
-			})
-
-			return
-		}
-
 		if (this.data.delivery_address < 0) {
 			wx.showToast({
 				title: '请选择个人地址信息',
@@ -183,20 +188,31 @@ Page({
 				title: '请选择自提点',
 				icon: 'none',
 				duration: 2000
-			});
+			})
 
-			return;
+			return
 		}
 
 		var ps = []
 		this.data.cart.products.forEach(ele => {
-			ps.push({
-				id: ele.id,
-				want_amount: ele.want_amount,
-				//want_size: !ele.want_size ? 0 : ele.want_size.size.id
-				want_size: 0
-			})
+			if (ele.checked)
+				ps.push({
+					id: ele.id,
+					want_amount: ele.want_amount,
+					//want_size: !ele.want_size ? 0 : ele.want_size.size.id
+					want_size: 0
+				})
 		})
+
+		if (ps.length === 0) {
+			wx.showToast({
+				title: '请选择商品',
+				icon: 'none',
+				duration: 2000
+			});
+
+			return
+		}
 
 		console.log('addresses', this.data.delivery_address, this.data.delivery_addresses);
 
@@ -213,6 +229,11 @@ Page({
 			avatarUrl: this.data.userInfo.avatarUrl
 			//formId: e.detail.formId,
 		}
+
+		wx.showLoading({
+			title: '订单生成中...',
+			mask: true
+		})
 
 		request.post('order', data).then(res => {
 			console.log(res);
@@ -237,11 +258,18 @@ Page({
 					prePage.onLoad();
 				}
 			}
+			wx.hideLoading()
 			wx.redirectTo({
 				url: `pay?code=${res.data.code}`
 			});
 		}).catch(err => {
 			console.log('commit order error', err)
+			wx.hideLoading()
+			wx.showToast({
+				title: '下单失败，请与店长联系',
+				icon: 'error',
+				duration: 2000
+			})
 		})
 	},
 
