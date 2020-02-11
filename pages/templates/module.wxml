@@ -20,7 +20,7 @@
     <swiper circular autoplay interval="8000" duration="500" bindchange="swiperChange" class="swiper">
     	<block wx:for="{{images}}" wx:key="id">
       <swiper-item>
-        <image lazy-load="true" src="{{base_image_url}}/{{item.name}}" mode="aspectFill" />
+        <image lazy-load="true" src="{{base_image_url}}/full/{{item.name}}" mode="aspectFill" />
       </swiper-item>
     	</block>
     </swiper>

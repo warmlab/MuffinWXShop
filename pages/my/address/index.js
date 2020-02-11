@@ -11,7 +11,7 @@ Page({
 	data: {
 		width: 0,
 		transparent: 0,
-		is_iphonex: wx.IPHONEX
+		is_iphonex: wx.IPHONEX >= 0? true : false
 	},
 
 	/**

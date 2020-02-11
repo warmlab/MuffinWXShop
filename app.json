@@ -6,6 +6,7 @@
     "pages/goods/index",
     "pages/goods/detail",
     "pages/cart/index",
+    "pages/cart/cart",
     "pages/pay/order",
     "pages/pay/pay",
     "pages/pay/result",

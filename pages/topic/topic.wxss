@@ -108,3 +108,23 @@
 .page .disabled{
     color: #ccc;
 }
+
+.go-to-cart {
+    position: fixed;
+    bottom: 50rpx;
+    right: 30rpx;
+    z-index: 100;
+    background-color: #ede2d3;
+    height: 90rpx;
+    width: 90rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 1rpx solid #481a0e;
+}
+
+.go-to-cart image {
+    height: 64rpx;
+    width: 64rpx;
+}

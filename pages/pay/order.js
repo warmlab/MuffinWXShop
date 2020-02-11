@@ -16,7 +16,7 @@ Page({
 		pickup_address: 0,
 		delivery_address: -1,
 		pickup_index: -1,
-		is_iphonex: wx.IPHONEX
+		is_iphonex: wx.IPHONEX >= 0? true : false
 		//cur_addr: -1
 	},
 

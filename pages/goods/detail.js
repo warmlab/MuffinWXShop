@@ -23,7 +23,7 @@ Page({
 		current_size: null,
 		openShare: false,
 		openAttr: false,
-		is_iphonex: wx.IPHONEX,
+		is_iphonex: wx.IPHONEX >= 0? true : false,
 		canvas_id: 'shareCanvas'
 	},
 

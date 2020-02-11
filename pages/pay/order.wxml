@@ -28,10 +28,10 @@
         <text>上门自提</text>
         <view class="icon {{delivery_way===1?'checked':''}}" style="color: #f5f5f5;" bindtap="handleDeliveryChange" data-value="1"><text class="fa fa-check" style="display: flex;justify-content: center;"/></view>
       </view>
-      <view class="delivery-item">
+      <!--view class="delivery-item">
         <text>快递配送</text>
         <view class="icon {{delivery_way===2?'checked':''}}" style="color: #f5f5f5;" bindtap="handleDeliveryChange" data-value="2"><text class="fa fa-check" style="display: flex;justify-content: center;"/></view>
-      </view>
+      </view-->
     </view>
   </view>
   <view class="pickup-area" wx:if="{{delivery_address >= 0 && delivery_way == 1}}">

@@ -83,7 +83,7 @@
     </view>
     <view class="detail-images">
         <block wx:for="{{details}}" wx:key="id">
-            <image mode="widthFix" src="{{base_image_url}}/{{item.name}}" style="width:100%;" />
+            <image mode="widthFix" src="{{base_image_url}}/full/{{item.name}}" style="width:100%;" />
         </block>
     </view>
     <view class="attr-pop-box" hidden="{{!openShare}}">

@@ -117,12 +117,12 @@ Page({
 			title = '预售'
 
 		wx.setNavigationBarTitle({
-			title: title,
-			type: type
+			title: title
 		})
 
 		this.setData({
 			title: title,
+			type: type,
 			promote_type: options.type,
 			on_show: false
 		})
@@ -130,6 +130,9 @@ Page({
 		app.getUserInfo().then(res => {
 			//wx.startPullDownRefresh()
 			this.getProducts(options.type)
+			that.setData({
+				userInfo: res
+			})
 		})
 	},
 
@@ -163,7 +166,13 @@ Page({
 		wx.showToast({
 			title: '成功加入购物车',
 			icon: 'success',
-			duration: 2000
+			duration: 500
+		})
+	},
+
+	goToCart: function(e) {
+		wx.navigateTo({
+			url: '/pages/cart/cart'
 		})
 	},
 

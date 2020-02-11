@@ -277,8 +277,8 @@ page {
 }
 
 .form-line picker {
-  width: 80%;
   flex: 1;
+  margin: 0 2%;
 }
 
 picker .picker text {

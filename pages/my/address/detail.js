@@ -174,8 +174,11 @@ Page({
 			mask: true
 		})
 
+		var userInfo = wx.getStorageSync('appUserInfo')
+
 		request.post('openid/address', {
 			id: that.data.address_id,
+			openid: userInfo.openid,
 			contact: e.detail.value.contact,
 			phone: e.detail.value.phone,
 			province: that.data.province,

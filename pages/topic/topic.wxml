@@ -35,3 +35,6 @@
 	</view-->
 	<template is="goods-list" data="{{goods: goods, base_image_url: base_image_url}}"/>
 </block>
+<view class="go-to-cart" bindtap="goToCart">
+	<image src="/images/tabbar/cart.png"/>
+</view>
