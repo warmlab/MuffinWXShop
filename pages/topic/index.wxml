@@ -11,7 +11,7 @@
         <text>上新</text>
     </navigator>
     <navigator url="topic?type=1">
-        <image src="/images/Cafe.png"/>
+        <image src="/images/Doughnut.png"/>
         <text>热卖</text>
     </navigator>
     <navigator url="topic?type=8">

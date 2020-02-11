@@ -44,19 +44,21 @@ page{
     height:145.83rpx;
     width:145.83rpx;
 }
-.order .goods .info{
+.order .goods .info {
     height: 145.83rpx;
     flex: 1;
     padding-left: 20rpx;
 }
-.order .goods .name{
+.order .goods .info .name{
     margin-top: 30rpx;
     display: block;
     height: 44rpx;
     line-height: 44rpx;
     font-size: 30rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-.order .goods .number{
+.order .goods .info .number {
     display: block;
     height: 37rpx;
     line-height: 37rpx;

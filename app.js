@@ -65,7 +65,6 @@ App({
 			//that.globalData.userInfo = userInfo
 			getShopInfo()
 			wx.setStorageSync('appUserInfo', userInfo)
-			console.log('userinfo aaa', userInfo)
 
 			// 获取用户信息
 			wx.getSetting({

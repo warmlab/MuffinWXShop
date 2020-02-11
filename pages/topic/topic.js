@@ -114,10 +114,11 @@ Page({
 		else if (type === 0x04) // 0x04 - 特惠
 			title = '今日特惠'
 		else if (type === 0x08) // 0x08 - 预售
-			title = '今日预售'
+			title = '预售'
 
 		wx.setNavigationBarTitle({
-			title: title
+			title: title,
+			type: type
 		})
 
 		this.setData({
@@ -155,7 +156,7 @@ Page({
 	},
 
 	addToCart: function (e) {
-		var index = paserInt(e.currentTarget.dataset.index)
+		var index = parseInt(e.currentTarget.dataset.index)
 		var product = this.data.goods[index]
 
 		addToShoppingCart(product, 0, 1)

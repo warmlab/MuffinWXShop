@@ -66,24 +66,37 @@ Page({
 		request.get('images', {
 			type: type
 		}).then(res => {
-      console.log(res.data)
-			that.setData({
-				ads: res.data
-			})
+      console.log('ads: ', res.data, !res.data)
+      if (!res.data || res.data.length === 0)
+        that.loadDefaultAds()
+      else
+        that.setData({
+          ads: res.data
+        })
 			wx.hideLoading()
 		}).catch(err => {
 			console.log('get images', err)
-			wx.hideLoading()
+      wx.hideLoading()
+      // load default ads
+      that.loadDefaultAds()
 		})
+  },
+
+  loadDefaultAds: function() {
+    console.log('load default ads')
+    this.setData({
+      ads: [{name: 'ads/1.jpg'}, {name: 'ads/2.jpg'}, {name: 'ads/3.jpg'}]
+    })
   },
 
   getProducts: function() {
 		var that = this
 		wx.showNavigationBarLoading()
 		request.get('products', {
-			show_type: 1,
+      show_type: 1,
+      promote_type: 16, // 16-本周推荐
 			sort: 'popular',
-			limit: 6,
+			limit: 4,
 		}).then(res => {
 			console.log(res.data)
 			wx.hideNavigationBarLoading()
