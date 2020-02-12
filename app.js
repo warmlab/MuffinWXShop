@@ -27,6 +27,7 @@ App({
 					code: res.code
 				}).then(res => {
 					//wx.setStorageSync('appUserInfo', res.data)
+					console.log('wx.login', res.data)
 					resolve(res.data)
 				}).catch(err => {
 					console.error('weixin login error:', err)
@@ -54,6 +55,7 @@ App({
 					that.wxLogin(resolve, reject)
 				})
 			} else {
+				console.log('to do wxlogin', userInfo)
 				that.wxLogin(resolve, reject)
 			}
 		})
@@ -105,7 +107,7 @@ App({
 					clearInterval(interval)
 					reject('cannot get user Info')
 				}
-			}, 500)
+			}, 1000)
 		})
 	},
 

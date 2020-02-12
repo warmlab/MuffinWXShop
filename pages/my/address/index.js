@@ -36,7 +36,11 @@ Page({
 			title: '加载中，请稍候',
 			mask: true
 		})
-		request.get('openid/addresses').then(res => {
+		var userInfo = wx.getStorageSync('appUserInfo')
+		console.log('aa', userInfo)
+		request.get('openid/addresses', {
+			openid: userInfo.openid
+		}).then(res => {
 			console.log('address of the user', res)
 			that.setData({
 				addresses: res.data,

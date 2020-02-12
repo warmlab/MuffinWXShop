@@ -53,11 +53,11 @@
 		</view>
 	</view>
 	<view class="cart-bottom">
-		<label class="cart-info">
+		<view class="cart-info">
 			<view class="icon {{cart.checked_num===cart.products.length?'checked':''}}" style="color: #f4f4f4;" bindtap="checkAll"><text class="fa fa-check"/></view>
 			<text class="label">全选</text>
 			<text class="label-icon">{{cart.amount?cart.amount:0}}</text>
-		</label>
+		</view>
 		<view class="cost">￥{{cart.cost?cart.cost/100:0}}</view>
 		<view class="delete" bindtap="deleteProduct">删除所选</view>
 		<view class="checkout" bindtap="toCheckout">下单</view>

@@ -35,6 +35,8 @@
 	</view-->
 	<template is="goods-list" data="{{goods: goods, base_image_url: base_image_url}}"/>
 </block>
-<view class="go-to-cart" bindtap="goToCart">
-	<image src="/images/tabbar/cart.png"/>
+<view style="height: {{is_iphonex?'148':'90'}}rpx"/>
+<view class="bottom-line" bindtap="goToCart" style="height: {{is_iphonex?'148':'90'}}rpx">
+	<view class="amount">{{amount}}</view>
+	<text>去往购物车</text>
 </view>

@@ -136,7 +136,7 @@ Page({
 		wx.showToast({
 			title: '成功加入购物车',
 			icon: 'success',
-			duration: 2000
+			duration: 500
 		})
 	},
 

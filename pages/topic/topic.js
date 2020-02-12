@@ -2,6 +2,7 @@ import config from '../../config.js'
 import request from '../../utils/request.js'
 
 import {
+	syncCart,
 	addToShoppingCart
 } from '../../utils/cart.js'
 
@@ -10,15 +11,13 @@ const app = getApp();
 Page({
 	data: {
 		title: '小麦芬烘焙',
-		base_image_url: config.base_image_url
+		amount: 0,
+		base_image_url: config.base_image_url,
+		is_iphonex: wx.IPHONEX >= 0 ? true : false
 	},
 
 	getProducts: function (type) {
 		var that = this
-		wx.showLoading({
-			title: '加载中...',
-			mask: true
-		})
 		request.get('products', {
 			show_type: 1,
 			promote_type: type
@@ -101,6 +100,10 @@ Page({
 	},
 
 	onPullDownRefresh: function (e) {
+		wx.showLoading({
+			title: '加载中...',
+			mask: true
+		})
 		this.getProducts(this.data.promote_type)
 	},
 
@@ -122,18 +125,30 @@ Page({
 
 		this.setData({
 			title: title,
-			type: type,
-			promote_type: options.type,
-			on_show: false
+			promote_type: type,
+			on_show: false,
 		})
 
+		wx.showLoading({
+			title: '加载中...',
+			mask: true
+		})
 		app.getUserInfo().then(res => {
 			//wx.startPullDownRefresh()
-			this.getProducts(options.type)
-			that.setData({
+			this.getProducts(type)
+			this.setData({
 				userInfo: res
 			})
 		})
+
+		wx.showNavigationBarLoading({
+			title: '加载中...'
+		})
+		var cart = syncCart('cart')
+		this.setData({
+			amount: cart.amount
+		})
+		wx.hideNavigationBarLoading()
 	},
 
 	onShow: function (res) {
@@ -163,6 +178,7 @@ Page({
 		var product = this.data.goods[index]
 
 		addToShoppingCart(product, 0, 1)
+		this.setData({amount: this.data.amount+1})
 		wx.showToast({
 			title: '成功加入购物车',
 			icon: 'success',
@@ -190,7 +206,7 @@ Page({
 	onShareAppMessage: function (res) {
 		return {
 			title: this.data.title,
-			path: `/pages/topic/topic?type=${this.data.type}`
+			path: `/pages/topic/topic?type=${this.data.promote_type}`
 		}
 	}
 });
