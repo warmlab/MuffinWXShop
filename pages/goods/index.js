@@ -20,6 +20,7 @@ Page({
 		base_image_url: config.base_image_url,
 		NAV_HEIGHT: wx.STATUS_BAR_HEIGHT + wx.DEFAULT_HEADER_HEIGHT,
 		NAV_WIDTH: wx.getSystemInfoSync().windowWidth,
+		category: -1,
 		NAV_OFFSET: 0,
 		category_id: 0,
 		extra_info: 0
@@ -144,7 +145,10 @@ Page({
 	 * 页面相关事件处理函数--监听用户下拉动作
 	 */
 	onPullDownRefresh: function () {
-		this.getProducts()
+		if (this.data.category > 0)
+			this.getProducts(this.data.category_id, this.data.NAV_OFFSET)
+		else
+			this.syncProductInfo()
 	},
 
 	syncProductInfo: function() {

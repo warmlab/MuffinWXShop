@@ -265,11 +265,26 @@ Page({
 		}).catch(err => {
 			console.log('commit order error', err)
 			wx.hideLoading()
-			wx.showToast({
-				title: '下单失败，请与店长联系',
-				icon: 'error',
-				duration: 2000
-			})
+			if (err.status === 2001) { // some products were sold out
+				var ps = JSON.parse(err.data)
+				var content = ''
+				ps.forEach(p => {
+					content += `${p.name}[库存:${p.stock}]\n`
+				})
+				wx.showModal({
+					title: '对不起，库存不足',
+					content: content.trim(),
+					showCancel: false,
+					confirmText: "我知道了",
+				})
+
+			} else {
+				wx.showToast({
+					title: '下单失败，请与店长联系',
+					icon: 'error',
+					duration: 2000
+				})
+			}
 		})
 	},
 

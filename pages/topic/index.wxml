@@ -3,19 +3,19 @@
 <!-- 导航栏 -->
 <view class="navs">
     <navigator url="topic?type=4">
-        <image src="/images/Cheese.png"/>
+        <image src="/images/big_sale.png"/>
         <text>特惠</text>
     </navigator>
     <navigator url="topic?type=2">
-        <image src="/images/Bread.png"/>
+        <image src="/images/new_arrival.png"/>
         <text>上新</text>
     </navigator>
     <navigator url="topic?type=1">
-        <image src="/images/Doughnut.png"/>
+        <image src="/images/on_sale.png"/>
         <text>热卖</text>
     </navigator>
     <navigator url="topic?type=8">
-        <image src="/images/Cookies.png"/>
+        <image src="/images/pre_sale.png"/>
         <text>预售</text>
     </navigator>
 </view>

@@ -53,7 +53,9 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.getAds(4)
+    this.getProducts()
+    wx.stopPullDownRefresh()
   },
 
   getAds: function(type) {

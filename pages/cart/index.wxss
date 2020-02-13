@@ -209,21 +209,19 @@ page {
     width: auto;
     margin: 33rpx 18rpx;
     font-size: 29rpx;*/
-    height: 100rpx;
     width: 210rpx;
     text-align: center;
     line-height: 100rpx;
-    font-size: 29rpx;
-		color: #fff;
-		background-color: #CFA57E;
+    font-size: 32rpx;
+    color: #fff;
+    background-color: #CFA57E;
 }
 
 .cart-bottom .checkout{
-    height: 100rpx;
     width: 210rpx;
     text-align: center;
     line-height: 100rpx;
-    font-size: 29rpx;
+    font-size: 32rpx;
     color: #fff;
     background-color: #481A0E;
 }
