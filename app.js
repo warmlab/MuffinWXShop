@@ -65,7 +65,7 @@ App({
 		var that = this
 		this.login().then(userInfo => {
 			//that.globalData.userInfo = userInfo
-			getShopInfo()
+			// TODO getShopInfo() // should be get info after login
 			wx.setStorageSync('appUserInfo', userInfo)
 
 			// 获取用户信息

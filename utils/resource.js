@@ -10,7 +10,7 @@ const getShopInfo = () => {
 		if (!!shop) {
 			resolve(shop)
 		} else {
-			request.get('info').then(res => {
+			request.get('shopinfo').then(res => {
 				wx.setStorageSync('appShopInfo', res.data)
 				resolve(res.data)
 			}).catch(err => {

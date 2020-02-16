@@ -27,7 +27,7 @@ Page({
 			title: '加载中，请稍后...',
 			mask: true
 		})
-		request.get('addresses').then(res => {
+		request.get('pickupaddresses').then(res => {
 			wx.hideLoading()
 			that.setData({
 				pickup_address: res.data.length > 0 ? res.data[0].id : -1,
@@ -125,10 +125,10 @@ Page({
 		})
 
 		this.getAddresses()
+		this.getMemberAddresses(0)
 	},
 
 	onShow: function (e) {
-		this.getMemberAddresses(0)
 	},
 
 	deliveryMethodTap: function (e) {
