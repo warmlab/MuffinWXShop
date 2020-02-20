@@ -1,38 +1,38 @@
 <view class="profile-info" wx:if="{{userInfo.avatarUrl}}">
-		<image class="avatar" src="{{userInfo.avatarUrl}}" />
-		<view class="info">
-				<text class="name">{{userInfo.nickname}}</text>
-		</view>
+  <image class="avatar" src="{{userInfo.avatarUrl}}" />
+  <view class="info">
+    <text class="name">{{userInfo.nickname}}</text>
+  </view>
 </view>
 <view class="goLogin profile-info" wx:else>
-		<img class="icon" src="/static/images/ic_menu_me_pressed.png" />
-		<button open-type="getUserInfo" class="goLoginBtn" bindgetuserinfo="toGetUserInfo">
-				点击，授权登录~
-		</button>
+  <img class="icon" src="/static/images/ic_menu_me_pressed.png" />
+  <button open-type="getUserInfo" class="goLoginBtn" bindgetuserinfo="toGetUserInfo">
+    点击，授权登录~
+  </button>
 </view>
+<view class="user-menu-title">订单</view>
 <view class="user-menu">
-		<navigator class="item" url="./order/index?status=wait">
-				<text class="fa fa-clipboard fa-2x"></text>
-				<text class="title">待付款</text>
-		</navigator>
-		<navigator class="item" url="./order/index?status=paid">
-				<text class="fa fa-clipboard-list fa-2x"></text>
-				<text class="title">待交付</text>
-		</navigator>
-		<navigator class="item" url="./order/index?status=finished">
-				<text class="fa fa-clipboard-check fa-2x"></text>
-				<text class="title">已完成</text>
-		</navigator>
+  <navigator class="item" url="./order/index?status=1">
+    <text class="title">待付款</text>
+  </navigator>
+  <navigator class="item" url="./order/index?status=2">
+    <text class="title">待交付</text>
+  </navigator>
+  <navigator class="item" url="./order/index?status=4">
+    <text class="title">已交付</text>
+  </navigator>
+  <navigator class="item" url="./order/index?status=8">
+    <text class="title">已完成</text>
+  </navigator>
 </view>
-<view class="separate" />
+<view class="user-menu-title">我的</view>
 <view class="user-menu">
-		<view class="item" bindtap="toViewAddress">
-				<text class="fa fa-map-marked fa-2x" />
-				<text class="title">我的地址</text>
-		</view>
-		<view class="item" bindtap="bindValuecard">
-				<text class="fa fa-user-edit fa-2x" />
-				<text class="title">绑定储值卡</text>
-		</view>
-		<view class="item"/>
+  <view class="item" bindtap="toViewAddress">
+    <text class="fa fa-map-marked fa-2x" />
+    <text class="title">我的地址</text>
+  </view>
+  <view class="item" bindtap="bindValuecard">
+    <text class="fa fa-user-edit fa-2x" />
+    <text class="title">绑定储值卡</text>
+  </view>
 </view>

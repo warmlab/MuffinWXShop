@@ -141,3 +141,25 @@
     left: 20rpx;
     top: 20rpx;
 }
+
+.promotion-over {
+    display: flex;
+    flex-direction: column;
+    margin: 2%;
+    background-color: #481a0e;
+    border-radius: 10rpx;
+    padding: 4%;
+}
+
+.promotion-over text {
+    font-size: 56rpx;
+    color: #ffffff;
+    background-color: #481A0E;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20rpx;
+}
+
+.promotion-over text:last-child {
+    margin-bottom: 0;
+}

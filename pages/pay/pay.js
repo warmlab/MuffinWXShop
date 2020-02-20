@@ -10,7 +10,15 @@ Page({
 	data: {
 		userInfo: {},
 		payment: 0,
-		payments: []
+		weixin_pay_cost: 0,
+		payments: [{value: 2, name: '储值卡支付'},{value: 4, name: '微信支付'}],
+		subscribe_yet: false, // 是否已经申请过接受订单消息
+		// TODO 微信小程序不支持alipay
+		//if (res.data.payment & 8)
+		//	payments.push({
+		//		value: 8,
+		//		name: '支付宝支付'
+		//	})
 	},
 
 	getOrder: function () {
@@ -24,26 +32,24 @@ Page({
 			extra: true
 		}).then(res => {
 			// order code get total cost and promotion id is to determine whether or not the promotion was finished
-			var payments = []
-			if (res.data.payment & 2)
-				payments.push({
-					value: 2,
-					name: '储值卡支付'
-				})
-			if (res.data.payment & 4)
-				payments.push({
-					value: 4,
-					name: '微信支付'
-				})
-			// TODO 微信小程序不支持alipay
-			//if (res.data.payment & 8)
-			//	payments.push({
-			//		value: 8,
-			//		name: '支付宝支付'
-			//	})
+			/* TODO var weixin_pay_cost = 0
+			res.data.products.forEach(item => {
+				if (item.product.payment & 2 === 0) { // 只能用微信支付
+					weixin_pay_products.push(item)
+					weixin_pay_cost = item.amount * item.price
+				}
+			})*/
+			console.log(app.globalData.subscriptions, res.data)
+			var subscribe_yet = false
+			if ((res.data.delivery_way === 1 && app.globalData.subscriptions[0].status === 1) ||	// 自提			
+				(res.data.delivery_way === 2 && app.globalData.subscriptions[1].status === 1))	{// 快递 
+				subscribe_yet = true
+			}
 			that.setData({
-				order: res.data,
-				payments: payments
+				//weixin_pay_products: weixin_pay_products,
+				//weixin_pay_cost: weixin_pay_cost,
+				subscribe_yet: subscribe_yet,
+				order: res.data
 			})
 			wx.hideLoading()
 		}).catch(err => {
@@ -93,8 +99,57 @@ Page({
 		})
 	},
 
+	openSubscriptions: function(e) {
+		var that = this
+		wx.requestSubscribeMessage({
+			tmplIds: app.globalData.subscriptions.map(ele=>ele.tmplId),
+			success (res) {
+				app.globalData.subscriptions.forEach(ele => {
+					if (res[ele.tmplId] === 'accept') {
+						ele.status = 1
+					} else {
+						ele.status = 0
+					}
+				})
+				console.log(app.globalData.subscriptions)
+				that.setData({
+					subscribe_yet: true
+				})
+
+				if (app.globalData.subscriptions[0].status === 1 &&
+					app.globalData.subscriptions[1].status === 1) {
+					wx.showModal({
+						title: '接收订单消息',
+						content: '请注意查看微信里的“服务通知”',
+						confirmColor: "#481A0E",
+						showCancel: false
+					})
+				} else if (app.globalData.subscriptions[1].status === 1) {
+					wx.showModal({
+						title: '只接收快递订单消息',
+						content: '请注意查看微信里的“服务通知”',
+						confirmColor: "#481A0E",
+						showCancel: false
+					})
+				} else if (app.globalData.subscriptions[0].status === 1) {
+					wx.showModal({
+						title: '只接收自提订单消息',
+						content: '请注意查看微信里的“服务通知”',
+						confirmColor: "#481A0E",
+						showCancel: false
+					})
+				} else {
+					wx.showModal({
+						title: '不接收任何订单消息',
+						confirmColor: "#481A0E",
+						showCancel: false
+					})
+				}
+			}
+		})
+	},
+
 	startPay: function (e) {
-		var that = this;
 		/*
 		if (this.data.order.address.delivery_way == 1 && !this.data.order.member_openid.phone) {
 			if (e.detail.value.contact.trim() === '' || e.detail.value.mobile.trim() === '') {
@@ -108,11 +163,12 @@ Page({
 			}
 		}
 		*/
-
+		var that = this;
 		if (this.data.payment === 0) {
 			wx.showModal({
 				content: '支付方式',
 				title: '请选择一种支付方式',
+				confirmColor: '#481A0E',
 				showCancel: false
 			})
 

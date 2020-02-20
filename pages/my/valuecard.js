@@ -48,6 +48,7 @@ Page({
       wx.showModal({
         title: '会员卡绑定成功',
         content: '点击按钮返回',
+        confirmColor: '#481A0E',
         show_cancel: false
       })
 

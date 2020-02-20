@@ -1,6 +1,5 @@
 /* pages/my/order_detail.wxss */
 page {
-    height: 100%;
     background: #f4f4f4;
 }
 
@@ -130,6 +129,12 @@ page {
 .order-info .order-footer .address {
     display: flex;
     flex-direction: column;
+    color: #9b9b9b;
+    padding: 20rpx 0;
+    font-size: 26rpx;
+}
+
+.order-info .order-footer .note {
     color: #9b9b9b;
     padding: 20rpx 0;
     font-size: 26rpx;

@@ -15,9 +15,12 @@
 		</view>
 </view>
 <form class="total" bindsubmit="startPay" report-submit="true">
-	<button wx:if="{{payment===0}}" disabled="{{true}}">请选择支付方式</button>
+  <block wx:if="{{subscribe_yet}}">
+  <button wx:if="{{payment===0}}" disabled="{{true}}">请选择支付方式</button>
 	<button wx:elif="{{(payment===2 && userInfo.name && userInfo.phone) || payment===4}}" form-type="submit">确定支付</button>
-	<button wx:else bindtap="bindValuecard">绑定储值卡</button>
+  <button wx:else bindtap="bindValuecard">绑定储值卡</button>
+  </block>
+  <button wx:else bindtap="openSubscriptions">开通订单通知</button>
 </form>
 <!--form bindsubmit="startPay" report-submit="true">
 	<view wx:if="{{cur_addr}}" class="adds-center-bg ui-row" style="height:70px;">

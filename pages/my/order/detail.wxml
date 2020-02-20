@@ -12,7 +12,7 @@
 <view class="order-info">
     <view class="order-title">
         <view class="label">商品信息</view>
-        <view class="status">{{!order.pay_time?'未支付':'已支付'}}</view>
+        <view class="status">{{order.status>=2?(order.payment===2?'会员卡支付':'微信已支付'):'未支付'}}</view>
     </view>
     <view class="order-item" wx:for="{{order.products}}" wx:key="id">
         <image src="{{base_image_url}}/{{item.product.images[0].image.name}}"/>
@@ -51,5 +51,13 @@
         <view class="address" wx:else>
             <text>{{order.pickup_address.address?order.pickup_address.address:''}}</text>
         </view>
+    </view>
+</view>
+<view class="order-info" wx:if="{{!!order.note}}">
+    <view class="order-title">
+        <view class="label">订单备注</view>
+    </view>
+    <view class="order-footer">
+        <text class="note">{{order.note}}</text>
     </view>
 </view>

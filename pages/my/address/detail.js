@@ -143,6 +143,7 @@ Page({
 			wx.showModal({
 				title: '收货人姓名',
 				content: '您还没有写收货人姓名',
+				confirmColor: '#481A0E',
 				showCancel: false
 			});
 
@@ -153,6 +154,7 @@ Page({
 			wx.showModal({
 				title: '收货人电话',
 				content: '您还没有写收货人电话',
+				confirmColor: '#481A0E',
 				showCancel: false
 			});
 
@@ -163,6 +165,7 @@ Page({
 			wx.showModal({
 				title: '详细地址',
 				content: '您还没有写收货详细地址',
+				confirmColor: '#481A0E',
 				showCancel: false
 			});
 

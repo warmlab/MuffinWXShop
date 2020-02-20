@@ -10,7 +10,8 @@
         <view class="goods-price">Ұ{{item.in_promote?item.promote_price/100:item.price/100}}</view>
         <view class="goods-price original">{{item.in_promote?'¥'+item.price/100:''}}</view>
         <view class="goods-price-naver" wx:if="{{item.sold && item.sold>0}}">已售{{item.sold}}</view>
-        <view class="add-to-cart" bindtap="addToCart" data-index="{{index}}"><image src="/images/{{item.stock>0?'cart_add.png':'soldout.png'}}"/></view>
+        <view class="add-to-cart" bindtap="addToCart" data-index="{{index}}" wx:if="{{item.stock>0}}"><image src="/images/cart_add.png"/></view>
+        <view class="add-to-cart" data-index="{{index}}" wx:else><image src="/images/soldout.png"/></view>
       </view>
     </view>
   </view>

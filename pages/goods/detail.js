@@ -126,7 +126,7 @@ Page({
 	},
 
 	openCartPage: function (e) {
-		wx.reLaunch({
+		wx.switchTab({
 			url: '/pages/cart/index'
 		})
 	},
@@ -238,7 +238,7 @@ Page({
 		wx.showToast({
 			title: '成功加入购物车',
 			icon: 'success',
-			duration: 2000
+			duration: 500
 		})
 	},
 
@@ -293,6 +293,7 @@ Page({
 					wx.showModal({
 						title: '商品海报图片',
 						content: '已成功保存到相册，请到系统相册查看',
+						confirmColor: '#481A0E',
 						showCancel: false
 					})
 				}

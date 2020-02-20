@@ -13,7 +13,6 @@ App({
 
 		config.initSystemInfo()
 
-		var that = this
 		// 登录
 		this.doLogin()
 	},
@@ -35,6 +34,7 @@ App({
 						content: "系统正在升级中，请稍后...",
 						showCancel: false,
 						confirmText: "我知道了",
+						confirmColor: '#481A0E'
 					})
 					reject(err)
 				})
@@ -46,7 +46,7 @@ App({
 		var that = this
 		return new Promise((resolve, reject) => {
 			var userInfo = wx.getStorageSync('appUserInfo')
-			if (userInfo && userInfo.access_token) {
+			if (!!userInfo && !!userInfo.access_token) {
 				request.post('tokencheck').then(res => {
 					console.log('tokencheck OK', res)
 					resolve(userInfo)
@@ -70,6 +70,7 @@ App({
 
 			// 获取用户信息
 			wx.getSetting({
+				withSubscriptions: true,
 				success: res => {
 					if (res.authSetting['scope.userInfo']) {
 						// 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
@@ -79,6 +80,7 @@ App({
 								that.globalData.userInfo = userInfo
 								that.globalData.userInfo.avatarUrl = res.userInfo.avatarUrl
 								that.globalData.userInfo.nickname = res.userInfo.nickName
+								//that.globalData.userInfo.subscriptions = res.subscriptionsSetting
 								wx.setStorageSync('appUserInfo', that.globalData.userInfo)
 
 								// 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
@@ -88,6 +90,17 @@ App({
 								}
 							}
 						})
+					}
+					if (res.subscriptionsSetting) {
+						console.log(res.subscriptionsSetting)
+						that.globalData.subscriptions.forEach(ele => {
+							if (res.subscriptionsSetting[ele.tmplId] === 'accept') {
+								ele.status = 1
+							} else {
+								ele.status = 0
+							}
+						})
+						console.log(that.globalData.subscriptions)
 					}
 				}
 			})
@@ -112,6 +125,8 @@ App({
 	},
 
 	globalData: {
-		userInfo: null
+		userInfo: null,
+		subscriptions: [{tmplId: 'BmAwxIPTXz1p5ymj3g04NwrfuwnEl-ySpeaHrv7kxss', status: 0},  // 取货提醒模板
+						{tmplId: 'BmAwxIPTXz1p5ymj3g04NxChpWWI4sbgdy1RPyXphnU', status: 0}]  // 快递提醒模板
 	}
 })

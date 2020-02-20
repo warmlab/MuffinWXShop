@@ -141,6 +141,7 @@ Page({
 		wx.showModal({
 			title: '删除地址',
 			content: '确定要删除地址？',
+			confirmColor: '#481A0E',
 			success: function (res) {
 				if (res.confirm) {
 					console.log(e)

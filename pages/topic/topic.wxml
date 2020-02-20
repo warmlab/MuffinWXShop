@@ -34,9 +34,15 @@
 		<text class="desc">Here you can find everything for your hunny's happiness and leisure!</text>
 	</view-->
 	<template is="goods-list" data="{{goods: goods, base_image_url: base_image_url}}"/>
+	<view style="height: {{is_iphonex?'148':'90'}}rpx"/>
+	<view class="bottom-line" bindtap="goToCart" style="height: {{is_iphonex?'148':'90'}}rpx">
+		<view class="amount">{{amount}}</view>
+		<text>去往购物车</text>
+	</view>
 </block>
-<view style="height: {{is_iphonex?'148':'90'}}rpx"/>
-<view class="bottom-line" bindtap="goToCart" style="height: {{is_iphonex?'148':'90'}}rpx">
-	<view class="amount">{{amount}}</view>
-	<text>去往购物车</text>
+<view class="promotion-over" wx:else>
+	<text>这次{{title}}已经结束</text>
+	<text>感谢关注</text>
+	<text>请留意下一场</text>
+	<text>点击右上角返回主页</text>
 </view>

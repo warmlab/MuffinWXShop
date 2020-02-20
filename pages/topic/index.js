@@ -77,8 +77,12 @@ Page({
         })
 			wx.hideLoading()
 		}).catch(err => {
-			console.log('get images', err)
+      console.log('get images', err)
       wx.hideLoading()
+      //if (err.errcode === 3001) // access_token invalid
+      //  wx.relaunch({
+      //    url: '/pages/topic/index'
+      //  })
       // load default ads
       that.loadDefaultAds()
 		})
@@ -130,7 +134,7 @@ Page({
 		wx.showToast({
 			title: '成功加入购物车',
 			icon: 'success',
-			duration: 2000
+			duration: 500
 		})
 	},
 
