@@ -3,6 +3,8 @@ import request from '../../utils/request.js'
 
 import { addToShoppingCart } from '../../utils/cart.js'
 
+const app = getApp()
+
 Page({
 
   /**
@@ -79,10 +81,12 @@ Page({
 		}).catch(err => {
       console.log('get images', err)
       wx.hideLoading()
-      //if (err.errcode === 3001) // access_token invalid
-      //  wx.relaunch({
-      //    url: '/pages/topic/index'
-      //  })
+      if (err.errcode === 3001) { // access_token invalid
+        //app.doLogin()
+        //wx.reLaunch({
+        //  url: '/pages/topic/index'
+        //})
+      }
       // load default ads
       that.loadDefaultAds()
 		})

@@ -74,12 +74,12 @@ var request = {
 	},
 
 	_request: function (url, data, method) {
-		if (!this.header['X-ACCESS-TOKEN']) {
+		//if (!this.header['X-ACCESS-TOKEN']) {
 			var userInfo = wx.getStorageSync('appUserInfo')
-			if (userInfo && userInfo.access_token) {
+			if (!!userInfo && !!userInfo.access_token) {
 				this.header['X-ACCESS-TOKEN'] = userInfo.access_token
 			}
-		}
+		//}
 
 		var that = this
 		var promise = new Promise((resolve, reject) => {

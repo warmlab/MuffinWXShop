@@ -37,70 +37,6 @@ Page({
 		})
 	},
 
-	getPromotions: function () {
-		var that = this;
-		var goods_01 = []
-		var goods_02 = []
-		var goods_04 = []
-		var goods_08 = []
-		wx.showLoading({
-			title: '加载中，请稍候',
-			mask: true
-		})
-		request.get('promotions').then(r => {
-			console.log('get promotions', r);
-			if (r.data.length === 0)
-				throw 'no promotion available'
-			r.data.forEach(promotion => {
-				if ((promotion.type & 0x01) > 0) // 热卖
-					goods_01 = goods_01.concat(promotion.products.map(item => {
-						item.product.promotion_id = promotion.id
-						return item.product
-					}))
-				if ((promotion.type & 0x02) > 0) // 上新
-					goods_02 = goods_02.concat(promotion.products.map(item => {
-						item.product.promotion_id = promotion.id
-						return item.product
-					}))
-				if ((promotion.type & 0x04) > 0) // 特惠
-					goods_04 = goods_04.concat(promotion.products.map(item => {
-						item.product.promotion_id = promotion.id
-						return item.product
-					}))
-				if ((promotion.type & 0x08) > 0) // 预售
-					goods_08 = goods_08.concat(promotion.products.map(item => {
-						item.product.promotion_id = promotion.id
-						return item.product
-					}))
-			})
-
-			that.setData({
-				promotions: r.data,
-				goods_01: goods_01,
-				goods_02: goods_02,
-				goods_04: goods_04,
-				goods_08: goods_08,
-				show_banner: r.data.length > 0 ? false : true
-			})
-			wx.hideLoading()
-			wx.stopPullDownRefresh()
-			//callback.apply(wx)
-		}).catch((err) => {
-			//callback.apply(wx)
-			console.log('get promotions', err);
-			if (err.errcode === 3001) {// access token error
-				app.doLogin()
-				request.header['X-ACCESS-TOKEN'] = undefined
-			}
-			//wx.stopPullDownRefresh()
-			that.getProducts()
-			//that.setData({
-			//	show_banner: true
-			//})
-			//callback()
-		})
-	},
-
 	onPullDownRefresh: function (e) {
 		wx.showLoading({
 			title: '加载中...',
@@ -154,13 +90,6 @@ Page({
 	},
 
 	onShow: function (res) {
-		/*if (this.data.on_show) {
-			this.getPromotions()
-		}
-
-		this.setData({
-			on_show: true
-		})*/
 	},
 
 	toViewDetail: function (e) {
