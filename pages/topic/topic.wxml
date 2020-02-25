@@ -40,7 +40,7 @@
 		<text>去往购物车</text>
 	</view>
 </block>
-<view class="promotion-over" wx:else>
+<view class="promotion-over" wx:elif="{{loaded}}">
 	<text>这次{{title}}已经结束</text>
 	<text>感谢关注</text>
 	<text>请留意下一场</text>

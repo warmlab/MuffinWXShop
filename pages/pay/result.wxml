@@ -5,6 +5,21 @@
       <navigator class="btn" url="/pages/my/order/detail?code={{code}}" open-type="redirect">查看订单</navigator>
       <navigator class="btn" url="/pages/topic/index" open-type="switchTab">继续逛</navigator>
     </view>
+    <view class="subscriptions" wx:if="{{way_pickup===1 || way_delivery===1}}">
+      <text>已开通订单通知，订单信息详情见“服务通知”</text>
+    </view>
+    <!--view class="subscriptions" wx:elif="{{way_pickup===1}}">
+      <text>尚未开通快递送货订单通知，开通之后，订单信息详情见“服务通知”</text>
+      <view bindtap="openSubscriptions">开通快递送货订单通知</view>
+    </view>
+    <view class="subscriptions" wx:elif="{{way_delivery===1}}">
+      <text>尚未开通上门提货订单通知，开通之后，订单信息详情见“服务通知”</text>
+      <view bindtap="openSubscriptions">开通上门提货订单通知</view>
+    </view-->
+    <view class="subscriptions" wx:else>
+      <text>开通之后，订单信息详情见“服务通知”</text>
+      <view bindtap="openSubscriptions">开通订单通知</view>
+    </view>
   </view>
   <view class="success" wx:elif="{{status=='paid'}}">
     <view class="msg">已付款，无需重复付款</view>

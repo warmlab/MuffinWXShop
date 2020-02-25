@@ -73,7 +73,7 @@ Page({
 			wx.hideLoading()
 		}).catch(err => {
 			console.error('get product error', err)
-			if (err.status === 3001) {// access token error
+			if (err.errcode === 3001) {// access token error
 				app.doLogin()
 				request.header['X-ACCESS-TOKEN'] = undefined
 			}
@@ -304,7 +304,7 @@ Page({
 
 		var canvas = new MyCanvas(that, '/pages/goods/detail', 'product',
 			that.data.canvas_id, that.data.product.id, that.data.product.name, that.data.product.summary,that.data.product.price,that.data.product.price,
-			`${config.base_image_url}/${that.data.banners[0].name}`, this.afterGenerateImage)
+			`${config.base_image_url}/full/${that.data.banners[0].name}`, this.afterGenerateImage)
 		canvas.generateImage()
 	}
 })

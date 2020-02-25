@@ -206,7 +206,7 @@ Page({
 
 		if (ps.length === 0) {
 			wx.showToast({
-				title: '请选择商品',
+				title: '请选购商品',
 				icon: 'none',
 				duration: 2000
 			});
@@ -248,15 +248,15 @@ Page({
 				//		index--
 				//	}
 				//}
+				//cart.cost = 0
 				cart.products = cart.products.filter(ele => !ele.checked)
-				cart.cost = 0
-				if (that.data.type === 'cart') {
-					wx.setStorageSync('cart', cart)
-					var pages = getCurrentPages();
-					var prePage = pages[pages.length - 2];
-					//prePage.setData({dragon:res.data});
-					prePage.onLoad();
-				}
+				wx.setStorageSync('cart', cart)
+				//if (that.data.type === 'cart') {
+				//	var pages = getCurrentPages();
+				//	var prePage = pages[pages.length - 2];
+				//	//prePage.setData({dragon:res.data});
+				//	prePage.onLoad();
+				//}
 			}
 			wx.hideLoading()
 			wx.redirectTo({
@@ -265,8 +265,8 @@ Page({
 		}).catch(err => {
 			console.log('commit order error', err)
 			wx.hideLoading()
-			if (err.status === 2001) { // some products were sold out
-				var ps = JSON.parse(err.data)
+			if (err.errcode === 2001) { // some products were sold out
+				var ps = err.data
 				var content = ''
 				ps.forEach(p => {
 					content += `${p.name}[库存:${p.stock}]\n`

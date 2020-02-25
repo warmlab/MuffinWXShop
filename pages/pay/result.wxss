@@ -61,3 +61,26 @@ page {
   font-size: 28rpx;
   font-weight: bold;
 }
+
+.subscriptions {
+  display: flex;
+  flex-direction: column;
+  margin: 80rpx 20rpx;
+}
+
+.subscriptions text {
+  color: #9b9b9b;
+  font-size: 24rpx;
+  margin-bottom: 20rpx;
+}
+
+.subscriptions view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80rpx;
+  border: 1px solid #481a0e;
+  color: #481a0e;
+  border-radius: 10rpx;
+  flex: 1;
+}

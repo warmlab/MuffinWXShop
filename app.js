@@ -91,16 +91,21 @@ App({
 							}
 						})
 					}
-					if (res.subscriptionsSetting) {
-						console.log(res.subscriptionsSetting)
-						that.globalData.subscriptions.forEach(ele => {
-							if (res.subscriptionsSetting[ele.tmplId] === 'accept') {
-								ele.status = 1
+					console.log('subscriptions', res.subscriptionsSetting)
+					if (!!res.subscriptionsSetting) {
+						if (res.subscriptionsSetting.mainSwitch) {
+							if (!res.subscriptionsSetting.itemSettings) {
+								that.globalData.way_pickup.status = 1
+								that.globalData.way_delivery.status = 1
 							} else {
-								ele.status = 0
+								if (res.subscriptionsSetting.itemSettings[that.globalData.way_pickup.tmplId] === 'accept')
+									that.globalData.way_pickup.status = 1
+								if (res.subscriptionsSetting.itemSettings[that.globalData.way_delivery.tmplId] === 'accept')
+									that.globalData.way_delivery.status = 1
 							}
-						})
-						console.log(that.globalData.subscriptions)
+						}
+
+						console.log('app subscriptions', that.globalData.way_pickup, that.globalData.way_delivery)
 					}
 				}
 			})
@@ -126,7 +131,9 @@ App({
 
 	globalData: {
 		userInfo: null,
-		subscriptions: [{tmplId: 'BmAwxIPTXz1p5ymj3g04NwrfuwnEl-ySpeaHrv7kxss', status: 0},  // 取货提醒模板
-						{tmplId: 'BmAwxIPTXz1p5ymj3g04NxChpWWI4sbgdy1RPyXphnU', status: 0}]  // 快递提醒模板
+		way_pickup: {tmplId: 'BmAwxIPTXz1p5ymj3g04NwrfuwnEl-ySpeaHrv7kxss', status: 0},    // 取货提醒模板
+		way_delivery: {tmplId: 'BmAwxIPTXz1p5ymj3g04NxChpWWI4sbgdy1RPyXphnU', status: 0},  // 快递提醒模板
+		//subscriptions: [{tmplId: way_pickup, status: 0},
+		//				{tmplId: way_delivery, status: 0}]
 	}
 })

@@ -12,7 +12,6 @@ Page({
 		payment: 0,
 		weixin_pay_cost: 0,
 		payments: [{value: 2, name: '储值卡支付'},{value: 4, name: '微信支付'}],
-		subscribe_yet: false, // 是否已经申请过接受订单消息
 		// TODO 微信小程序不支持alipay
 		//if (res.data.payment & 8)
 		//	payments.push({
@@ -39,16 +38,13 @@ Page({
 					weixin_pay_cost = item.amount * item.price
 				}
 			})*/
-			console.log(app.globalData.subscriptions, res.data)
-			var subscribe_yet = false
-			if ((res.data.delivery_way === 1 && app.globalData.subscriptions[0].status === 1) ||	// 自提			
-				(res.data.delivery_way === 2 && app.globalData.subscriptions[1].status === 1))	{// 快递 
-				subscribe_yet = true
+			console.log(res.data)
+			if ((res.data.delivery_way === 1) ||	// 自提			
+				(res.data.delivery_way === 2))	{// 快递 
 			}
 			that.setData({
 				//weixin_pay_products: weixin_pay_products,
 				//weixin_pay_cost: weixin_pay_cost,
-				subscribe_yet: subscribe_yet,
 				order: res.data
 			})
 			wx.hideLoading()
@@ -96,56 +92,6 @@ Page({
 	bindValuecard: function (e) {
 		wx.navigateTo({
 			url: '/pages/my/valuecard'
-		})
-	},
-
-	openSubscriptions: function(e) {
-		var that = this
-		wx.requestSubscribeMessage({
-			tmplIds: app.globalData.subscriptions.map(ele=>ele.tmplId),
-			success (res) {
-				app.globalData.subscriptions.forEach(ele => {
-					if (res[ele.tmplId] === 'accept') {
-						ele.status = 1
-					} else {
-						ele.status = 0
-					}
-				})
-				console.log(app.globalData.subscriptions)
-				that.setData({
-					subscribe_yet: true
-				})
-
-				if (app.globalData.subscriptions[0].status === 1 &&
-					app.globalData.subscriptions[1].status === 1) {
-					wx.showModal({
-						title: '接收订单消息',
-						content: '请注意查看微信里的“服务通知”',
-						confirmColor: "#481A0E",
-						showCancel: false
-					})
-				} else if (app.globalData.subscriptions[1].status === 1) {
-					wx.showModal({
-						title: '只接收快递订单消息',
-						content: '请注意查看微信里的“服务通知”',
-						confirmColor: "#481A0E",
-						showCancel: false
-					})
-				} else if (app.globalData.subscriptions[0].status === 1) {
-					wx.showModal({
-						title: '只接收自提订单消息',
-						content: '请注意查看微信里的“服务通知”',
-						confirmColor: "#481A0E",
-						showCancel: false
-					})
-				} else {
-					wx.showModal({
-						title: '不接收任何订单消息',
-						confirmColor: "#481A0E",
-						showCancel: false
-					})
-				}
-			}
 		})
 	},
 

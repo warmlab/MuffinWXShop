@@ -94,7 +94,7 @@ Page({
 		}).catch(err => {
 			//console.log(callback)
 			console.log('the promotion has not published yet!!', err);
-			if (err.status === 3001) {// access token error
+			if (err.errcode === 3001) {// access token error
 				app.doLogin()
 				request.header['X-ACCESS-TOKEN'] = undefined
 			}

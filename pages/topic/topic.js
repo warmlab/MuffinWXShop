@@ -12,6 +12,7 @@ Page({
 	data: {
 		title: '小麦芬烘焙',
 		amount: 0,
+		loaded: false,
 		base_image_url: config.base_image_url,
 		is_iphonex: wx.IPHONEX >= 0 ? true : false
 	},
@@ -24,12 +25,13 @@ Page({
 		}).then(res => {
 			console.log(res.data)
 			that.setData({
-				goods: res.data
+				goods: res.data,
+				loaded: true
 			})
 			wx.hideLoading()
 			wx.stopPullDownRefresh()
 		}).catch(err => {
-			console.log('get products error', err.status)
+			console.log('get products error', err.errcode)
 			wx.hideLoading()
 			wx.stopPullDownRefresh()
 		})
@@ -86,7 +88,7 @@ Page({
 		}).catch((err) => {
 			//callback.apply(wx)
 			console.log('get promotions', err);
-			if (err.status === 3001) {// access token error
+			if (err.errcode === 3001) {// access token error
 				app.doLogin()
 				request.header['X-ACCESS-TOKEN'] = undefined
 			}
@@ -152,13 +154,13 @@ Page({
 	},
 
 	onShow: function (res) {
-		if (this.data.on_show) {
+		/*if (this.data.on_show) {
 			this.getPromotions()
 		}
 
 		this.setData({
 			on_show: true
-		})
+		})*/
 	},
 
 	toViewDetail: function (e) {
