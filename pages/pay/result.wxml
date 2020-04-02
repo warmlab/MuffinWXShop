@@ -5,7 +5,7 @@
       <navigator class="btn" url="/pages/my/order/detail?code={{code}}" open-type="redirect">查看订单</navigator>
       <navigator class="btn" url="/pages/topic/index" open-type="switchTab">继续逛</navigator>
     </view>
-    <view class="subscriptions" wx:if="{{way_pickup===1 || way_delivery===1}}">
+    <view class="subscriptions" wx:if="{{way_pickup===1 && way_delivery===1}}">
       <text>已开通订单通知，订单信息详情见“服务通知”</text>
     </view>
     <!--view class="subscriptions" wx:elif="{{way_pickup===1}}">
