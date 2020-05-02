@@ -19,13 +19,13 @@
     </view-->
         <view class="service-policy">
             <view class="item">
-                <text class="far fa-circle icon" />会员9折
+                <text class="icon"/>会员9折
             </view>
             <view class="item">
-                <text class="far fa-circle icon" />满38元3公里免邮费
+                <text class="icon" />当日现做
             </view>
             <view class="item">
-                <text class="far fa-circle icon" />满68元5公里免邮费
+                <text class="icon" />满68元3公里免邮费
             </view>
             <!-- <view class="item">满98元免邮费</view> -->
         </view>
@@ -33,7 +33,12 @@
         <view class="name">{{product.name}}</view>
         <view class="banner" wx:if="{{product.category.extra_info===0}}">纯手工制作 拒绝添加</view>
         <view class="banner" wx:else>100%天然乳脂奶油 拒绝添加</view>
-        <view class="price">￥{{(product.price+price_plus)/100}}</view>
+        <view style="display: flex;" wx:if="{{product.in_promote}}">
+            <view class="price">￥{{(product.promote_price+price_plus)/100}}</view>
+            <view class="price original">￥{{(product.price+price_plus)/100}}</view>
+        </view>
+        <view class="price" wx:else>￥{{(product.price+price_plus)/100}}</view>
+        
         <!-- view class="tags">
         <label wx:for="{{product.tags}}" wx:key="code" class="tag">{{item}}</label>
     </view -->
@@ -78,7 +83,7 @@
     </view>
     <view class="detail-images">
         <block wx:for="{{details}}" wx:key="id">
-            <image mode="widthFix" src="{{base_image_url}}/{{item.name}}" style="width:100%;" />
+            <image mode="widthFix" src="{{base_image_url}}/full/{{item.name}}" style="width:100%;" />
         </block>
     </view>
     <view class="attr-pop-box" hidden="{{!openShare}}">
@@ -102,7 +107,7 @@
     <view class="attr-pop-box" hidden="{{!openAttr}}">
         <view class="attr-pop">
             <view class="close" bindtap="closeAttr">
-                <text class="fas fa-times red-color" />
+                <text class="fas fa-times" style="color: #481A0E;" />
             </view>
             <view class="size-area" wx:if="{{product.category.extra_info&1===1 && product.sizes.length>0}}">
                 <text>选择大小</text>
@@ -130,16 +135,16 @@
             <view class="confirm" wx:if="{{buy_type!=='choose'}}" bindtap="toBuy" data-code="{{product.code}}">立即购买</view>
         </view>
     </view>
-    <view class="bottom">
+    <view class="bottom" style="{{is_iphonex?'height:148rpx;':''}}">
         <view class="short" bindtap="openShareDialog">
             <image class="icon" model="aspectFill" src="/images/share_sel.png" />
         </view>
-        <view class="short" bindtap="openHomePage">
+        <view class="short" bindtap="openCartPage">
             <!--text class="cart-count">{{cart.amount}}</text-->
-            <image class="icon" model="aspectFill" src="/images/tabbar/shop_sel.png" />
+            <image class="icon" model="aspectFill" src="/images/tabbar/cart_sel.png" />
         </view>
         <view class="long cart" bindtap="openAttrDialog" wx:if="{{product.sizes.length>0}}">加入购物车</view>
-        <view class="long cart" bindtap="addToCart" wx:else data-type="cart">加入购物车</view>
+        <view class="long cart" bindtap="addToCart" data-type="cart" wx:else>加入购物车</view>
         <view class="long buy" bindtap="openAttrDialog" data-type="immediate">立即购买</view>
     </view>
 <!-- canvas海报 -->

@@ -12,15 +12,21 @@ page {
   background: #fff;
 }
 .pay-result .msg {
-  text-align: center;
-  margin: 100rpx auto;
-  color: #2bab25;
-  font-size: 36rpx;
+  color: #ffffff;
+  font-size: 48rpx;
+  background-color: #481a0e;
+  display: flex;
+  justify-content: center;
+  padding: 100rpx 0;
+  margin: 20rpx;
+  border-radius: 20rpx;
 }
+
 .pay-result .btns {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 80rpx;
 }
 .pay-result .btn {
   text-align: center;
@@ -28,12 +34,13 @@ page {
   margin: 0 20rpx;
   width: 200rpx;
   line-height: 78rpx;
-  border: 1px solid #868686;
-  color: #000000;
-  border-radius: 5rpx;
+  border: 1px solid #481a0e;
+  color: #481a0e;
+  border-radius: 10rpx;
+  flex: 1;
 }
 .pay-result .error .msg {
-  color: #b4282d;
+  background-color: #6B4935;
   margin-bottom: 60rpx;
 }
 .pay-result .error .tips {
@@ -48,4 +55,32 @@ page {
 .pay-result .error .tips .p {
   line-height: 42rpx;
   text-align: center;
+}
+.pay-result .error .tips .p .time{
+  color: #481A0E;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.subscriptions {
+  display: flex;
+  flex-direction: column;
+  margin: 80rpx 20rpx;
+}
+
+.subscriptions text {
+  color: #9b9b9b;
+  font-size: 24rpx;
+  margin-bottom: 20rpx;
+}
+
+.subscriptions view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80rpx;
+  border: 1px solid #481a0e;
+  color: #481a0e;
+  border-radius: 10rpx;
+  flex: 1;
 }

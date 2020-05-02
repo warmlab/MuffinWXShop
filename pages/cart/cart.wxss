@@ -1,4 +1,3 @@
-/* pages/shop/cart.wxss */
 .cart-list {
     display: flex;
     flex-direction: column;
@@ -209,8 +208,8 @@
     text-align: center;
     line-height: 100rpx;
     font-size: 32rpx;
-    color: #fff;
-    background-color: #CFA57E;
+		color: #fff;
+		background-color: #CFA57E;
 }
 
 .cart-bottom .checkout{

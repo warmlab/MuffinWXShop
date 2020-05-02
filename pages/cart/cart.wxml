@@ -52,7 +52,7 @@
 			</view>
 		</view>
 	</view>
-	<view class="cart-bottom">
+	<view class="cart-bottom" style="{{is_iphonex?'height: 148rpx;':''}}">
 		<view class="cart-info">
 			<view class="icon {{cart.checked_num===cart.products.length?'checked':''}}" style="color: #f4f4f4;" bindtap="checkAll"><text class="fa fa-check"/></view>
 			<text class="label">全选</text>

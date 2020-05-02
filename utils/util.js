@@ -68,7 +68,6 @@ const authAdminUser = (host, shop, openid) => {
         reject(res);
       },
       //success: function (res) {
-      //  console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 3);
       //  console.log('success', res);
       //  if (res.statusCode < 200 || res.statusCode > 204) {
       //    // authentication failed, go back
@@ -119,7 +118,6 @@ const authAdminUser = (host, shop, openid) => {
 
   //var auth_waiting = setInterval(function () {
   //  if (auth_result !== undefined) {
-  //console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaa', 2);
   //    clearInterval(auth_waiting);
   //    return auth_waiting;
   //  }

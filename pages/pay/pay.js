@@ -1,8 +1,6 @@
-// pages/pay/weixin.js
-const app = getApp()
-
 import request from '../../utils/request.js'
-//import sendTemplateMessage from '../../utils/message.js'
+
+const app = getApp()
 
 Page({
 
@@ -10,38 +8,49 @@ Page({
 	 * 页面的初始数据
 	 */
 	data: {
+		userInfo: {},
 		payment: 0,
-		payments: []
+		weixin_pay_cost: 0,
+		payments: [{value: 2, name: '储值卡支付'},{value: 4, name: '微信支付'}],
+		// TODO 微信小程序不支持alipay
+		//if (res.data.payment & 8)
+		//	payments.push({
+		//		value: 8,
+		//		name: '支付宝支付'
+		//	})
 	},
 
 	getOrder: function () {
 		var that = this;
+		wx.showLoading({
+			title: '订单加载中...',
+			mask: true
+		})
 		request.get('order', {
 			code: that.data.code,
 			extra: true
 		}).then(res => {
 			// order code get total cost and promotion id is to determine whether or not the promotion was finished
-			var payments = []
-			if (res.data.payment & 2)
-				payments.push({
-					value: 2,
-					name: '储值卡支付'
-				})
-			if (res.data.payment & 4)
-				payments.push({
-					value: 4,
-					name: '微信支付'
-				})
-			// TODO 微信小程序不支持alipay
-			//if (res.data.payment & 8)
-			//	payments.push({
-			//		value: 8,
-			//		name: '支付宝支付'
-			//	})
+			/* TODO var weixin_pay_cost = 0
+			res.data.products.forEach(item => {
+				if (item.product.payment & 2 === 0) { // 只能用微信支付
+					weixin_pay_products.push(item)
+					weixin_pay_cost = item.amount * item.price
+				}
+			})*/
+			console.log(res.data)
+			if ((res.data.delivery_way === 1) ||	// 自提			
+				(res.data.delivery_way === 2))	{// 快递 
+			}
 			that.setData({
-				order: res.data,
-				payments: payments
+				//weixin_pay_products: weixin_pay_products,
+				//weixin_pay_cost: weixin_pay_cost,
+				order: res.data
 			})
+			wx.hideLoading()
+		}).catch(err => {
+			console.log('get order error', err)
+			wx.hideLoading()
 		})
 	},
 
@@ -53,17 +62,30 @@ Page({
 		//options.code, options.promotion_id
 		// TODO to do prepay_id
 
+		// get user info
+		//wx.setStorageSync('appUserInfo', e.detail.userInfo);
 		this.setData({
 			code: options.code,
 			//privilege: wx.getStorageSync('privilege')
-		})
+		});
 
+		this.toGetUserInfo()
 		this.getOrder()
+	},
+
+	toGetUserInfo: function(e) {
+		// get user info
+		var userInfo = wx.getStorageSync('appUserInfo')
+		//wx.setStorageSync('appUserInfo', e.detail.userInfo);
+		this.setData({
+			userInfo: userInfo
+			//privilege: wx.getStorageSync('privilege')
+		});
 	},
 
 	paymentChange: function (e) {
 		this.setData({
-			payment: parseInt(e.detail.value)
+			payment: parseInt(e.currentTarget.dataset.value)
 		})
 	},
 
@@ -74,7 +96,6 @@ Page({
 	},
 
 	startPay: function (e) {
-		var that = this;
 		/*
 		if (this.data.order.address.delivery_way == 1 && !this.data.order.member_openid.phone) {
 			if (e.detail.value.contact.trim() === '' || e.detail.value.mobile.trim() === '') {
@@ -88,23 +109,29 @@ Page({
 			}
 		}
 		*/
-
+		var that = this;
 		if (this.data.payment === 0) {
 			wx.showModal({
 				content: '支付方式',
 				title: '请选择一种支付方式',
+				confirmColor: '#481A0E',
 				showCancel: false
 			})
 
 			return
 		}
+
+		wx.showLoading({
+			title: '支付中，请稍后...',
+			mask: true
+		})
 		// console.log('pay页直接支付,请求结果', res);
 		// payment
 		request.post('pay', {
 			code: that.data.order.code,
 			payment: that.data.payment,
 			//contact: e.detail.value.contact,
-			mobile: e.detail.value.mobile,
+			//mobile: e.detail.value.mobile,
 			formId: e.detail.formId
 		}).then(res => {
 			if (res.statusCode === 201) {
@@ -140,12 +167,15 @@ Page({
 					});
 				}
 			} else if (res.statusCode === 200) { // already paid
+				wx.hideLoading()
 				//wx.navigateTo({
 				wx.redirectTo({
 					url: `result?status=paid&code=${that.data.order.code}`
 				});
 			}
 		}).catch(err => {
+			wx.hideLoading()
+			console.log('pay failed', err)
 			//wx.navigateTo({
 			wx.redirectTo({
 				url: `result?status=error&code=${that.data.order.code}`

@@ -1,141 +1,161 @@
-const app = getApp();
-
-//const util = require('../../utils/util.js');
-//import {request, BASE_URL} from '../../utils/request.js'
-//const {request, base_url} = require('../../utils/request.js')
 import config from '../../config.js'
 import request from '../../utils/request.js'
-//import base_url from '../../utils/request.js'
+
+import { addToShoppingCart } from '../../utils/cart.js'
+
+const app = getApp()
 
 Page({
-	data: {
-		promotions: [],
-		page: 1,
-		size: 10,
-		count: 0,
-		scrollTop: 0,
-		showPage: false,
-		base_image_url: config.base_image_url,
-		show_banner: false,
-		banner_height: wx.WIN_HEIGHT / 2,
-		swiper_current: 0
-	},
 
-	getProducts: function () {
-		var that = this
-		request.get('products', {
-			type: 1,
-			sort: 'popular',
-			limit: 11,
-		}).then(res => {
-			console.log(res.data)
-			that.setData({
-				banner_goods: res.data.slice(0, 3),
-				goods: res.data.slice(3)
-			})
-			wx.hideLoading()
-			wx.stopPullDownRefresh()
-		}).catch(err => {
-			console.log('get products error', err.status)
-			wx.hideLoading()
-			wx.stopPullDownRefresh()
-		})
-	},
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    base_image_url: config.base_image_url,
+    swiper_current: 0
+  },
 
-	getPromotions: function () {
-		var that = this;
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.getAds(4)
+    this.getProducts()
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+    this.getAds(4)
+    this.getProducts()
+    wx.stopPullDownRefresh()
+  },
+
+  getAds: function(type) {
+    var that = this;
 		wx.showLoading({
-			title: '加载中，请稍候',
+			title: '加载中...',
 			mask: true
 		})
-		request.get('promotions').then(r => {
-			console.log('get promotions', r);
-			if (r.data.length === 0)
-				throw 'no promotion available'
-			var goods = []
-			r.data.forEach(promotion => {
-				goods = goods.concat(promotion.products.map(item => {
-					item.product.promotion_id = promotion.id
-					return item.product
-				}))
-			})
 
-			that.setData({
-				promotions: r.data,
-				goods: goods,
-				show_banner: r.data.length > 0 ? false : true
-			})
+		request.get('images', {
+			type: type
+		}).then(res => {
+      console.log('ads: ', res.data, !res.data)
+      if (!res.data || res.data.length === 0)
+        that.loadDefaultAds()
+      else
+        that.setData({
+          ads: res.data
+        })
 			wx.hideLoading()
-			wx.stopPullDownRefresh()
-			//callback.apply(wx)
-		}).catch((err) => {
-			//callback.apply(wx)
-			console.log('get promotions', err);
-			if (err.status === 3001) {// access token error
-				app.doLogin()
-				request.header['X-ACCESS-TOKEN'] = undefined
-			}
-			//wx.stopPullDownRefresh()
-			that.getProducts()
-			//that.setData({
-			//	show_banner: true
-			//})
-			//callback()
+		}).catch(err => {
+      console.log('get images', err)
+      wx.hideLoading()
+      if (err.errcode === 3001) { // access_token invalid
+        //app.doLogin()
+        //wx.reLaunch({
+        //  url: '/pages/topic/index'
+        //})
+      }
+      // load default ads
+      that.loadDefaultAds()
 		})
-	},
+  },
 
-	onPullDownRefresh: function (e) {
-		this.getPromotions()
-	},
+  loadDefaultAds: function() {
+    console.log('load default ads')
+    this.setData({
+      ads: [{name: 'ads/1.jpg'}, {name: 'ads/2.jpg'}, {name: 'ads/3.jpg'}]
+    })
+  },
 
-	onLoad: function (res) {
-		this.setData({
-			on_show: false
+  getProducts: function() {
+		var that = this
+		wx.showNavigationBarLoading()
+		request.get('products', {
+      show_type: 1,
+      promote_type: 16, // 16-本周推荐
+			sort: 'popular',
+			limit: 4,
+		}).then(res => {
+			console.log(res.data)
+			wx.hideNavigationBarLoading()
+			that.setData({
+				products: res.data
+			})
+		}).catch(err => {
+			console.log('get products error', err)
+			wx.hideNavigationBarLoading()
 		})
+  },
 
-		app.getUserInfo().then(res => {
-			//wx.startPullDownRefresh()
-			this.getPromotions()
-		})
-	},
-
-	onShow: function (res) {
-		if (this.data.on_show) {
-			this.getPromotions()
-		}
-
-		this.setData({
-			on_show: true
-		})
-	},
+  swiperChange: function(e) {
+    this.setData({
+      swiper_current: e.detail.current
+    })
+  },
 
 	toViewDetail: function (e) {
-		var url
-		if (e.currentTarget.dataset.type === 'promotion') {
-			wx.setStorageSync('promotion', e.currentTarget.dataset.id)
-			url = `detail?id=${e.currentTarget.dataset.id}`
-		} else
-			url = `../goods/detail?code=${e.currentTarget.dataset.code}`
 		wx.navigateTo({
-			url: url
+			url: `/pages/goods/detail?code=${e.currentTarget.dataset.code}`
 		})
 	},
 
-	swiperChange: function (e) {
-		this.setData({
-			swiper_current: e.detail.current,
+	addToCart: function (e) {
+		var product = this.data.products[parseInt(e.currentTarget.dataset.index)]
+
+		addToShoppingCart(product, 0, 1)
+		wx.showToast({
+			title: '成功加入购物车',
+			icon: 'success',
+			duration: 500
 		})
 	},
 
-	bannerImageLoad: function (e) {
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
 
-	},
+  },
 
-	// 原生的分享功能
-	onShareAppMessage: function (res) {
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
 		return {
-			title: '小麦芬烘焙团购',
+			title: '小麦芬烘焙',
 			path: '/pages/topic/index'
 		}
-	}
-});
+  }
+})

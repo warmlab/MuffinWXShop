@@ -25,4 +25,4 @@
     <text class="fa fa-address-card fa-4x gray-color" />
     <text class="text">收货地址在哪里</text>
 </view>
-<view class="add-address" bindtap="toEditItem" data-id="0">新建地址</view>
+<view class="add-address" bindtap="toEditItem" data-id="0" style="{{is_iphonex?'height:138rpx;':''}}">新建地址</view>

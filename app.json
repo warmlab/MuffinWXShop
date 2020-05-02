@@ -1,13 +1,14 @@
 {
   "pages": [
     "pages/topic/index",
+    "pages/topic/topic",
     "pages/topic/detail",
-    "pages/topic/product",
     "pages/goods/index",
     "pages/goods/detail",
     "pages/cart/index",
-    "pages/pay/pre_order",
-    "pages/pay/index",
+    "pages/cart/cart",
+    "pages/pay/order",
+    "pages/pay/pay",
     "pages/pay/result",
     "pages/my/index",
     "pages/my/order/index",
@@ -31,16 +32,16 @@
     "list": [
       {
         "pagePath": "pages/topic/index",
-        "iconPath": "images/tabbar/focus.png",
-        "selectedIconPath": "images/tabbar/focus_sel.png",
+        "iconPath": "images/tabbar/home.png",
+        "selectedIconPath": "images/tabbar/home_sel.png",
 				"text": "首页",
 				"backgroundColor": "#481A0E"
       },
       {
         "pagePath": "pages/goods/index",
-        "iconPath": "images/tabbar/shop.png",
-        "selectedIconPath": "images/tabbar/shop_sel.png",
-        "text": "店铺"
+        "iconPath": "images/tabbar/goods.png",
+        "selectedIconPath": "images/tabbar/goods_sel.png",
+        "text": "分类"
       },
       {
         "pagePath": "pages/cart/index",

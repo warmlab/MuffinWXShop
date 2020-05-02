@@ -25,6 +25,10 @@ Page({
 			address_id: options.id
 		})
 		if (parseInt(options.id) !== 0) {
+			wx.showLoading({
+				title: '地址信息加载中...',
+				mask: true
+			})
 			request.get('openid/address', {
 				id: options.id,
 			}).then(res => {
@@ -36,6 +40,9 @@ Page({
 					district: res.data.district,
 					address: res.data.address,
 				})
+				wx.hideLoading()
+			}).catch(err => {
+				wx.hideLoading()
 			})
 		}
 
@@ -136,6 +143,7 @@ Page({
 			wx.showModal({
 				title: '收货人姓名',
 				content: '您还没有写收货人姓名',
+				confirmColor: '#481A0E',
 				showCancel: false
 			});
 
@@ -146,6 +154,7 @@ Page({
 			wx.showModal({
 				title: '收货人电话',
 				content: '您还没有写收货人电话',
+				confirmColor: '#481A0E',
 				showCancel: false
 			});
 
@@ -156,14 +165,23 @@ Page({
 			wx.showModal({
 				title: '详细地址',
 				content: '您还没有写收货详细地址',
+				confirmColor: '#481A0E',
 				showCancel: false
 			});
 
 			return;
 		}
 
+		wx.showLoading({
+			title: '信息更新中...',
+			mask: true
+		})
+
+		var userInfo = wx.getStorageSync('appUserInfo')
+
 		request.post('openid/address', {
 			id: that.data.address_id,
+			openid: userInfo.openid,
 			contact: e.detail.value.contact,
 			phone: e.detail.value.phone,
 			province: that.data.province,
@@ -173,6 +191,7 @@ Page({
 			is_default: that.data.is_default
 		}).then(res => {
 			console.log('succeed in updating address', res)
+			wx.hideLoading()
 			wx.showToast({
 				title: '地址添加成功',
 				icon: 'success',
@@ -188,6 +207,7 @@ Page({
 			wx.navigateBack();
 		}).catch(err => {
 			console.log('failed in updating address', err)
+			wx.hideLoading()
 			wx.showToast({
 				title: '地址添加失败',
 				icon: 'fail',

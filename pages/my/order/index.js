@@ -10,6 +10,8 @@ Page({
 	 */
 	data: {
 		orders: [],
+		page: 0,
+		to_get_more: true,
 		base_image_url: config.base_image_url
 	},
 
@@ -18,36 +20,49 @@ Page({
 	 */
 	onLoad: function (options) {
 		console.log(options)
-		if (options.status === 'wait')
+		if (options.status == 1)
 			wx.setNavigationBarTitle({
 				title: "待付款订单"
 			});
-		if (options.status === 'paid')
+		if (options.status == 2)
 			wx.setNavigationBarTitle({
 				title: "已付款订单"
 			});
-		if (options.status === 'finished')
+		if (options.status == 4)
+			wx.setNavigationBarTitle({
+				title: "已交付订单"
+			});
+		if (options.status === 8)
 			wx.setNavigationBarTitle({
 				title: "已完成订单"
 			});
 		this.setData({
-			status: options.status
+			status: options.status,
+			page: 0
 		})
-		wx.startPullDownRefresh()
+		this.getOrders()
 	},
 
 	onPullDownRefresh: function (e) {
-		var that = this;
+		this.getOrders()
+	},
+
+	getOrders: function() {
+		var that = this
 		wx.showLoading({
 			title: '加载中，请稍候',
 			mask: true
 		})
 		request.get('orders', {
+			page: that.data.page,
 			status: that.data.status
 		}).then(res => {
-			console.log(res)
+			var array = that.data.orders.concat(res.data.orders)
+			console.log(that.data.orders)
 			that.setData({
-				orders: res.data
+				orders: array,
+				to_get_more: res.data.orders.length === res.data.item_each_page,
+				item_each_page: res.data.item_each_page
 			})
 			wx.hideLoading();
 			wx.stopPullDownRefresh()
@@ -65,7 +80,17 @@ Page({
 		// console.log('订单信息', currentOrder);
 		// 直接支付即可
 		wx.navigateTo({
-			url: `../../pay/index?code=${code}`
+			url: `/pages/pay/pay?code=${code}`
 		})
-	}
+	},
+
+	/**
+	 * 页面上拉触底事件的处理函数
+	 */
+	onReachBottom: function () {
+		if (this.data.to_get_more) {
+			this.data.page += 1
+			this.getOrders()
+		}
+	},
 })

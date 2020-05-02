@@ -56,13 +56,21 @@
 	font-size: 30rpx;
 }
 
+.user-menu-title {
+	display: flex;
+	margin: 2%;
+	padding: 8rpx 0;
+}
+
 .user-menu {
 	display: flex;
 	flex-wrap: wrap;
-	width: 100%;
 	overflow: hidden;
-	background: #fff;
-	padding: 30rpx 0;
+	color: #9b9b9b;
+	background: #ffffff;
+	padding: 0 2% 2%;
+	font-size: 24rpx;
+	border-bottom: 1rpx solid #9b9b9b;
 }
 
 .user-menu .item {
@@ -71,11 +79,20 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+	border: 1rpx solid #481a0e;
+	padding: 30rpx 0;
+	margin-right: 20rpx;
+	border-radius: 8rpx;
 }
 
-.separate {
-	width: 100%;
-	border-top: 1rpx solid #9b9b9b;
+.user-menu .item:last-child {
+	margin-right: 0;
+}
+
+.user-menu .item text.fa {
+	font-weight: lighter;
+	margin-bottom: 10rpx;
+	color: #23120D;
 }
 
 .user-menu .item .title {

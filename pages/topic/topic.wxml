@@ -1,0 +1,48 @@
+<import src="../templates/module.wxml"/>
+<!--
+<view class="swiper-area" style="height: {{banner_height}}px" wx:if="{{promotions.length > 0}}">
+		<swiper circular autoplay interval="6000" duration="500" bindchange="swiperChange" style="height: {{banner_height}}px">
+			<block wx:for="{{promotions}}" wx:for-item="promotion" wx:key="id">
+				<swiper-item wx:for="{{promotion.products}}" wx:key="product_id" style="height: {{banner_height}}px;">
+					<image src="{{base_image_url}}/{{item.product.images[0].image.name}}" mode="aspectFill" lazy-load="true" style="height: {{banner_height}}px;" bindload="bannerImageLoad" bindtap="toViewDetail" data-type="promotion" data-id="{{promotion.id}}" />
+				</swiper-item>
+			</block>
+		</swiper>
+		<view class="banner-dots">
+			<block wx:for="{{promotions}}" wx:for-item="promotion" wx:key="id">
+				<block wx:for="{{promotion.products}}" wx:key="product_id">
+					<view class="banner-dot {{index == swiper_current ? 'active' : ''}}"></view>
+				</block>
+			</block>
+		</view>
+</view>
+<view class="swiper-area" style="height: {{banner_height}}px" wx:if="{{promotions.length === 0}}">
+		<swiper circular autoplay interval="6000" duration="500" bindchange="swiperChange" style="height: {{banner_height}}px">
+				<swiper-item wx:for="{{banner_goods}}" wx:key="id" style="height: {{banner_height}}px">
+						<image src="{{base_image_url}}/{{item.images[0].image.name}}" mode="aspectFill" lazy-load="true" style="height: {{banner_height}}px;" bindload="bannerImageLoad" bindtap="toViewDetail" data-type="product" data-code="{{item.code}}" />
+				</swiper-item>
+		</swiper>
+		<view class="banner-dots">
+				<block wx:for="{{banner_goods}}" wx:key="id">
+						<view class="banner-dot {{index == swiper_current ? 'active' : ''}}"/>
+				</block>
+		</view>
+</view>
+-->
+<block wx:if="{{goods.length>0}}">
+	<!--view class="goods-message">
+		<text class="desc">Here you can find everything for your hunny's happiness and leisure!</text>
+	</view-->
+	<template is="goods-list" data="{{goods: goods, base_image_url: base_image_url}}"/>
+	<view style="height: {{is_iphonex?'148':'90'}}rpx"/>
+	<view class="bottom-line" bindtap="goToCart" style="height: {{is_iphonex?'148':'90'}}rpx">
+		<view class="amount">{{amount}}</view>
+		<text>去往购物车</text>
+	</view>
+</block>
+<view class="promotion-over" wx:elif="{{loaded}}">
+	<text>这次{{title}}已经结束</text>
+	<text>感谢关注</text>
+	<text>请留意下一场</text>
+	<text>点击右上角返回主页</text>
+</view>

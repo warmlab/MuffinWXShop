@@ -1,0 +1,105 @@
+<form bindsubmit="checkoutOrder" report-submit="true" class="cart-view">
+  <view wx:if="{{delivery_address >= 0}}" class="address-area" bindtap="getAddressTap">
+    <view class="address-info">
+      <view class="address-contact">
+        <text wx:if="{{delivery_addresses[delivery_address].is_default}}" class="default">默认</text>
+        <text class="name">{{delivery_addresses[delivery_address].contact}}</text>
+        <text class="phone">{{delivery_addresses[delivery_address].phone}}</text>
+      </view>
+      <view class="address-address">
+        {{delivery_addresses[delivery_address].province}}{{delivery_addresses[delivery_address].city}}{{delivery_addresses[delivery_address].district}}{{delivery_addresses[delivery_address].address}}
+      </view>
+    </view>
+    <view class="address-choose">
+      <text class="fa fa-chevron-right" style="font-weight: lighter;" />
+    </view>
+  </view>
+  <view wx:else class="address-empty" bindtap="getAddressTap">
+    <text class="icon">+</text>
+    <text class="label">选择/新增收货地址</text>
+  </view>
+  <view wx:if="{{delivery_address >= 0}}" class="delivery-area">
+    <view class="delivery-header" bindtap="deliveryMethodTap">
+      <view>交付方式：{{delivery_way==2 ? '快递配送' : '上门自提'}}</view>
+      <text class="fa fa-chevron-down" style="transform:rotate({{delivery_show?180:0}}deg);" />
+    </view>
+    <view class="delivery-content" style="display: {{delivery_show?'flex':'none'}}">
+      <view class="delivery-item">
+        <text>上门自提</text>
+        <view class="icon {{delivery_way===1?'checked':''}}" style="color: #f5f5f5;" bindtap="handleDeliveryChange" data-value="1"><text class="fa fa-check" style="display: flex;justify-content: center;"/></view>
+      </view>
+      <view class="delivery-item">
+        <text>快递配送</text>
+        <view class="icon {{delivery_way===2?'checked':''}}" style="color: #f5f5f5;" bindtap="handleDeliveryChange" data-value="2"><text class="fa fa-check" style="display: flex;justify-content: center;"/></view>
+      </view>
+    </view>
+  </view>
+  <view class="pickup-area" wx:if="{{delivery_address >= 0 && delivery_way == 1}}">
+    <view class="pickup-header" bindtap="pickupAddressTap">
+      <view class="pickup-title">自提点：{{pickup_index==-1?'请选择自提点':pickup_addresses[pickup_index].address}}</view>
+      <view class="pickup-nums">{{pickup_addresses.length}}个
+        <text class="fa fa-chevron-down" style="transform:rotate({{pickup_show?180:0}}deg);" />
+      </view>
+    </view>
+    <view class="pickup-body" style="display: {{pickup_show?'flex':'none'}}">
+      <view class="pickup-content" wx:for="{{pickup_addresses}}" wx:key="id" bindtap="pickupAddressChange" data-index="{{index}}">
+        <view class="pickup-name">
+          <view class="pickup-desc">
+            {{item.name}}
+            <text wx:if="{{distances.length>0}}">距离{{distances[index]/1000}}公里</text>
+          </view>
+          <view class="pickup-address">{{item.address}}</view>
+        </view>
+        <view class="icon {{index===pickup_index?'checked':''}}" style="color: #f5f5f5;"><text class="fa fa-check"/></view>
+      </view>
+    </view>
+  </view>
+  <view class="list">
+    <view class="goods-title">
+      <text class="goods-name">商品合计</text>
+      <text class="goods-price">¥{{cart.cost/100}}</text>
+    </view>
+    <view class="goods-title" wx:if="{{delivery_way==2}}">
+      <text class="goods-name">运费(多退少补)</text>
+      <view class="goods-price">¥{{delivery_fee/100}}</view>
+    </view>
+    <view class="goods">
+      <view class="item" wx:for="{{cart.products}}" wx:key="id" wx:if="{{item.checked}}">
+        <image class="image" src="{{base_image_url}}/{{item.images[0].image.name}}" mode="aspectFill" data-index="{{index}}" />
+        <view class="summary-area">
+          <view class="name-area">
+            <view class="name">{{item.name}}{{!!item.want_size?'-'+item.want_size.size.name:''}}</view>
+            <block wx:if="{{item.is_promote}}">
+              <view class="price" wx:if="{{!item.want_size}}">￥{{item.promote_price/100}}</view>
+              <view class="price" wx:else>
+                <text wx:if="{{!item.want_size}}">￥{{item.promote_price/100}}</text>
+                <text wx:else>￥{{(item.price+item.want_size.price_plus)/100}}</text>
+              </view>
+            </block>
+            <block wx:else>
+              <view class="price" wx:if="{{!item.want_size}}">￥{{item.price/100}}</view>
+              <view class="price" wx:else>
+                <text wx:if="{{!item.want_size}}">￥{{item.price/100}}</text>
+                <text wx:else>￥{{(item.price+item.want_size.price_plus)/100}}</text>
+              </view>
+            </block>
+          </view>
+          <view class="amount-area">
+            <text class="amount">x {{item.want_amount}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="form-line">
+      <text class="title">订单备注</text>
+      <input class="note" name="note" placeholder="需要告诉我们什么 可以填在这里" />
+    </view>
+  </view>
+  <view class="cart-bottom" style="{{is_iphonex?'height: 148rpx;':''}}">
+    <view class="cost">
+      需支付:{{delivery_way===1?"￥"+cart.cost/100:"￥"+(cart.cost+delivery_fee)/100}}
+    </view>
+    <button class="checkout" formType="submit" wx:if="{{userInfo.nickname}}">提交订单</button>
+    <button class="checkout" open-type="getUserInfo" bindgetuserinfo="toGetUserInfo" type="warn" wx:else>点击登录</button>
+  </view>
+</form>

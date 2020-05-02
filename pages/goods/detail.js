@@ -23,6 +23,7 @@ Page({
 		current_size: null,
 		openShare: false,
 		openAttr: false,
+		is_iphonex: wx.IPHONEX >= 0? true : false,
 		canvas_id: 'shareCanvas'
 	},
 
@@ -38,18 +39,22 @@ Page({
 		request.get('product', {
 			code: options.code
 		}).then(res => {
-			console.log(res)
+			console.log('product info', res)
 			var banners = []
 			var details = []
 			res.data.images.forEach(ele => {
-				console.log('aaa', ele)
 				if ((ele.type & 2) === 2)
 					details.push(ele.image)
 				else
 					banners.push(ele.image)
 			})
-			console.log('aaa', banners, details)
 			res.data.want_amount = 1
+			var now = new Date()
+			var begin_time = new Date(res.data.promote_begin_time)
+			var end_time = new Date(res.data.promote_end_time)
+			if (begin_time <= now && end_time >= now && (res.data.promote_type & 0x04) === 0x04)
+				res.data.in_promote = true
+
 			if (res.data.category.extra_info & 1 === 1 && res.data.sizes.length > 0)
 				that.setData({
 					banners: banners,
@@ -68,7 +73,7 @@ Page({
 			wx.hideLoading()
 		}).catch(err => {
 			console.error('get product error', err)
-			if (err.status === 3001) {// access token error
+			if (err.errcode === 3001) {// access token error
 				app.doLogin()
 				request.header['X-ACCESS-TOKEN'] = undefined
 			}
@@ -120,9 +125,9 @@ Page({
 		})
 	},
 
-	openHomePage: function (e) {
-		wx.reLaunch({
-			url: '/pages/topic/index'
+	openCartPage: function (e) {
+		wx.switchTab({
+			url: '/pages/cart/index'
 		})
 	},
 
@@ -204,7 +209,7 @@ Page({
 			cost: this.data.product.want_amount * this.data.product.price
 		})
 		wx.navigateTo({
-			url: "../pay/pre_order?type=buy"
+			url: "../pay/order?type=buy"
 		})
 	},
 
@@ -228,12 +233,12 @@ Page({
 				return
 			}
 		}
-		addToShoppingCart(this, this.data.product, this.data.current_size, 1)
+		addToShoppingCart(this.data.product, this.data.current_size, 1)
 		this.closeAttr()
 		wx.showToast({
 			title: '成功加入购物车',
 			icon: 'success',
-			duration: 2000
+			duration: 500
 		})
 	},
 
@@ -288,6 +293,7 @@ Page({
 					wx.showModal({
 						title: '商品海报图片',
 						content: '已成功保存到相册，请到系统相册查看',
+						confirmColor: '#481A0E',
 						showCancel: false
 					})
 				}
@@ -298,7 +304,7 @@ Page({
 
 		var canvas = new MyCanvas(that, '/pages/goods/detail', 'product',
 			that.data.canvas_id, that.data.product.id, that.data.product.name, that.data.product.summary,that.data.product.price,that.data.product.price,
-			`${config.base_image_url}/${that.data.banners[0].name}`, this.afterGenerateImage)
+			`${config.base_image_url}/full/${that.data.banners[0].name}`, this.afterGenerateImage)
 		canvas.generateImage()
 	}
 })

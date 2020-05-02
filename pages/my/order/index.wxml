@@ -1,32 +1,26 @@
 <view class="empty-view" wx:if="{{orders.length===0}}">
-		<text class="fa fa-clipboard fa-4x gray-color" />
-		<text class="text">订单在哪里</text>
+  <text class="fa fa-clipboard fa-4x gray-color" />
+  <text class="text">订单在哪里</text>
 </view>
-<scroll-view class="orders" scroll-y enable-back-to-top style="height:100%" wx:else>
-		<block wx:for="{{orders}}" wx:key="code">
-				<navigator url="detail?code={{item.code}}" class="order">
-						<view class="h">
-								<view class="l">订单编号：{{item.code}}</view>
-								<view class="r">{{item.order_status_text}}</view>
-						</view>
-						<view class="goods" wx:for="{{item.products}}" wx:key="code" wx:for-item="op">
-								<view class="img">
-										<image src="{{base_image_url}}/{{op.product.images[0].image.name}}" />
-								</view>
-								<view class="info">
-										<text class="name">{{op.product.name}}</text>
-										<text class="number">共{{op.amount}}件商品</text>
-								</view>
-								<view class="status"></view>
-						</view>
-				</navigator>
-				<view class="order" style="margin-top: 1rpx;">
-						<view class="b">
-								<view class="l">{{item.pay_time == null && item.payment_code == null ? '需' : '实'}}付：￥{{(item.delivery_fee+item.cost)/100}}</view>
-								<view class="r">
-										<button class="btn" data-order="{{item.code}}" bindtap="payOrder" wx:if="{{item.pay_time == null && item.payment_code == null}}">去付款</button>
-								</view>
-						</view>
-				</view>
-		</block>
-</scroll-view>
+<view class="orders" wx:else>
+  <view class="order" wx:for="{{orders}}" wx:key="code">
+    <navigator url="detail?code={{item.code}}">
+      <view class="header">
+        <view class="title">订单编号</view>
+        <view class="code">{{item.code}}</view>
+      </view>
+      <view class="goods" wx:for="{{item.products}}" wx:key="code" wx:for-item="op">
+        <image src="{{base_image_url}}/{{op.product.images[0].image.name}}" />
+        <view class="info">
+          <text class="name">{{op.product.name}}</text>
+          <text class="number">共{{op.amount}}件商品</text>
+        </view>
+      </view>
+    </navigator>
+    <view class="status">
+      <view class="title">{{item.pay_time == null && item.payment_code == null ? '需' : '实'}}付</view>
+      <view class="cost">￥{{(item.delivery_fee+item.cost)/100}}</view>
+      <button class="btn" data-order="{{item.code}}" bindtap="payOrder" wx:if="{{item.status===1}}">去付款</button>
+    </view>
+  </view>
+</view>

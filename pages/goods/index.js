@@ -1,17 +1,16 @@
 import config from '../../config.js'
 import request from '../../utils/request.js'
 
-const app = getApp();
-
 import {
 	addToShoppingCart,
-	syncCart
 } from '../../utils/cart.js'
 
 import {
 	WEB_ALLOWED,
 	getCategories
 } from '../../utils/resource.js'
+
+const app = getApp();
 
 Page({
 	/**
@@ -21,12 +20,13 @@ Page({
 		base_image_url: config.base_image_url,
 		NAV_HEIGHT: wx.STATUS_BAR_HEIGHT + wx.DEFAULT_HEADER_HEIGHT,
 		NAV_WIDTH: wx.getSystemInfoSync().windowWidth,
+		category: -1,
 		NAV_OFFSET: 0,
 		category_id: 0,
 		extra_info: 0
 	},
 
-	getProducts: function (category_id) {
+	getProducts: function (category_id, offsetLeft) {
 		var that = this;
 		wx.showLoading({
 			title: '加载中，请稍候',
@@ -35,29 +35,23 @@ Page({
 
 		request.get('products', {
 			category: category_id,
-			type: WEB_ALLOWED
+			show_type: WEB_ALLOWED
 		}).then(res => {
 			console.log('products', res.data)
 			that.setData({
 				products: res.data,
+				NAV_OFFSET: offsetLeft - this.data.NAV_WIDTH / 2
 			})
 			wx.hideLoading()
 			wx.stopPullDownRefresh()
 		}).catch(err => {
 			console.log('get products', err)
-			if (err.status === 3001) {// access token error
+			if (err.errcode === 3001) {// access token error
 				app.doLogin()
 				request.header['X-ACCESS-TOKEN'] = undefined
 			}
 			wx.hideLoading()
 			wx.stopPullDownRefresh()
-		})
-	},
-
-	syncCartInfo: function () {
-		var cart = syncCart()
-		this.setData({
-			cart: cart
 		})
 	},
 
@@ -68,12 +62,7 @@ Page({
 		var that = this
 		app.getUserInfo().then(res => {
 			that.syncProductInfo()
-			that.syncCartInfo()
 		})
-	},
-
-	onShow: function (e) {
-		this.syncCartInfo()
 	},
 
 	categorySwitch: function (e) {
@@ -83,7 +72,7 @@ Page({
 				NAV_OFFSET: e.currentTarget.offsetLeft - this.data.NAV_WIDTH / 2,
 			extra_info: parseInt(e.currentTarget.dataset.extra)
 		})
-		this.getProducts(e.currentTarget.dataset.id)
+		this.getProducts(e.currentTarget.dataset.id, e.currentTarget.offsetLeft)
 	},
 
 	toViewDetail: function (e) {
@@ -145,17 +134,11 @@ Page({
 		})
 		*/
 
-		addToShoppingCart(this, product, 0, 1)
+		addToShoppingCart(product, 0, 1)
 		wx.showToast({
 			title: '成功加入购物车',
 			icon: 'success',
-			duration: 2000
-		})
-	},
-
-	toShoppingCart: function (e) {
-		wx.navigateTo({
-			url: "cart"
+			duration: 500
 		})
 	},
 
@@ -163,7 +146,10 @@ Page({
 	 * 页面相关事件处理函数--监听用户下拉动作
 	 */
 	onPullDownRefresh: function () {
-		this.syncProductInfo()
+		if (this.data.category > 0)
+			this.getProducts(this.data.category_id, this.data.NAV_OFFSET)
+		else
+			this.syncProductInfo()
 	},
 
 	syncProductInfo: function() {
@@ -194,7 +180,7 @@ Page({
 				wx.hideNavigationBarLoading()
 			}
 		}).catch(err => {
-			if (err.status === 3001) {// access token error
+			if (err.errcode === 3001) {// access token error
 				app.doLogin()
 				request.header['X-ACCESS-TOKEN'] = undefined
 			}

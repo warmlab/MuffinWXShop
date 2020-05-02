@@ -21,7 +21,7 @@ class MyCanvas {
 
 	drawCanvas(logo, pic, qrimage) {
 		wx.showLoading({
-			title: '绘制海报图片'
+			title: '绘制海报图片',
 		})
 		var ctxs = wx.createCanvasContext(this.canvas_id)
 		ctxs.setFillStyle('#ffffff')
@@ -199,6 +199,7 @@ class MyCanvas {
 						wx.showModal({
 							title: that.type==='promotion'?'团购海报图片':'商品海报图片',
 							content: '已成功保存到相册，请到系统相册查看',
+							confirmColor: '#481A0E',
 							showCancel: false
 						})
 					}
@@ -263,6 +264,7 @@ class MyCanvas {
 							wx.showModal({
 								title: "下载小程序码",
 								content: "下载生成的小程序码出错",
+								confirmColor: '#481A0E',
 								showCancel: false
 							})
 						})
@@ -272,6 +274,7 @@ class MyCanvas {
 					wx.showModal({
 						title: "生成小程序码",
 						content: "生成小程序码出错",
+						confirmColor: '#481A0E',
 						showCancel: false
 					})
 				})
@@ -282,6 +285,7 @@ class MyCanvas {
 				wx.showModal({
 					title: "错误",
 					content: "下载商品海报图片出错",
+					confirmColor: '#481A0E',
 					showCancel: false
 				})
 			})

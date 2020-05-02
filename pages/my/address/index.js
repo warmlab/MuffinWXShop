@@ -2,6 +2,7 @@
 const app = getApp()
 
 import request from '../../../utils/request.js'
+import config from '../../../config.js'
 
 Page({
 	/**
@@ -9,7 +10,8 @@ Page({
 	 */
 	data: {
 		width: 0,
-		transparent: 0
+		transparent: 0,
+		is_iphonex: wx.IPHONEX >= 0? true : false
 	},
 
 	/**
@@ -34,7 +36,11 @@ Page({
 			title: '加载中，请稍候',
 			mask: true
 		})
-		request.get('openid/addresses').then(res => {
+		var userInfo = wx.getStorageSync('appUserInfo')
+		console.log('aa', userInfo)
+		request.get('openid/addresses', {
+			openid: userInfo.openid
+		}).then(res => {
 			console.log('address of the user', res)
 			that.setData({
 				addresses: res.data,
@@ -135,6 +141,7 @@ Page({
 		wx.showModal({
 			title: '删除地址',
 			content: '确定要删除地址？',
+			confirmColor: '#481A0E',
 			success: function (res) {
 				if (res.confirm) {
 					console.log(e)

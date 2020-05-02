@@ -12,7 +12,8 @@ Page({
 	data: {
 		base_image_url: config.base_image_url,
 		checked_num: 0,
-		promote_goods: []
+		promote_goods: [],
+		is_iphonex: wx.IPHONEX >= 0? true : false
 	},
 
 	/**

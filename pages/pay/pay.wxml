@@ -1,23 +1,24 @@
 <view class="total">
-		<view class="price">￥{{(order.delivery_fee+order.cost)/100}}</view>
+		<view class="price">{{order.cost?'￥'+(order.delivery_fee+order.cost)/100:'计算中...'}}</view>
 </view>
 <view class="payments">
 		<view class="title">请选择支付方式</view>
-		<radio-group bindchange="paymentChange" class="radio-group">
-				<radio wx:for="{{payments}}" wx:key="value" value="{{item.value}}">{{item.name}}</radio>
+		<view wx:for="{{payments}}" wx:key="value" bindtap="paymentChange" class="radio-group" data-value="{{item.value}}">
+      <text>{{item.name}}</text>
+      <view class="icon {{item.value===payment?'checked':''}}"><text class="fa fa-check" style="display: flex;justify-content: center;"/></view>
+    </view>
 				<!-- radio value="4" wx:if="{{order.payment&4==4}}" checked>微信支付</radio>
 						<radio value="2" wx:if="{{order.payment&2==2}}">小麦芬储值卡支付</radio -->
 				<!-- TODO 获得用户绑定的储值卡信息 -->
-		</radio-group>
-		<view wx:if="{{payment===2}}" style="font-size: 24rpx;">
+		<view wx:if="{{payment===2}}" style="font-size: 24rpx; color: #9b9b9b;">
 				本次交易需要店员手工操作，如果您的小麦芬储值卡余额不足以完成本次交易，小麦芬客服人员会及时联系您，请保持电话畅通，谢谢!!
 		</view>
 </view>
-<view class="total">
-	<button wx:if="{{payment===0}}" disabled="{{true}}">请选择支付方式</button>
-	<button bindtap="startPay" wx:elif="{{(payment===2 && order.member_openid.name && order.member_openid.phone) || payment===4}}">确定支付</button>
-	<button wx:else bindtap="bindValuecard">绑定储值卡</button>
-</view>
+<form class="total" bindsubmit="startPay" report-submit="true">
+  <button wx:if="{{payment===0}}" disabled="{{true}}">请选择支付方式</button>
+	<button wx:elif="{{(payment===2 && userInfo.name && userInfo.phone) || payment===4}}" form-type="submit">确定支付</button>
+  <button wx:else bindtap="bindValuecard">绑定储值卡</button>
+</form>
 <!--form bindsubmit="startPay" report-submit="true">
 	<view wx:if="{{cur_addr}}" class="adds-center-bg ui-row" style="height:70px;">
     <view class="ui-col ui-col-align-center align-center valign-middle" style="flex:0 0 90px;">

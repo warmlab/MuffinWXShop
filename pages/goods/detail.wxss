@@ -1,4 +1,47 @@
 /* pages/shop/product.wxss */
+.swiper-area {
+  display: flex;
+  flex-direction: column;
+}
+
+.swiper-area swiper {
+	width: 100%;
+  height: 750rpx;
+}
+
+.swiper-area swiper image {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.swiper-area .banner-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -60rpx;
+  z-index: 10;
+}
+
+.swiper-area .banner-dots .banner-dot {
+  width: 20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  margin: 8rpx;
+  border: 1rpx solid #481a0e;
+}
+
+.swiper-area .banner-dots .banner-dot.active {
+  background-color: #481A0E;
+}
+
+.swiper-area text.message {
+	margin: -30rpx 0 0 10rpx;
+	z-index: 30;
+	font-size: 28rpx;
+	color: #603912;
+}
+
 .swiper-container {
   position: relative;
 }
@@ -42,6 +85,7 @@
   flex-flow: row nowrap;
   align-items: center;
   justify-content: space-between;
+  z-index: 10;
 }
 
 .service-policy .item {
@@ -54,9 +98,8 @@
 }
 
 .service-policy .item .icon {
-  color: #CFA57E;
-  font-size: 16rpx;
-  margin-right: 6rpx;
+  width: 14rpx;
+  height: 14rpx;
 }
 
 .product-banner {
@@ -72,28 +115,33 @@
 
 .product-info .name {
   font-size: 40rpx;
-  line-height: 40rpx;
-  height: 40rpx;
   margin-bottom: 10rpx;
 }
 
 .product-info .banner {
   font-size: 24rpx;
   margin-bottom: 10rpx;
-  line-height: 40rpx;
-  height: 40rpx;
   color: #9b9b9b;
 }
 
 .product-info .price {
-  height: 35rpx;
-  font-size: 35rpx;
-  line-height: 35rpx;
+  display: flex;
+  align-items: flex-end;
+  font-size: 36rpx;
   color: #481A0E;
+  font-weight: bold;
   /*justify-items: right;
     text-align: right;
     width:50%;
     justify-content: right;*/
+}
+
+.product-info .price.original {
+  color: #9b9b9b;
+  text-decoration: line-through;
+  font-size: 28rpx;
+  margin-left: 8rpx;
+  font-weight: normal;
 }
 
 .product-info .title {
@@ -192,7 +240,7 @@
   padding: .4em;
 }
 
-view.bottom {
+.bottom {
   position: fixed;
   left: 0;
   bottom: 0;
@@ -201,7 +249,7 @@ view.bottom {
   height: 90rpx;
   display: flex;
 	background: #f4f4f4;
-	font-size: 28rpx;
+	font-size: 32rpx;
 }
 
 .bottom .short {
@@ -209,8 +257,8 @@ view.bottom {
   width: 20%;
   border: 1px solid #f4f4f4;
   display: flex;
-  align-items: center;
   justify-content: center;
+  padding-top: 17rpx;
 }
 
 .bottom .short .share {
@@ -239,18 +287,18 @@ view.bottom {
 }
 
 .bottom .short .icon {
-  display: block;
-  height: 64rpx;
-  width: 64rpx;
+  height: 56rpx;
+  width: 56rpx;
+  border:none;
+  border-radius: 0;
 }
 
 .bottom .long {
 	display: flex;
 	flex: 1;
-  height: 100%;
 	color: #fff;
-	justify-content: center;
-	align-items: center;
+  justify-content: center;
+  padding-top: 20rpx;
 }
 
 .bottom .long.cart {

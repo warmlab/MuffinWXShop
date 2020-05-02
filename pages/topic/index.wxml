@@ -1,31 +1,33 @@
 <import src="../templates/module.wxml"/>
-<view class="swiper-area" style="height: {{banner_height}}px" wx:if="{{promotions.length > 0}}">
-		<swiper circular autoplay interval="6000" duration="500" bindchange="swiperChange" style="height: {{banner_height}}px">
-			<block wx:for="{{promotions}}" wx:for-item="promotion" wx:key="id">
-				<swiper-item wx:for="{{promotion.products}}" wx:key="product_id" style="height: {{banner_height}}px;">
-					<image src="{{base_image_url}}/{{item.product.images[0].image.name}}" mode="aspectFill" lazy-load="true" style="height: {{banner_height}}px;" bindload="bannerImageLoad" bindtap="toViewDetail" data-type="promotion" data-id="{{promotion.id}}" />
-				</swiper-item>
-			</block>
-		</swiper>
-		<view class="banner-dots">
-			<block wx:for="{{promotions}}" wx:for-item="promotion" wx:key="id">
-				<block wx:for="{{promotion.products}}" wx:key="product_id">
-					<view class="banner-dot {{index == swiper_current ? 'active' : ''}}"></view>
-				</block>
-			</block>
-		</view>
+<template is="ad-swiper" data="{{images: ads, swiper_current: swiper_current, base_image_url: base_image_url}}"/>
+<!-- 导航栏 -->
+<view class="navs">
+    <navigator url="topic?type=4">
+        <image src="/images/big_sale.png"/>
+        <text>特惠</text>
+    </navigator>
+    <navigator url="topic?type=2">
+        <image src="/images/new_arrival.png"/>
+        <text>上新</text>
+    </navigator>
+    <navigator url="topic?type=1">
+        <image src="/images/on_sale.png"/>
+        <text>热卖</text>
+    </navigator>
+    <navigator url="topic?type=8">
+        <image src="/images/pre_sale.png"/>
+        <text>预售</text>
+    </navigator>
 </view>
-<view class="swiper-area" style="height: {{banner_height}}px" wx:if="{{promotions.length === 0}}">
-		<swiper circular autoplay interval="6000" duration="500" bindchange="swiperChange" style="height: {{banner_height}}px">
-				<swiper-item wx:for="{{banner_goods}}" wx:key="id" style="height: {{banner_height}}px">
-						<image src="{{base_image_url}}/{{item.images[0].image.name}}" mode="aspectFill" lazy-load="true" style="height: {{banner_height}}px;" bindload="bannerImageLoad" bindtap="toViewDetail" data-type="product" data-code="{{item.code}}" />
-				</swiper-item>
-		</swiper>
-		<view class="banner-dots">
-				<block wx:for="{{banner_goods}}" wx:key="id">
-						<view class="banner-dot {{index == swiper_current ? 'active' : ''}}"/>
-				</block>
-		</view>
+<!-- 本周推荐 -->
+<view class="recommend">本周推荐</view>
+<template is="goods-list" data="{{goods: products, base_image_url: base_image_url}}"/>
+<!-- 声明区 -->
+<view class="proclaim-area">
+    <text class="title">为你鉴证每一口安心</text>
+    <view class="proclaims">
+        <text><text class="far fa-circle"/>每日现烤</text>
+        <text><text class="far fa-circle"/>100%天然乳脂奶油</text>
+        <text><text class="far fa-circle"/>赔付保障</text>
+    </view>
 </view>
-<view class="goods-message">{{promotions.length === 0?'小麦芬推荐商品':'小麦芬团购进行中...'}}</view>
-<template is="goods-list" data="{{goods: goods, base_image_url: base_image_url, is_promote: promotions.length>0}}"/>

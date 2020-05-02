@@ -62,14 +62,14 @@ page {
    justify-content: center;
  }
  
- .amount-op {
+.amount-op {
     display: flex;
     justify-content: center;
     align-items: center;
     border: 1rpx solid #9b9b9b;
     border-radius: 8rpx;
-    height: 80%;
-    align-self: flex-end;
+		align-self: flex-end;
+		margin-right: 4rpx;
 }
 
 .amount-op .op {
@@ -174,6 +174,7 @@ page {
 .goods-box .img-box {
   width: 100%;
   background-color: #f5f5f5;
+  border-radius: 5%;
   margin-bottom: 5px;
   position: relative;
   overflow: hidden;
@@ -192,19 +193,18 @@ page {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  background-color: #EDE2D3e0;
+  background-color: #ede2d380;
   color: #481A0E;
-  height: 70rpx;
-  line-height: 70rpx;
-  margin-top: -70rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  margin-top: -60rpx;
   padding: 0 10rpx;
+  font-weight: bold;
 }
 
 .goods-box .goods-price {
   color: #481A0E;
-  font-size: 28rpx;
-  text-align: left;
-  padding: 3px 4px;
+  font-size: 36rpx;
   display: flex;
   align-items: flex-end;
   font-weight: bold;
@@ -214,10 +214,23 @@ page {
   color: #9b9b9b;
 	text-decoration: line-through;
 	font-size: 24rpx;
-  text-align: left;
-  padding: 3px 4px;
-  align-items:flex-end;
+  font-weight: lighter;
+  flex: 1;
+  padding-left: 8rpx;
+}
 
+.goods-box .add-to-cart {
+  display: flex;
+  font-size: 24rpx;
+  padding: 0 4rpx;
+  /*border-radius: 8rpx;
+  color: #481A0E;
+  border: 0.5px solid #481A0E;*/
+}
+
+.goods-box .add-to-cart image {
+  width: 48rpx;
+  height: 48rpx;
 }
 
 .goods-box .goods-price-naver {
@@ -231,35 +244,41 @@ page {
 
 .goods-box .goods-add {
 	display: flex;
-	justify-content: flex-end;
+	justify-content: center;
 	align-items: center;
-	flex: 1;
 	color: #481A0E;
-	padding-right: 10rpx;
+  margin-right: 10rpx;
+  border: 1rpx solid #481A0E;
+  height: 48rpx;
+  width: 48rpx;
+  border-radius: 8rpx;
+  font-size: 36rpx;
+  font-weight: bold;
 }
 
 /* for form action begin */
 .form-line {
   display:flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  border-bottom: 2rpx solid #f5f5f5;
   padding: 16rpx 0;
 }
 
 .form-line text.title {
-  color: #888888;
-  width: 25%;
-  margin-left:1%;
+  /*color: #9b9b9b;*/
+  margin: 0 2%;
 }
 
 .form-line input {
-  flex: 1;
+  margin: 0 2%;
+  width: 96%;
+  border-bottom: 2rpx solid #f5f5f5;
+  padding: 4rpx 0;
 }
 
 .form-line picker {
-  width: 80%;
   flex: 1;
+  margin: 0 2%;
 }
 
 picker .picker text {
@@ -339,6 +358,23 @@ picker .picker text {
   opacity: 0;
   height: 100%;
   width: 50%;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: #ffffff;
+  border: 1rpx solid #481a0e;
+  width: 48rpx;
+  height: 48rpx;
+  margin-right: 8rpx;
+  font-size: 28rpx;
+}
+
+.icon.checked {
+  background-color: #481a0e;
 }
 
 @import './fonts.wxss';

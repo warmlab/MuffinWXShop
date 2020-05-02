@@ -13,7 +13,6 @@ App({
 
 		config.initSystemInfo()
 
-		var that = this
 		// 登录
 		this.doLogin()
 	},
@@ -27,6 +26,7 @@ App({
 					code: res.code
 				}).then(res => {
 					//wx.setStorageSync('appUserInfo', res.data)
+					console.log('wx.login', res.data)
 					resolve(res.data)
 				}).catch(err => {
 					console.error('weixin login error:', err)
@@ -34,6 +34,7 @@ App({
 						content: "系统正在升级中，请稍后...",
 						showCancel: false,
 						confirmText: "我知道了",
+						confirmColor: '#481A0E'
 					})
 					reject(err)
 				})
@@ -45,7 +46,7 @@ App({
 		var that = this
 		return new Promise((resolve, reject) => {
 			var userInfo = wx.getStorageSync('appUserInfo')
-			if (userInfo && userInfo.access_token) {
+			if (!!userInfo && !!userInfo.access_token) {
 				request.post('tokencheck').then(res => {
 					console.log('tokencheck OK', res)
 					resolve(userInfo)
@@ -54,6 +55,7 @@ App({
 					that.wxLogin(resolve, reject)
 				})
 			} else {
+				console.log('to do wxlogin', userInfo)
 				that.wxLogin(resolve, reject)
 			}
 		})
@@ -63,12 +65,12 @@ App({
 		var that = this
 		this.login().then(userInfo => {
 			//that.globalData.userInfo = userInfo
-			getShopInfo()
+			// TODO getShopInfo() // should be get info after login
 			wx.setStorageSync('appUserInfo', userInfo)
-			console.log('userinfo aaa', userInfo)
 
 			// 获取用户信息
 			wx.getSetting({
+				withSubscriptions: true,
 				success: res => {
 					if (res.authSetting['scope.userInfo']) {
 						// 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
@@ -78,6 +80,7 @@ App({
 								that.globalData.userInfo = userInfo
 								that.globalData.userInfo.avatarUrl = res.userInfo.avatarUrl
 								that.globalData.userInfo.nickname = res.userInfo.nickName
+								//that.globalData.userInfo.subscriptions = res.subscriptionsSetting
 								wx.setStorageSync('appUserInfo', that.globalData.userInfo)
 
 								// 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
@@ -87,6 +90,22 @@ App({
 								}
 							}
 						})
+					}
+					console.log('subscriptions', res.subscriptionsSetting)
+					if (!!res.subscriptionsSetting) {
+						if (res.subscriptionsSetting.mainSwitch) {
+							if (!res.subscriptionsSetting.itemSettings) {
+								that.globalData.way_pickup.status = 1
+								that.globalData.way_delivery.status = 1
+							} else {
+								if (res.subscriptionsSetting.itemSettings[that.globalData.way_pickup.tmplId] === 'accept')
+									that.globalData.way_pickup.status = 1
+								if (res.subscriptionsSetting.itemSettings[that.globalData.way_delivery.tmplId] === 'accept')
+									that.globalData.way_delivery.status = 1
+							}
+						}
+
+						console.log('app subscriptions', that.globalData.way_pickup, that.globalData.way_delivery)
 					}
 				}
 			})
@@ -106,11 +125,15 @@ App({
 					clearInterval(interval)
 					reject('cannot get user Info')
 				}
-			}, 500)
+			}, 1000)
 		})
 	},
 
 	globalData: {
-		userInfo: null
+		userInfo: null,
+		way_pickup: {tmplId: 'BmAwxIPTXz1p5ymj3g04NwrfuwnEl-ySpeaHrv7kxss', status: 0},    // 取货提醒模板
+		way_delivery: {tmplId: 'BmAwxIPTXz1p5ymj3g04NxChpWWI4sbgdy1RPyXphnU', status: 0},  // 快递提醒模板
+		//subscriptions: [{tmplId: way_pickup, status: 0},
+		//				{tmplId: way_delivery, status: 0}]
 	}
 })

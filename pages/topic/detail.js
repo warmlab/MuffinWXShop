@@ -94,7 +94,7 @@ Page({
 		}).catch(err => {
 			//console.log(callback)
 			console.log('the promotion has not published yet!!', err);
-			if (err.status === 3001) {// access token error
+			if (err.errcode === 3001) {// access token error
 				app.doLogin()
 				request.header['X-ACCESS-TOKEN'] = undefined
 			}
@@ -368,6 +368,7 @@ Page({
 					wx.showModal({
 						title: '团购海报图片',
 						content: '已成功保存到相册，请到系统相册查看',
+						confirmColor: '#481A0E',
 						showCancel: false
 					})
 				}
@@ -403,6 +404,7 @@ Page({
 			wx.showModal({
 				title: '选购商品',
 				content: '请至少选择一样商品',
+				confirmColor: '#481A0E',
 				showCancel: false
 			});
 
@@ -414,7 +416,7 @@ Page({
 		})
 
 		wx.navigateTo({
-			url: `../pay/pre_order?type=cart&promotion=${this.data.promotion.id}`
+			url: `../pay/order?type=cart&promotion=${this.data.promotion.id}`
 		})
 
 		// 快递/自提模式
@@ -462,7 +464,7 @@ Page({
 			.then(res => {
 				console.log(res);
 				wx.navigateTo({
-					url: `/pages/pay/index?code=${res.data.code}`
+					url: `/pages/pay/pay?code=${res.data.code}`
 				});
 			}).catch(err => {
 

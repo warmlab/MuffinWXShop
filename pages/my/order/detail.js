@@ -20,6 +20,10 @@ Page({
 		var that = this;
 		//options.code, options.promotion_id
 		// TODO to do prepay_id
+		wx.showLoading({
+			title: '订单信息加载中...',
+			mask: true
+		})
 		request.get('order', {
 				code: options.code
 			}).then(res => {
@@ -28,9 +32,9 @@ Page({
 				that.setData({
 					order: res.data,
 				})
-			})
-			.catch(err => {
-				// 
+				wx.hideLoading()
+			}).catch(err => {
+				wx.hideLoading()
 			})
 	},
 
@@ -41,7 +45,7 @@ Page({
 		// console.log('订单信息', currentOrder);
 		// 直接支付即可
 		wx.redirectTo({
-			url: `../pay/index?code=${that.data.order.code}`
+			url: `/pages/pay/pay?code=${that.data.order.code}`
 		})
 	},
 
