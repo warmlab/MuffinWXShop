@@ -40,7 +40,6 @@ Page({
 			console.log('products', res.data)
 			that.setData({
 				products: res.data,
-				NAV_OFFSET: e.currentTarget.offsetLeft - this.data.NAV_WIDTH / 2
 			})
 			wx.hideLoading()
 			wx.stopPullDownRefresh()
@@ -81,6 +80,7 @@ Page({
 		console.log(e)
 		this.setData({
 			category_id: e.currentTarget.dataset.id,
+				NAV_OFFSET: e.currentTarget.offsetLeft - this.data.NAV_WIDTH / 2,
 			extra_info: parseInt(e.currentTarget.dataset.extra)
 		})
 		this.getProducts(e.currentTarget.dataset.id)

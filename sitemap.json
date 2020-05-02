@@ -2,16 +2,16 @@
   "desc": "Just Goods and Topic page can be indexed.",
   "rules": [
     {
+      "action": "disallow",
+      "page": "*"
+    },
+    {
       "action": "allow",
       "page": "/pages/topic/*"
     },
     {
       "action": "allow",
-      "page": "/page/goods/*"
-    },
-    {
-      "action": "disallow",
-      "page": "*"
+      "page": "/pages/goods/*"
     }
   ]
 }

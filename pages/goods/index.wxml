@@ -1,5 +1,5 @@
 <view class="cate-nav">
-		<scroll-view scroll-x="true" class="cate-nav-body" scroll-left="scrollLeft">
+		<scroll-view scroll-with-animation scroll-x="true" class="cate-nav-body" style="width: {{NAV_WIDTH}}px;" scroll-left="{{NAV_OFFSET}}">
 				<view wx:for="{{categories}}" class="{{category_id === item.id ? 'active item' : 'item'}}" wx:key="id" bindtap="categorySwitch" data-id="{{item.id}}" data-extra="{{item.extra_info}}" data-index="{{index}}">
 						<view class="name">{{item.name}}</view>
 				</view>
