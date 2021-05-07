@@ -3,7 +3,7 @@ const app = getApp();
 
 import config from '../../config.js'
 import request from '../../utils/request.js'
-import {syncCart} from '../../utils/cart.js'
+import {addToShoppingCart, syncCart} from '../../utils/cart.js'
 
 Page({
 	/**
@@ -16,6 +16,9 @@ Page({
 		pickup_address: 0,
 		delivery_address: -1,
 		pickup_index: -1,
+		delivery_show: 1,
+		pickup_show: 1,
+		hasUserInfo: false,
 		is_iphonex: wx.IPHONEX >= 0? true : false
 		//cur_addr: -1
 	},
@@ -235,6 +238,28 @@ Page({
 			mask: true
 		})
 
+		if (wx.getUserProfile) {
+			wx.getUserProfile({
+				desc: '用于完善订单顾客信息',
+				success: (res) => {
+					res.userInfo.nickname = res.userInfo.nickName
+					that.setData({
+						userInfo: res.userInfo,
+						hasUserInfo: true
+					})
+					data.nickname = res.userInfo.nickName
+					data.avatarUrl = res.userInfo.avatarUrl
+
+					that.postOrder(data)
+				}
+			})
+		} else {
+			that.postOrder(data)
+		}
+	},
+
+	postOrder: function(data) {
+		var that = this
 		request.post('order', data).then(res => {
 			console.log(res);
 			// delete checked items from cart

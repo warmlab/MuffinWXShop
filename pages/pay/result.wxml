@@ -22,7 +22,8 @@
     </view>
   </view>
   <view class="success" wx:elif="{{status=='paid'}}">
-    <view class="msg">已付款，无需重复付款</view>
+    <view class="msg">{{payment==2 ? "储值卡":"微信"}}已付款</view>
+	<view class="msg-note" wx:if="{{payment==2}}">本次交易需要店员手工操作，如果您的小麦芬储值卡余额不足以完成本次交易，小麦芬客服人员会及时联系您，请保持电话畅通，谢谢!!</view>
     <view class="btns">
       <navigator class="btn" url="/pages/my/order/detail?code={{code}}" open-type="redirect">查看订单</navigator>
       <navigator class="btn" url="/pages/topic/index" open-type="switchTab">继续逛</navigator>

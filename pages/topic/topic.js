@@ -6,6 +6,11 @@ import {
 	addToShoppingCart
 } from '../../utils/cart.js'
 
+import {
+	WEB_ALLOWED,
+	getCategories
+} from '../../utils/resource.js'
+
 const app = getApp();
 
 Page({
@@ -17,32 +22,69 @@ Page({
 		is_iphonex: wx.IPHONEX >= 0 ? true : false
 	},
 
-	getProducts: function (type) {
+	assignProducts: function (categories, products) {
+		var that = this
+		for (var p of products) {
+			for (var c of categories) {
+				if (p.category_id === c.id) {
+					if ((p.promote_type & 0x04) === 0x04 && p.promote_price < p.price) {
+						p.in_promote = true
+					} else {
+						p.in_promote = false
+					}
+					if (typeof c.products == 'undefined') {
+						c.products = []
+						c.products.push(p)
+						break
+					} else {
+						c.products.push(p)
+						break
+					}
+				}
+			}
+		}
+
+		this.setData({
+			categories: categories,
+			loaded: true
+		})
+
+		console.log('category products', that.data.categories)
+	},
+
+	getProducts: function (categories, type) {
 		var that = this
 		request.get('products', {
 			show_type: 1,
 			promote_type: type
 		}).then(res => {
 			console.log(res.data)
-			that.setData({
-				goods: res.data,
-				loaded: true
-			})
+			//that.setData({
+			//	//goods: res.data,
+			//	//loaded: true
+			//})
+			that.assignProducts(categories, res.data)
 			wx.hideLoading()
-			wx.stopPullDownRefresh()
+			//wx.stopPullDownRefresh()
 		}).catch(err => {
 			console.log('get products error', err.errcode)
 			wx.hideLoading()
-			wx.stopPullDownRefresh()
+			//wx.stopPullDownRefresh()
 		})
 	},
 
 	onPullDownRefresh: function (e) {
+		var that = this
 		wx.showLoading({
 			title: '加载中...',
 			mask: true
 		})
-		this.getProducts(this.data.promote_type)
+		getCategories().then(categories => {
+			//that.setData({
+			//	categories: categories
+			//})
+			that.getProducts(categories, type)
+		})
 	},
 
 	onLoad: function (options) {
@@ -67,13 +109,20 @@ Page({
 			on_show: false,
 		})
 
+		var that = this
 		wx.showLoading({
 			title: '加载中...',
 			mask: true
 		})
 		app.getUserInfo().then(res => {
 			//wx.startPullDownRefresh()
-			this.getProducts(type)
+			getCategories().then(categories => {
+				//that.setData({
+				//	categories: categories
+				//})
+				that.getProducts(categories, type)
+			})
+
 			this.setData({
 				userInfo: res
 			})
@@ -105,8 +154,11 @@ Page({
 	},
 
 	addToCart: function (e) {
+		var cate_index = parseInt(e.currentTarget.dataset.categoryindex)
 		var index = parseInt(e.currentTarget.dataset.index)
-		var product = this.data.goods[index]
+
+		console.log('cagetory index', cate_index, 'product index', index)
+		var product = this.data.categories[cate_index].products[index]
 
 		addToShoppingCart(product, 0, 1)
 		this.setData({amount: this.data.amount+1})

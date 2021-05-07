@@ -1,4 +1,4 @@
-<view class="profile-info" wx:if="{{userInfo.avatarUrl}}">
+<view class="profile-info" wx:if="{{hasUserInfo}}">
   <image class="avatar" src="{{userInfo.avatarUrl}}" />
   <view class="info">
     <text class="name">{{userInfo.nickname}}</text>
@@ -6,9 +6,8 @@
 </view>
 <view class="goLogin profile-info" wx:else>
   <img class="icon" src="/static/images/ic_menu_me_pressed.png" />
-  <button open-type="getUserInfo" class="goLoginBtn" bindgetuserinfo="toGetUserInfo">
-    点击，授权登录~
-  </button>
+  <button wx:if="{{canIUseGetUserProfile}}" class="goLoginBtn" bindtap="toGetUserProfile">点击，授权登录</button>
+  <button wx:else open-type="getUserInfo" class="goLoginBtn" bindgetuserinfo="toGetUserInfo">点击，授权登录</button>
 </view>
 <view class="user-menu-title">订单</view>
 <view class="user-menu">

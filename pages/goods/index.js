@@ -23,7 +23,8 @@ Page({
 		category: -1,
 		NAV_OFFSET: 0,
 		category_id: 0,
-		extra_info: 0
+		extra_info: 0,
+		summary: ''
 	},
 
 	getProducts: function (category_id, offsetLeft) {
@@ -66,11 +67,12 @@ Page({
 	},
 
 	categorySwitch: function (e) {
-		console.log(e)
+		var that = this
 		this.setData({
 			category_id: e.currentTarget.dataset.id,
-				NAV_OFFSET: e.currentTarget.offsetLeft - this.data.NAV_WIDTH / 2,
-			extra_info: parseInt(e.currentTarget.dataset.extra)
+			NAV_OFFSET: e.currentTarget.offsetLeft - this.data.NAV_WIDTH / 2,
+			extra_info: parseInt(e.currentTarget.dataset.extra),
+			summary: that.data.categories[e.currentTarget.dataset.index].summary
 		})
 		this.getProducts(e.currentTarget.dataset.id, e.currentTarget.offsetLeft)
 	},
@@ -163,6 +165,7 @@ Page({
 					that.setData({
 						category_id: categories[0].id,
 						extra_info: categories[0].extra_info ? categories[0].extra_info : 0,
+						summary: categories[0].summary,
 						categories: categories
 					})
 				} else {

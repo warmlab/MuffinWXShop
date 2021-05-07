@@ -140,7 +140,7 @@ Page({
 					//that.sendPaidMessage(app.globalData.openid, res.data.order, res.data.payment, e.detail.formId);
 					//wx.navigateTo({
 					wx.redirectTo({
-						url: 'result?status=success&code=' + that.data.order.code
+						url: `result?status=success&&payment=${that.data.payment}&code=${that.data.order.code}`
 					})
 				} else {
 					wx.requestPayment({
@@ -155,13 +155,13 @@ Page({
 							//that.sendPaidMessage(app.globalData.openid, res.data.order, res.data.payment, e.detail.formId);
 							//wx.navigateTo({
 							wx.redirectTo({
-								url: `result?status=success&code=${that.data.order.code}`
+								url: `result?status=success&payment=${that.data.payment}&code=${that.data.order.code}`
 							});
 						},
 						fail: function (err) {
 							//wx.navigateTo({
 							wx.redirectTo({
-								url: `result?status=canceled&code=${that.data.order.code}`
+								url: `result?status=canceled&payment=${that.data.payment}&code=${that.data.order.code}`
 							});
 						}
 					});
@@ -170,7 +170,7 @@ Page({
 				wx.hideLoading()
 				//wx.navigateTo({
 				wx.redirectTo({
-					url: `result?status=paid&code=${that.data.order.code}`
+					url: `result?status=paid&payment=${that.data.payment}&code=${that.data.order.code}`
 				});
 			}
 		}).catch(err => {
@@ -178,7 +178,7 @@ Page({
 			console.log('pay failed', err)
 			//wx.navigateTo({
 			wx.redirectTo({
-				url: `result?status=error&code=${that.data.order.code}`
+				url: `result?status=error&payment=${that.data.payment}&code=${that.data.order.code}`
 			});
 		})
 	}

@@ -12,7 +12,7 @@
                 <text class="far fa-circle icon" />满38元3公里免邮费
             </view>
             <view class="item">
-                <text class="far fa-circle icon" />满68元6公里免邮费
+                <text class="far fa-circle icon" />满68元承担5元运费
             </view>
             <view class="item">满98元免邮费</view>
         </view>
@@ -25,7 +25,7 @@
                 <text class="icon" />当日现做
             </view>
             <view class="item">
-                <text class="icon" />满68元3公里免邮费
+                <text class="icon" />满68元承担5元运费
             </view>
             <!-- <view class="item">满98元免邮费</view> -->
         </view>

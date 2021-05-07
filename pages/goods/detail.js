@@ -52,8 +52,11 @@ Page({
 			var now = new Date()
 			var begin_time = new Date(res.data.promote_begin_time)
 			var end_time = new Date(res.data.promote_end_time)
+			console.log('name: ', res.data.name, res.data.promote_type)
 			if (begin_time <= now && end_time >= now && (res.data.promote_type & 0x04) === 0x04)
 				res.data.in_promote = true
+			else
+				res.data.in_promote = false
 
 			if (res.data.category.extra_info & 1 === 1 && res.data.sizes.length > 0)
 				that.setData({

@@ -1,8 +1,8 @@
 const config = {
 	version: '1.0.0',
 	api_version: '1.0.0',
-	//base_url: 'http://10.1.1.7:5000/api',
-	//base_image_url: 'http://10.1.1.7:5000/media',
+	//base_url: 'http://10.1.1.55:5000/api',
+	//base_image_url: 'http://10.1.1.55:5000/media',
 	base_url: 'https://wecakes.com/api',
 	base_image_url: 'https://wecakes.com/media',
 	shoppoint: 'muffins',

@@ -1,4 +1,16 @@
-/* pages/shop/index.wxss */
+@import "../templates/module.wxss"
+
+.cate-remark {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #fafafa;
+	width: 100%;
+	height: 80rpx;
+	font-size: 28rpx;
+	color: #CFA57E;
+}
+
 .cate-nav {
     position: fixed;
     left: 0;
@@ -39,7 +51,7 @@
 }
 
 .cate-item {
-    margin-top: 4rpx;s
+    margin-top: 4rpx;
     height: auto;
     overflow: hidden;
 }

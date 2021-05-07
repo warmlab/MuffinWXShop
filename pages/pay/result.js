@@ -15,6 +15,7 @@ Page({
 		// get order info
 		this.setData({
 			status: options.status,
+			payment: options.payment,
 			code: options.code,
 			way_pickup: app.globalData.way_pickup.status,
 			way_delivery: app.globalData.way_delivery.status
@@ -78,7 +79,7 @@ Page({
 		// console.log('订单信息', currentOrder);
 		// 直接支付即可
 		wx.redirectTo({
-			url: `../pay/pay?code=${that.data.code}`
+			url: `../pay/pay?status=${that.data.status}&payment=${that.data.payment}&code=${that.data.code}`
 		})
 	},
 

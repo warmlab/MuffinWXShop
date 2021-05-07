@@ -69,7 +69,7 @@
         <view class="summary-area">
           <view class="name-area">
             <view class="name">{{item.name}}{{!!item.want_size?'-'+item.want_size.size.name:''}}</view>
-            <block wx:if="{{item.is_promote}}">
+            <block wx:if="{{item.in_promote}}">
               <view class="price" wx:if="{{!item.want_size}}">￥{{item.promote_price/100}}</view>
               <view class="price" wx:else>
                 <text wx:if="{{!item.want_size}}">￥{{item.promote_price/100}}</text>

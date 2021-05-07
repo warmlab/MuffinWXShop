@@ -1,3 +1,5 @@
+@import "../templates/module.wxss"
+
 .goods-message {
     display: flex;
     flex-direction: column;
