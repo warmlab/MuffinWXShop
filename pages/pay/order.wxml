@@ -99,7 +99,16 @@
     <view class="cost">
       需支付:{{delivery_way===1?"￥"+cart.cost/100:"￥"+(cart.cost+delivery_fee)/100}}
     </view>
+	<!--
     <button class="checkout" formType="submit" wx:if="{{userInfo.nickname}}">提交订单</button>
     <button class="checkout" open-type="getUserInfo" bindgetuserinfo="toGetUserInfo" type="warn" wx:else>点击登录</button>
+	-->
+	<block wx:if="{{!hasUserInfo}}">
+      <button class="login" wx:if="{{canIUseGetUserProfile}}" bindtap="toGetUserProfile">获取头像昵称</button>
+      <button class="login" wx:else open-type="getUserInfo" bindgetuserinfo="toGetUserInfo">点击登录</button>
+    </block>
+    <block wx:else>
+      <button class="checkout" formType="submit">提交订单</button>
+    </block>
   </view>
 </form>

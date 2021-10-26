@@ -18,12 +18,14 @@ Page({
 		title: '小麦芬烘焙',
 		amount: 0,
 		loaded: false,
+		has_product: false,
 		base_image_url: config.base_image_url,
 		is_iphonex: wx.IPHONEX >= 0 ? true : false
 	},
 
 	assignProducts: function (categories, products) {
 		var that = this
+		var has_product = false
 		for (var p of products) {
 			for (var c of categories) {
 				if (p.category_id === c.id) {
@@ -35,6 +37,7 @@ Page({
 					if (typeof c.products == 'undefined') {
 						c.products = []
 						c.products.push(p)
+						has_product = true
 						break
 					} else {
 						c.products.push(p)
@@ -46,7 +49,8 @@ Page({
 
 		this.setData({
 			categories: categories,
-			loaded: true
+			loaded: true,
+			has_product: has_product
 		})
 
 		console.log('category products', that.data.categories)

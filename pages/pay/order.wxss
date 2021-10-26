@@ -414,6 +414,18 @@
     padding: 33rpx 18rpx;
 }
 
+.cart-bottom .login {
+    text-align: center;
+    color: #fff;
+		border-radius: 0;
+    /*background-color: #481A0E;*/
+		background-color: #CFA57E;
+    padding:0 30rpx;
+    height: 100%;
+  flex: 1;
+  padding-top: 8rpx;
+}
+
 .cart-bottom .checkout{
     text-align: center;
     color: #fff;

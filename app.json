@@ -2,7 +2,6 @@
   "pages": [
     "pages/topic/index",
     "pages/topic/topic",
-    "pages/topic/detail",
     "pages/goods/index",
     "pages/goods/detail",
     "pages/cart/index",

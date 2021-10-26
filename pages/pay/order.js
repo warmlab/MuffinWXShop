@@ -19,6 +19,7 @@ Page({
 		delivery_show: 1,
 		pickup_show: 1,
 		hasUserInfo: false,
+		canIUseGetUserProfile: false,
 		is_iphonex: wx.IPHONEX >= 0? true : false
 		//cur_addr: -1
 	},
@@ -76,7 +77,6 @@ Page({
 	 * 生命周期函数--监听页面加载
 	 */
 	onLoad: function (options) {
-		var that = this
 		//var cart = wx.getStorageSync(options.type); // buy-点击立即购买, cart-购物车点击下单
 
 		//app.getUserInfo().then(res => {
@@ -117,6 +117,7 @@ Page({
 
 		var cart = syncCart(options.type)
 		var userInfo = wx.getStorageSync('appUserInfo');
+		console.log('ddd', userInfo)
 
 		this.setData({
 			cart: cart,
@@ -124,11 +125,21 @@ Page({
 			//product_ids: product_ids,
 			//cost: cart.cost,
 			type: options.type,
-			userInfo: userInfo
+			userInfo: userInfo,
+			canIUseGetUserProfile: wx.getUserProfile ? true : false,
+			hasUserInfo: userInfo.nickname != '微信用户'
 		})
 
 		this.getAddresses()
 		this.getMemberAddresses(0)
+
+		/*
+		if (wx.getUserProfile) {
+			this.setData({
+				canIUseGetUserProfile: true
+			})
+		}
+		*/
 	},
 
 	onShow: function (e) {
@@ -238,6 +249,9 @@ Page({
 			mask: true
 		})
 
+		that.postOrder(data)
+
+		/*
 		if (wx.getUserProfile) {
 			wx.getUserProfile({
 				desc: '用于完善订单顾客信息',
@@ -251,11 +265,15 @@ Page({
 					data.avatarUrl = res.userInfo.avatarUrl
 
 					that.postOrder(data)
+				},
+				fail: (res)  => {
+					that.postOrder(data)
 				}
 			})
 		} else {
 			that.postOrder(data)
 		}
+		*/
 	},
 
 	postOrder: function(data) {
@@ -314,15 +332,58 @@ Page({
 		})
 	},
 
-	toGetUserInfo: function (e) {
-		var userInfo = wx.getStorageSync('appUserInfo');
-		userInfo.nickname = e.detail.userInfo.nickName
-		userInfo.avatarUrl = e.detail.userInfo.avatarUrl
-		wx.setStorageSync('appUserInfo', userInfo)
+	toGetUserProfile: function (e) {
+		var that = this
 
-		this.setData({
-			userInfo: userInfo
+		wx.getUserProfile({
+			desc: '用于完善订单顾客信息',
+			success: (res) => {
+				console.log('success')
+				res.userInfo.nickname = res.userInfo.nickName
+				that.setData({
+					userInfo: res.userInfo,
+					hasUserInfo: true
+				})
+				//userInfo.nickname = res.userInfo.nickName
+				//userInfo.avatarUrl = res.userInfo.avatarUrl
+
+				wx.setStorageSync('appUserInfo', res.userInfo)
+			},
+			fail: (res)  => {
+				/*
+				console.log("fail")
+				var userInfo = wx.getStorageSync('appUserInfo');
+				userInfo.nickname = that.data.userInfo.nickname
+				userInfo.avatarUrl = that.data.userInfo.avatarUrl
+
+				that.setData({
+					userInfo: res.userInfo,
+					hasUserInfo: true
+				})
+				*/
+			wx.showToast({
+				title: '点击允许，登录',
+				icon: 'error',
+				duration: 3000
+			})
+			}
 		})
+	},
+
+	toGetUserInfo: function(e) {
+		if ('userInfo' in e.detail) {
+			e.detail.userInfo.nickname = e.detail.userInfo.nickName
+			this.setData({
+				userInfo: e.detail.userInfo,
+				hasUserInfo: true
+			})
+		} else {
+			wx.showToast({
+				title: '点击允许，登录',
+				icon: 'error',
+				duration: 3000
+			})
+		}
 	},
 
 	/**

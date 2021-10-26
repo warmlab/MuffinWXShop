@@ -110,6 +110,13 @@ Page({
 		}).then(res => {
 			console.log(res.data)
 			wx.hideNavigationBarLoading()
+		for (var p of res.data) {
+			if ((p.promote_type & 0x04) === 0x04 && p.promote_price < p.price) {
+				p.in_promote = true
+			} else {
+				p.in_promote = false
+			}
+		}
 			that.setData({
 				products: res.data
 			})
@@ -117,7 +124,7 @@ Page({
 			console.log('get products error', err)
 			wx.hideNavigationBarLoading()
 		})
-  },
+	},
 
   swiperChange: function(e) {
     this.setData({

@@ -43,7 +43,7 @@
 	<view class="amount">{{amount}}</view>
 	<text>去往购物车</text>
 </view>
-<view class="promotion-over" wx:if="{{loaded}}">
+<view class="promotion-over" wx:if="{{loaded && !has_product}}">
 	<text>这次{{title}}已经结束</text>
 	<text>感谢关注</text>
 	<text>请留意下一场</text>

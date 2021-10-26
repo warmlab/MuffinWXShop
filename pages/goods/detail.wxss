@@ -4,6 +4,10 @@
     height: 750rpx !important;
 }
 
+.swiper-area swiper image {
+    height: 750rpx !important;
+}
+
 .product-banner {
   width: 100%;
   margin-bottom: -6rpx;
